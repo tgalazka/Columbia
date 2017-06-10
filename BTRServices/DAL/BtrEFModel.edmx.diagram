@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b21373560b5e4f4da801c0c80fb843e9" Name="Diagram1" ZoomLevel="83">
+        <EntityTypeShape EntityType="BtrServices.DAL.account" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BtrServices.DAL.approval_matrix" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="BtrServices.DAL.approval_status" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BtrServices.DAL.department" Width="1.5" PointX="7.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BtrServices.DAL.employee" Width="1.5" PointX="7.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BtrServices.DAL.index" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="BtrServices.DAL.job" Width="1.5" PointX="9.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BtrServices.DAL.program" Width="1.5" PointX="9.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BtrServices.DAL.responsibility_matrix" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BtrServices.DAL.status" Width="1.5" PointX="3" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BtrServices.DAL.available_balances" Width="1.5" PointX="11.75" PointY="1.25" IsExpanded="true" />
+        <AssociationConnector Association="BtrServices.DAL.FK_account_index" ManuallyRouted="false" />
+        <AssociationConnector Association="BtrServices.DAL.FK_approval_matrix_index" ManuallyRouted="false" />
+        <AssociationConnector Association="BtrServices.DAL.FK_responsibility_matrix_index" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="BtrServices.DAL.budget_transfer_request" Width="1.5" PointX="14.625" PointY="4" />
+        <EntityTypeShape EntityType="BtrServices.DAL.user" Width="1.5" PointX="12.375" PointY="8.25" />
+        <EntityTypeShape EntityType="BtrServices.DAL.xref_budget_type" Width="1.5" PointX="12.375" PointY="5" />
+        <EntityTypeShape EntityType="BtrServices.DAL.xref_internal_state" Width="1.5" PointX="12.375" PointY="11.375" />
+        <EntityTypeShape EntityType="BtrServices.DAL.xref_life_cycle" Width="1.5" PointX="12.375" PointY="13.75" />
+        <AssociationConnector Association="BtrServices.DAL.FK_btr_budget_type" />
+        <AssociationConnector Association="BtrServices.DAL.FK_btr_internal_key" />
+        <AssociationConnector Association="BtrServices.DAL.FK_btr_life_cycle" />
+        <AssociationConnector Association="BtrServices.DAL.FK_btr_uni_key" />
+        <EntityTypeShape EntityType="BtrServices.DAL.Audit" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="BtrServices.DAL.vw_budget_transfer_request_records" Width="1.5" PointX="7.375" PointY="11.75" />
+        <EntityTypeShape EntityType="BtrServices.DAL.xref_transfer_type" Width="1.5" PointX="9.375" PointY="11.75" />
+        <EntityTypeShape EntityType="BtrServices.DAL.transfer_activity" Width="3.375" PointX="16.25" PointY="5.375" />
+        <EntityTypeShape EntityType="BtrServices.DAL.xref_position_type" Width="1.5" PointX="14.375" PointY="0.75" />
+        <EntityTypeShape EntityType="BtrServices.DAL.vw_transfer_activities_datarecords" Width="1.5" PointX="14.375" PointY="9.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

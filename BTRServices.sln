@@ -1,20 +1,58 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BTRServices", "BTRServices\BTRServices.csproj", "{1CD47398-6DAC-471A-949A-65308F506454}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BtrServicesUnitTest", "BtrServicesUnitTest\BtrServicesUnitTest.csproj", "{5C5F46B1-DA28-4DA0-861C-2DD162CBECF8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		TC-Dev|Any CPU = TC-Dev|Any CPU
+		TC-Dev|x64 = TC-Dev|x64
+		TC-UAT|Any CPU = TC-UAT|Any CPU
+		TC-UAT|x64 = TC-UAT|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{1CD47398-6DAC-471A-949A-65308F506454}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1CD47398-6DAC-471A-949A-65308F506454}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CD47398-6DAC-471A-949A-65308F506454}.Debug|x64.ActiveCfg = Debug|x64
+		{1CD47398-6DAC-471A-949A-65308F506454}.Debug|x64.Build.0 = Debug|x64
 		{1CD47398-6DAC-471A-949A-65308F506454}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CD47398-6DAC-471A-949A-65308F506454}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CD47398-6DAC-471A-949A-65308F506454}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{1CD47398-6DAC-471A-949A-65308F506454}.Release|x64.ActiveCfg = Release|x64
+		{1CD47398-6DAC-471A-949A-65308F506454}.Release|x64.Build.0 = Release|x64
+		{1CD47398-6DAC-471A-949A-65308F506454}.TC-Dev|Any CPU.ActiveCfg = Dev-TC|Any CPU
+		{1CD47398-6DAC-471A-949A-65308F506454}.TC-Dev|Any CPU.Build.0 = Dev-TC|Any CPU
+		{1CD47398-6DAC-471A-949A-65308F506454}.TC-Dev|Any CPU.Deploy.0 = Dev-TC|Any CPU
+		{1CD47398-6DAC-471A-949A-65308F506454}.TC-Dev|x64.ActiveCfg = Dev-TC|Any CPU
+		{1CD47398-6DAC-471A-949A-65308F506454}.TC-Dev|x64.Build.0 = Dev-TC|Any CPU
+		{1CD47398-6DAC-471A-949A-65308F506454}.TC-UAT|Any CPU.ActiveCfg = TC-UAT|Any CPU
+		{1CD47398-6DAC-471A-949A-65308F506454}.TC-UAT|Any CPU.Build.0 = TC-UAT|Any CPU
+		{1CD47398-6DAC-471A-949A-65308F506454}.TC-UAT|x64.ActiveCfg = TC-UAT|x64
+		{1CD47398-6DAC-471A-949A-65308F506454}.TC-UAT|x64.Build.0 = TC-UAT|x64
+		{5C5F46B1-DA28-4DA0-861C-2DD162CBECF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C5F46B1-DA28-4DA0-861C-2DD162CBECF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C5F46B1-DA28-4DA0-861C-2DD162CBECF8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5C5F46B1-DA28-4DA0-861C-2DD162CBECF8}.Debug|x64.Build.0 = Debug|Any CPU
+		{5C5F46B1-DA28-4DA0-861C-2DD162CBECF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C5F46B1-DA28-4DA0-861C-2DD162CBECF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C5F46B1-DA28-4DA0-861C-2DD162CBECF8}.Release|x64.ActiveCfg = Release|Any CPU
+		{5C5F46B1-DA28-4DA0-861C-2DD162CBECF8}.Release|x64.Build.0 = Release|Any CPU
+		{5C5F46B1-DA28-4DA0-861C-2DD162CBECF8}.TC-Dev|Any CPU.ActiveCfg = Release|Any CPU
+		{5C5F46B1-DA28-4DA0-861C-2DD162CBECF8}.TC-Dev|Any CPU.Build.0 = Release|Any CPU
+		{5C5F46B1-DA28-4DA0-861C-2DD162CBECF8}.TC-Dev|x64.ActiveCfg = Release|Any CPU
+		{5C5F46B1-DA28-4DA0-861C-2DD162CBECF8}.TC-Dev|x64.Build.0 = Release|Any CPU
+		{5C5F46B1-DA28-4DA0-861C-2DD162CBECF8}.TC-UAT|Any CPU.ActiveCfg = Release|Any CPU
+		{5C5F46B1-DA28-4DA0-861C-2DD162CBECF8}.TC-UAT|Any CPU.Build.0 = Release|Any CPU
+		{5C5F46B1-DA28-4DA0-861C-2DD162CBECF8}.TC-UAT|x64.ActiveCfg = Release|Any CPU
+		{5C5F46B1-DA28-4DA0-861C-2DD162CBECF8}.TC-UAT|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

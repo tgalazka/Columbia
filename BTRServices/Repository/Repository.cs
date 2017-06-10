@@ -1,4 +1,5 @@
 ﻿using BTRServices;
+using BTRServices.DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ namespace BTRServices.Repository
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        protected BTRDbContext _context; //used in derived classes
+        protected BtrDbContext _context; //used in derived classes
 
-        public Repository(BTRDbContext context)
+        public Repository(BtrDbContext context)
         {
             _context = context;
         }
@@ -27,12 +28,14 @@ namespace BTRServices.Repository
 
         public TEntity Get(int key)
         {
-            return _context.Set<TEntity>().Find(key);
+            //return _context.Set<TEntity>().Find(key);
+            return null;
         }
 
         public IEnumerable<TEntity> GetAll(Expression<Func<TEntity,bool>> predicate)
         {
-            return _context.Set<TEntity>().Where(predicate);
+            //return _context.Set<TEntity>().Where(predicate);
+            return null;
         }
 
         TEntity IRepository<TEntity>.Get(int key)

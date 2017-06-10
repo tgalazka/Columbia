@@ -12,29 +12,42 @@ using BTRServices;
 using System.Linq.Dynamic;
 using BTRServices.Repository;
 using Swashbuckle.Swagger.Annotations;
+using BTRServices.Models;
+using BTRServices.DAL;
 
 namespace BTRServices.Controllers
 {
     public class IndicesController : ApiController
     {
-        BTRDbContext dbCxt = new BTRDbContext();
+        BtrDbContext dbCxt = new BtrDbContext();
+
         // GET: api/Indices
         [HttpGet]
         [ActionName("IndicesByOwner")]
         [SwaggerOperation("IndicesByOwner")]
         public IHttpActionResult IndicesByOwner()
         {
-            IndexRepository dbData = new IndexRepository(dbCxt);
-            IEnumerable<KeyValuePair<string, string>> queryString = Request.GetQueryNameValuePairs();
-
-            string pUniValue = queryString.Where(nv => nv.Key == "uni").Select(nv => nv.Value).FirstOrDefault();
-            if (pUniValue == null)
+            try
             {
-                return NotFound();
+                IndexRepository dbData = new IndexRepository(dbCxt);
+                IEnumerable<KeyValuePair<string, string>> queryString = Request.GetQueryNameValuePairs();
+
+                string pUniValue = queryString.Where(nv => nv.Key == "uni").Select(nv => nv.Value).FirstOrDefault();
+                if (pUniValue == null)
+                {
+                    return BadRequest((new Error(1, "Could not parse dept key", "IndicesByOwner").ToString()));
+                }
+
+                // string orderby = queryString.Where(nv => nv.Key == "orderby").Select(nv => nv.Value).FirstOrDefault();
+                return Ok(dbData.GetIndices_ByOwner(pUniValue));
+
+            }
+            catch (Exception exError)
+            {
+                return BadRequest((new Error(0, exError.Message, "IndicesByOwner").ToString()));
             }
 
-            // string orderby = queryString.Where(nv => nv.Key == "orderby").Select(nv => nv.Value).FirstOrDefault();
-            return Ok(dbData.GetIndices_ByOwner(pUniValue));
+
         }
 
         [HttpGet]
@@ -44,144 +57,92 @@ namespace BTRServices.Controllers
         [SwaggerResponse(HttpStatusCode.NotFound)]
         public IHttpActionResult IndicesOwnedByDept()
         {
-            IndexRepository dbData = new IndexRepository(dbCxt);
-            IEnumerable<KeyValuePair<string, string>> queryString = Request.GetQueryNameValuePairs();
-
-            string pUniValue = queryString.Where(nv => nv.Key == "uni").Select(nv => nv.Value).FirstOrDefault();
-            string DeptValue = queryString.Where(nv => nv.Key == "dept_key").Select(nv => nv.Value).FirstOrDefault();
-
-            if ((pUniValue == null) || (DeptValue == null))
+            try
             {
-                return NotFound();
-            }
+                IndexRepository dbData = new IndexRepository(dbCxt);
+                IEnumerable<KeyValuePair<string, string>> queryString = Request.GetQueryNameValuePairs();
 
-            int pDeptKey;
-            if (!Int32.TryParse(DeptValue, out pDeptKey))
-            {
-                // the try parse didn't work return an error code
-                BadRequest("Could not parse dept key");
+                string pUniValue = queryString.Where(nv => nv.Key == "uni").Select(nv => nv.Value).FirstOrDefault();
+                string DeptValue = queryString.Where(nv => nv.Key == "dept_key").Select(nv => nv.Value).FirstOrDefault();
+
+                if ((pUniValue == null) || (DeptValue == null))
+                {
+                    return NotFound();
+                }
+
+                int pDeptKey;
+                if (!Int32.TryParse(DeptValue, out pDeptKey))
+                {
+                    // the try parse didn't work return an error code
+                    return BadRequest((new Error(1, "Could not parse dept key", "IndicesByOwner").ToString()));
+                }
+                // string orderby = queryString.Where(nv => nv.Key == "orderby").Select(nv => nv.Value).FirstOrDefault();
+                return Ok(dbData.GetIndicesOwned_ByDept(pUniValue, pDeptKey));
             }
-            // string orderby = queryString.Where(nv => nv.Key == "orderby").Select(nv => nv.Value).FirstOrDefault();
-            return Ok(dbData.GetIndicesOwned_ByDept(pUniValue, pDeptKey));
+            catch (Exception exError)
+            {
+                return BadRequest((new Error(0, exError.Message, "IndicesByOwner").ToString()));
+            }
         }
 
         [HttpGet]
         [ActionName("IndicesByDept")]
         [SwaggerOperation("IndicesByDept")]
         [SwaggerResponse(HttpStatusCode.OK)]
-        [SwaggerResponse(HttpStatusCode.NotFound)]
-        public IHttpActionResult IndicesByDept()
+        [SwaggerResponse(HttpStatusCode.BadRequest)]
+        public IHttpActionResult Dept()
         {
-            IndexRepository dbData = new IndexRepository(dbCxt);
-            IEnumerable<KeyValuePair<string, string>> queryString = Request.GetQueryNameValuePairs();
-
-            string DeptValue = queryString.Where(nv => nv.Key == "dept_key").Select(nv => nv.Value).FirstOrDefault();
-            //if pDeptKey is null then return all records
-
-            if (String.IsNullOrEmpty(DeptValue))
-            {
-                return Ok(dbData.GetIndices());
-            }
-            int pDeptKey;
-            
-            Int32.TryParse(DeptValue, out pDeptKey);
-            return Ok(dbData.GetIndices_ByDept(pDeptKey));
-        }
-        // GET: api/Indices/5
-        [ResponseType(typeof(Indices))]
-        public IHttpActionResult GetIndices(int id)
-        {
-            Indices indices = dbCxt.Indices.Find(id);
-            if (indices == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(indices);
-        }
-
-        // PUT: api/Indices/5
-        [ActionName("PostValues")]
-        [SwaggerOperation("PostValues")]
-        [SwaggerResponse(HttpStatusCode.OK)]
-        [SwaggerResponse(HttpStatusCode.NotFound)]
-        [HttpPost]
-
-        public IHttpActionResult PutIndices(int id, Indices indices)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != indices.index_key)
-            {
-                return BadRequest();
-            }
-
-            dbCxt.Entry(indices).State = EntityState.Modified;
-
             try
             {
-                dbCxt.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!IndicesExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                IndexRepository dbData = new IndexRepository(dbCxt);
+                IEnumerable<KeyValuePair<string, string>> queryString = Request.GetQueryNameValuePairs();
 
-            return StatusCode(HttpStatusCode.NoContent);
+                string DeptValue = queryString.Where(nv => nv.Key == "dept_key").Select(nv => nv.Value).FirstOrDefault();
+                //strip off last character if a slash
+
+                //if pDeptKey is null then return all records
+
+                if (String.IsNullOrEmpty(DeptValue))
+                {
+                    var dataValue = dbData.GetIndices();
+                    return Ok(dbData.GetIndices());
+                }
+                int pDeptKey;
+
+                Int32.TryParse(DeptValue, out pDeptKey);
+                return Ok(dbData.GetIndices_ByDept(pDeptKey));
+
+            }
+            catch (Exception exError)
+            {
+                return BadRequest((new Error(0, exError.Message, "IndicesByOwner").ToString()));
+            }
         }
 
-        // POST: api/Indices
-        [ResponseType(typeof(Indices))]
-        public IHttpActionResult PostIndices(Indices indices)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            dbCxt.Indices.Add(indices);
-
-            try
-            {
-                dbCxt.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                if (IndicesExists(indices.index_key))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = indices.index_key }, indices);
-        }
+        //[HttpGet]
+        //[ActionName("Id")]
+        //[SwaggerOperation("Id")]
+        //[SwaggerResponse(HttpStatusCode.OK)]
+        //[SwaggerResponse(HttpStatusCode.NotFound)]
+        //public IHttpActionResult IndicesById()
+        //{
+        //    try
+        //    {
+        //        return Ok(GetDbContext().indices.);
+        //    }
+        //    catch (Exception exError)
+        //    {
+        //        return BadRequest((new Error(0, exError.Message, "IndicesById").ToString()));
+        //    }
+        //}
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                dbCxt.Dispose();
+                if (dbCxt != null) dbCxt.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool IndicesExists(int id)
-        {
-            return dbCxt.Indices.Count(e => e.index_key == id) > 0;
         }
     }
 }
