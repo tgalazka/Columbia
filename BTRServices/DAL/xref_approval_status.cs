@@ -7,20 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BTRServices
+namespace BTRServices.DAL
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class approval_matrix
+    public partial class xref_approval_status
     {
-        public int approval_matrix_key { get; set; }
-        public string uni { get; set; }
-        public string role_title { get; set; }
-        public string role_level { get; set; }
-        public Nullable<decimal> approval_limit { get; set; }
-        public string next_approval_level { get; set; }
-    
-        public virtual index index { get; set; }
+        public int approval_status_key { get; set; }
+        public string approval_status { get; set; }
     }
 }

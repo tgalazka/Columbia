@@ -22,5 +22,6 @@ namespace BTRServices.DAL
         public string employee_prefix { get; set; }
         public string employee_suffix { get; set; }
         public string employee_name { get; set; }
+        public string employee_uni { get; set; }
     }
 }

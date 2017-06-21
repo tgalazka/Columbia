@@ -22,11 +22,11 @@
           </Key>
           <Property Name="approval_matrix_key" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="index_key" Type="int" Nullable="false" />
-          <Property Name="uni" Type="varchar" MaxLength="10" />
           <Property Name="role_title" Type="varchar" MaxLength="25" />
-          <Property Name="role_level" Type="varchar" MaxLength="25" />
-          <Property Name="approval_limit" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="next_approval_level" Type="varchar" MaxLength="25" />
+          <Property Name="role_level" Type="int" Nullable="false" />
+          <Property Name="approval_limit" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="next_approval_level" Type="int" Nullable="false" />
+          <Property Name="uni_key" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="approval_status">
           <Key>
@@ -102,6 +102,7 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.available_balances' does not
           <Property Name="employee_prefix" Type="varchar" MaxLength="4" />
           <Property Name="employee_suffix" Type="varchar" MaxLength="5" />
           <Property Name="employee_name" Type="varchar" MaxLength="120" />
+          <Property Name="employee_uni" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="index">
           <Key>
@@ -128,6 +129,52 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.available_balances' does not
           <Property Name="account_key" Type="int" />
           <Property Name="job_number" Type="varchar" MaxLength="6" />
           <Property Name="job_description" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'tc_BudgetTransfer.dbo.one_time_payment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="one_time_payment">
+          <Key>
+            <PropertyRef Name="employee_key" />
+            <PropertyRef Name="current_position_key" />
+            <PropertyRef Name="position_key" />
+            <PropertyRef Name="rate" />
+            <PropertyRef Name="hours_per_pay_period" />
+            <PropertyRef Name="factor" />
+            <PropertyRef Name="index_key" />
+            <PropertyRef Name="account_key" />
+            <PropertyRef Name="created" />
+            <PropertyRef Name="created_by" />
+            <PropertyRef Name="modified" />
+            <PropertyRef Name="modified_by" />
+            <PropertyRef Name="one_time_payment_key" />
+          </Key>
+          <Property Name="employee_key" Type="int" Nullable="false" />
+          <Property Name="current_position_key" Type="int" Nullable="false" />
+          <Property Name="position_key" Type="int" Nullable="false" />
+          <Property Name="suffix" Type="varchar" MaxLength="50" />
+          <Property Name="job_status" Type="varchar" MaxLength="50" />
+          <Property Name="effective_date" Type="datetime" />
+          <Property Name="job_change_reason_other" Type="varchar" MaxLength="250" />
+          <Property Name="personnel_date" Type="datetime" />
+          <Property Name="salary" Type="money" />
+          <Property Name="rate" Type="int" Nullable="false" />
+          <Property Name="hours_per_pay_period" Type="int" Nullable="false" />
+          <Property Name="factor" Type="int" Nullable="false" />
+          <Property Name="index_key" Type="int" Nullable="false" />
+          <Property Name="account_key" Type="int" Nullable="false" />
+          <Property Name="fund" Type="varchar" MaxLength="50" />
+          <Property Name="percent" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="created" Type="datetime" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="modified" Type="datetime" Nullable="false" />
+          <Property Name="modified_by" Type="int" Nullable="false" />
+          <Property Name="comment" Type="varchar" MaxLength="255" />
+          <Property Name="supervisor_name" Type="varchar" MaxLength="80" />
+          <Property Name="job_change_reason_key" Type="int" />
+          <Property Name="payroll_key" Type="int" />
+          <Property Name="dept_key" Type="int" />
+          <Property Name="approval_status_key" Type="int" />
+          <Property Name="one_time_payment_key" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="program">
           <Key>
@@ -180,6 +227,37 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.available_balances' does not
           <Property Name="type_key" Type="int" />
           <Property Name="status_key" Type="int" />
           <Property Name="approval_status_key" Type="int" />
+          <Property Name="approval_level" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'tc_BudgetTransfer.dbo.transfer_activity_reviewers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="transfer_activity_reviewers">
+          <Key>
+            <PropertyRef Name="approval_key" />
+            <PropertyRef Name="btr_key" />
+            <PropertyRef Name="transfer_activity_key" />
+            <PropertyRef Name="approval_matrix_key" />
+            <PropertyRef Name="index_key" />
+            <PropertyRef Name="account_key" />
+            <PropertyRef Name="approver_uni_key" />
+            <PropertyRef Name="role_level" />
+            <PropertyRef Name="status_key" />
+            <PropertyRef Name="created" />
+            <PropertyRef Name="modified" />
+            <PropertyRef Name="workflow_guid" />
+          </Key>
+          <Property Name="approval_key" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="btr_key" Type="int" Nullable="false" />
+          <Property Name="transfer_activity_key" Type="int" Nullable="false" />
+          <Property Name="approval_matrix_key" Type="int" Nullable="false" />
+          <Property Name="index_key" Type="int" Nullable="false" />
+          <Property Name="account_key" Type="int" Nullable="false" />
+          <Property Name="approver_uni_key" Type="int" Nullable="false" />
+          <Property Name="role_level" Type="int" Nullable="false" />
+          <Property Name="status_key" Type="int" Nullable="false" />
+          <Property Name="created" Type="datetime" Nullable="false" />
+          <Property Name="modified" Type="datetime" Nullable="false" />
+          <Property Name="workflow_guid" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="users">
           <Key>
@@ -191,6 +269,13 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.available_balances' does not
           <Property Name="uni_last_name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="uni_email" Type="varchar" MaxLength="90" Nullable="false" />
           <Property Name="uni_code" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="xref_approval_status">
+          <Key>
+            <PropertyRef Name="approval_status_key" />
+          </Key>
+          <Property Name="approval_status_key" Type="int" Nullable="false" />
+          <Property Name="approval_status" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="xref_budget_type">
           <Key>
@@ -206,12 +291,26 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.available_balances' does not
           <Property Name="internal_state_key" Type="int" Nullable="false" />
           <Property Name="internal_state" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="xref_job_change_reason">
+          <Key>
+            <PropertyRef Name="job_change_reason_key" />
+          </Key>
+          <Property Name="job_change_reason_key" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="job_change_reason" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
         <EntityType Name="xref_life_cycle">
           <Key>
             <PropertyRef Name="life_cycle_key" />
           </Key>
           <Property Name="life_cycle_key" Type="int" Nullable="false" />
           <Property Name="life_cycle" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="xref_position">
+          <Key>
+            <PropertyRef Name="position_key" />
+          </Key>
+          <Property Name="position_key" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="position" Type="varchar" MaxLength="150" Nullable="false" />
         </EntityType>
         <EntityType Name="xref_position_type">
           <Key>
@@ -419,12 +518,12 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
         </Function>
         <Function Name="budget_transfer_request_create" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="title" Type="varchar" Mode="In" />
-          <Parameter Name="budget_type" Type="varchar" Mode="In" />
+          <Parameter Name="budget_type_key" Type="int" Mode="In" />
           <Parameter Name="total_amount" Type="money" Mode="In" />
           <Parameter Name="explanation" Type="varchar" Mode="In" />
-          <Parameter Name="requestor_uni" Type="varchar" Mode="In" />
-          <Parameter Name="transfer_type" Type="varchar" Mode="In" />
-          <Parameter Name="created_by_name" Type="varchar" Mode="In" />
+          <Parameter Name="requestor_uni_key" Type="int" Mode="In" />
+          <Parameter Name="transfer_type_key" Type="int" Mode="In" />
+          <Parameter Name="created_by" Type="int" Mode="In" />
         </Function>
         <Function Name="budget_transfer_request_datarecord" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="btr_key" Type="int" Mode="In" />
@@ -455,6 +554,39 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
           <Parameter Name="dept" Type="int" Mode="In" />
           <Parameter Name="uni" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="one_time_payment_create_record" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="employee_key" Type="int" Mode="In" />
+          <Parameter Name="current_position_key" Type="int" Mode="In" />
+          <Parameter Name="position_key" Type="int" Mode="In" />
+          <Parameter Name="suffix" Type="varchar" Mode="In" />
+          <Parameter Name="job_status" Type="varchar" Mode="In" />
+          <Parameter Name="effective_date" Type="datetime" Mode="In" />
+          <Parameter Name="job_change_reason_key" Type="int" Mode="In" />
+          <Parameter Name="job_change_reason" Type="varchar" Mode="In" />
+          <Parameter Name="personnel_date" Type="datetime" Mode="In" />
+          <Parameter Name="salary" Type="money" Mode="In" />
+          <Parameter Name="rate" Type="int" Mode="In" />
+          <Parameter Name="hours_per_pay_period" Type="int" Mode="In" />
+          <Parameter Name="factor" Type="int" Mode="In" />
+          <Parameter Name="index_key" Type="int" Mode="In" />
+          <Parameter Name="account_key" Type="int" Mode="In" />
+          <Parameter Name="fund" Type="varchar" Mode="In" />
+          <Parameter Name="percent" Type="numeric" Mode="In" />
+          <Parameter Name="created_by" Type="int" Mode="In" />
+          <Parameter Name="modified_by" Type="int" Mode="In" />
+          <Parameter Name="comment" Type="varchar" Mode="In" />
+          <Parameter Name="supervisor_name" Type="varchar" Mode="In" />
+          <Parameter Name="payroll_key" Type="int" Mode="In" />
+          <Parameter Name="dept_key" Type="int" Mode="In" />
+        </Function>
+        <Function Name="one_time_payment_read_record" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="one_time_payment_key" Type="int" Mode="In" />
+        </Function>
+        <Function Name="transfer_activity_assign_reviewers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="transfer_activity_key" Type="int" Mode="In" />
+          <Parameter Name="approval_level" Type="int" Mode="In" />
+          <Parameter Name="workflow_guid" Type="uniqueidentifier" Mode="In" />
+        </Function>
         <Function Name="transfer_activity_create" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="btr_key" Type="int" Mode="In" />
           <Parameter Name="position_type_key" Type="int" Mode="In" />
@@ -465,6 +597,14 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
         </Function>
         <Function Name="transfer_activity_delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="transfer_activity_key" Type="int" Mode="In" />
+        </Function>
+        <Function Name="transfer_activity_set_all_approval_levels" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="btr_key" Type="int" Mode="In" />
+          <Parameter Name="approval_level" Type="int" Mode="In" />
+        </Function>
+        <Function Name="transfer_activity_set_approval_level" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="transfer_activity_key" Type="int" Mode="In" />
+          <Parameter Name="approval_level" Type="int" Mode="In" />
         </Function>
         <Function Name="transfer_activity_update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="transfer_activity_key" Type="int" Mode="In" />
@@ -487,9 +627,12 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
           <EntitySet Name="status" EntityType="Self.status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="transfer_activity" EntityType="Self.transfer_activity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="xref_approval_status" EntityType="Self.xref_approval_status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="xref_budget_type" EntityType="Self.xref_budget_type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="xref_internal_state" EntityType="Self.xref_internal_state" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="xref_job_change_reason" EntityType="Self.xref_job_change_reason" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="xref_life_cycle" EntityType="Self.xref_life_cycle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="xref_position" EntityType="Self.xref_position" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="xref_position_type" EntityType="Self.xref_position_type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="xref_transfer_type" EntityType="Self.xref_transfer_type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Audit" EntityType="Self.Audit" store:Type="Tables" store:Schema="dbo">
@@ -507,6 +650,53 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
     [available_balances].[available_balance_key] AS [available_balance_key], 
     [available_balances].[available_balance] AS [available_balance]
     FROM [dbo].[available_balances] AS [available_balances]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="one_time_payment" EntityType="Self.one_time_payment" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [one_time_payment].[employee_key] AS [employee_key], 
+    [one_time_payment].[current_position_key] AS [current_position_key], 
+    [one_time_payment].[position_key] AS [position_key], 
+    [one_time_payment].[suffix] AS [suffix], 
+    [one_time_payment].[job_status] AS [job_status], 
+    [one_time_payment].[effective_date] AS [effective_date], 
+    [one_time_payment].[job_change_reason_other] AS [job_change_reason_other], 
+    [one_time_payment].[personnel_date] AS [personnel_date], 
+    [one_time_payment].[salary] AS [salary], 
+    [one_time_payment].[rate] AS [rate], 
+    [one_time_payment].[hours_per_pay_period] AS [hours_per_pay_period], 
+    [one_time_payment].[factor] AS [factor], 
+    [one_time_payment].[index_key] AS [index_key], 
+    [one_time_payment].[account_key] AS [account_key], 
+    [one_time_payment].[fund] AS [fund], 
+    [one_time_payment].[percent] AS [percent], 
+    [one_time_payment].[created] AS [created], 
+    [one_time_payment].[created_by] AS [created_by], 
+    [one_time_payment].[modified] AS [modified], 
+    [one_time_payment].[modified_by] AS [modified_by], 
+    [one_time_payment].[comment] AS [comment], 
+    [one_time_payment].[supervisor_name] AS [supervisor_name], 
+    [one_time_payment].[job_change_reason_key] AS [job_change_reason_key], 
+    [one_time_payment].[payroll_key] AS [payroll_key], 
+    [one_time_payment].[dept_key] AS [dept_key], 
+    [one_time_payment].[approval_status_key] AS [approval_status_key], 
+    [one_time_payment].[one_time_payment_key] AS [one_time_payment_key]
+    FROM [dbo].[one_time_payment] AS [one_time_payment]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="transfer_activity_reviewers" EntityType="Self.transfer_activity_reviewers" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [transfer_activity_reviewers].[approval_key] AS [approval_key], 
+    [transfer_activity_reviewers].[btr_key] AS [btr_key], 
+    [transfer_activity_reviewers].[transfer_activity_key] AS [transfer_activity_key], 
+    [transfer_activity_reviewers].[approval_matrix_key] AS [approval_matrix_key], 
+    [transfer_activity_reviewers].[index_key] AS [index_key], 
+    [transfer_activity_reviewers].[account_key] AS [account_key], 
+    [transfer_activity_reviewers].[approver_uni_key] AS [approver_uni_key], 
+    [transfer_activity_reviewers].[role_level] AS [role_level], 
+    [transfer_activity_reviewers].[status_key] AS [status_key], 
+    [transfer_activity_reviewers].[created] AS [created], 
+    [transfer_activity_reviewers].[modified] AS [modified], 
+    [transfer_activity_reviewers].[workflow_guid] AS [workflow_guid]
+    FROM [dbo].[transfer_activity_reviewers] AS [transfer_activity_reviewers]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vw_budget_transfer_request_records" EntityType="Self.vw_budget_transfer_request_records" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -608,19 +798,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
           <Property Name="account_balance" Type="Decimal" Precision="17" Scale="2" />
           <NavigationProperty Name="index" Relationship="Self.FK_account_index" FromRole="account" ToRole="index" />
         </EntityType>
-        <EntityType Name="approval_matrix">
-          <Key>
-            <PropertyRef Name="approval_matrix_key" />
-          </Key>
-          <Property Name="approval_matrix_key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="index_key" Type="Int32" Nullable="false" />
-          <Property Name="uni" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="role_title" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="role_level" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="approval_limit" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="next_approval_level" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="index" Relationship="Self.FK_approval_matrix_index" FromRole="approval_matrix" ToRole="index" />
-        </EntityType>
         <EntityType Name="approval_status">
           <Key>
             <PropertyRef Name="approval_status_key" />
@@ -649,6 +826,7 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
           <Property Name="employee_prefix" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
           <Property Name="employee_suffix" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="employee_name" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="employee_uni" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="index">
           <Key>
@@ -667,8 +845,8 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
           <Property Name="index_number_description" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="index_status" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="accounts" Relationship="Self.FK_account_index" FromRole="index" ToRole="account" />
-          <NavigationProperty Name="approval_matrix" Relationship="Self.FK_approval_matrix_index" FromRole="index" ToRole="approval_matrix" />
           <NavigationProperty Name="responsibility_matrix" Relationship="Self.FK_responsibility_matrix_index" FromRole="index" ToRole="responsibility_matrix" />
+          <NavigationProperty Name="approval_matrix" Relationship="BtrServices.DAL.FK_approval_matrix_index" FromRole="index" ToRole="approval_matrix" />
         </EntityType>
         <EntityType Name="job">
           <Key>
@@ -724,18 +902,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_approval_matrix_index">
-          <End Role="index" Type="Self.index" Multiplicity="1" />
-          <End Role="approval_matrix" Type="Self.approval_matrix" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="index">
-              <PropertyRef Name="index_key" />
-            </Principal>
-            <Dependent Role="approval_matrix">
-              <PropertyRef Name="index_key" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_responsibility_matrix_index">
           <End Role="index" Type="Self.index" Multiplicity="1" />
           <End Role="responsibility_matrix" Type="Self.responsibility_matrix" Multiplicity="*" />
@@ -750,7 +916,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
         </Association>
         <EntityContainer Name="BtrDbContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="accounts" EntityType="Self.account" />
-          <EntitySet Name="approval_matrix" EntityType="Self.approval_matrix" />
           <EntitySet Name="approval_status" EntityType="Self.approval_status" />
           <EntitySet Name="departments" EntityType="Self.department" />
           <EntitySet Name="employees" EntityType="Self.employee" />
@@ -763,10 +928,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
           <AssociationSet Name="FK_account_index" Association="Self.FK_account_index">
             <End Role="index" EntitySet="indices" />
             <End Role="account" EntitySet="accounts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_approval_matrix_index" Association="Self.FK_approval_matrix_index">
-            <End Role="index" EntitySet="indices" />
-            <End Role="approval_matrix" EntitySet="approval_matrix" />
           </AssociationSet>
           <AssociationSet Name="FK_responsibility_matrix_index" Association="Self.FK_responsibility_matrix_index">
             <End Role="index" EntitySet="indices" />
@@ -836,12 +997,12 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
           <EntitySet Name="xref_transfer_type" EntityType="BtrServices.DAL.xref_transfer_type" />
           <FunctionImport Name="budget_transfer_request_create" ReturnType="Collection(BtrServices.DAL.budget_transfer_request_create_Result)">
             <Parameter Name="title" Mode="In" Type="String" />
-            <Parameter Name="budget_type" Mode="In" Type="String" />
+            <Parameter Name="budget_type_key" Mode="In" Type="Int32" />
             <Parameter Name="total_amount" Mode="In" Type="Decimal" />
             <Parameter Name="explanation" Mode="In" Type="String" />
-            <Parameter Name="requestor_uni" Mode="In" Type="String" />
-            <Parameter Name="transfer_type" Mode="In" Type="String" />
-            <Parameter Name="created_by_name" Mode="In" Type="String" />
+            <Parameter Name="requestor_uni_key" Mode="In" Type="Int32" />
+            <Parameter Name="transfer_type_key" Mode="In" Type="Int32" />
+            <Parameter Name="created_by" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="transfer_activity" EntityType="BtrServices.DAL.transfer_activity" />
           <EntitySet Name="xref_position_type" EntityType="BtrServices.DAL.xref_position_type" />
@@ -874,6 +1035,57 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
             <Parameter Name="transfer_type_key" Mode="In" Type="Int32" />
             <Parameter Name="life_cycle_key" Mode="In" Type="Int32" />
             <Parameter Name="modified_by" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="transfer_activity_assign_reviewers" ReturnType="Collection(BtrServices.DAL.transfer_activity_assign_reviewers_Result)">
+            <Parameter Name="transfer_activity_key" Mode="In" Type="Int32" />
+            <Parameter Name="approval_level" Mode="In" Type="Int32" />
+            <Parameter Name="workflow_guid" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="transfer_activity_set_all_approval_levels" ReturnType="Collection(BtrServices.DAL.transfer_activity_set_all_approval_levels_Result)">
+            <Parameter Name="btr_key" Mode="In" Type="Int32" />
+            <Parameter Name="approval_level" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="transfer_activity_set_approval_level" ReturnType="Collection(BtrServices.DAL.transfer_activity_set_approval_level_Result)">
+            <Parameter Name="transfer_activity_key" Mode="In" Type="Int32" />
+            <Parameter Name="approval_level" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="approval_matrix" EntityType="BtrServices.DAL.approval_matrix" />
+          <AssociationSet Name="FK_approval_matrix_index" Association="BtrServices.DAL.FK_approval_matrix_index">
+            <End Role="index" EntitySet="indices" />
+            <End Role="approval_matrix" EntitySet="approval_matrix" />
+          </AssociationSet>
+          <EntitySet Name="xref_approval_status" EntityType="BtrServices.DAL.xref_approval_status" />
+          <EntitySet Name="xref_job_change_reason" EntityType="BtrServices.DAL.xref_job_change_reason" />
+          <EntitySet Name="xref_position" EntityType="BtrServices.DAL.xref_position" />
+          <EntitySet Name="one_time_payment" EntityType="BtrServices.DAL.one_time_payment" />
+          <EntitySet Name="transfer_activity_reviewers" EntityType="BtrServices.DAL.transfer_activity_reviewers" />
+          <FunctionImport Name="one_time_payment_create_record">
+            <Parameter Name="employee_key" Mode="In" Type="Int32" />
+            <Parameter Name="current_position_key" Mode="In" Type="Int32" />
+            <Parameter Name="position_key" Mode="In" Type="Int32" />
+            <Parameter Name="suffix" Mode="In" Type="String" />
+            <Parameter Name="job_status" Mode="In" Type="String" />
+            <Parameter Name="effective_date" Mode="In" Type="DateTime" />
+            <Parameter Name="job_change_reason_key" Mode="In" Type="Int32" />
+            <Parameter Name="job_change_reason" Mode="In" Type="String" />
+            <Parameter Name="personnel_date" Mode="In" Type="DateTime" />
+            <Parameter Name="salary" Mode="In" Type="Decimal" />
+            <Parameter Name="rate" Mode="In" Type="Int32" />
+            <Parameter Name="hours_per_pay_period" Mode="In" Type="Int32" />
+            <Parameter Name="factor" Mode="In" Type="Int32" />
+            <Parameter Name="index_key" Mode="In" Type="Int32" />
+            <Parameter Name="account_key" Mode="In" Type="Int32" />
+            <Parameter Name="fund" Mode="In" Type="String" />
+            <Parameter Name="percent" Mode="In" Type="Decimal" />
+            <Parameter Name="created_by" Mode="In" Type="Int32" />
+            <Parameter Name="modified_by" Mode="In" Type="Int32" />
+            <Parameter Name="comment" Mode="In" Type="String" />
+            <Parameter Name="supervisor_name" Mode="In" Type="String" />
+            <Parameter Name="payroll_key" Mode="In" Type="Int32" />
+            <Parameter Name="dept_key" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="one_time_payment_read_record" ReturnType="Collection(BtrServices.DAL.one_time_payment_read_record_Result)">
+            <Parameter Name="one_time_payment_key" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="account_byId_Result">
@@ -1223,6 +1435,7 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
           <Property Name="type_key" Type="Int32" />
           <Property Name="status_key" Type="Int32" />
           <Property Name="approval_status_key" Type="Int32" />
+          <Property Name="approval_level" Type="Int32" />
         </EntityType>
         <EntityType Name="xref_position_type">
           <Key>
@@ -1350,6 +1563,229 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
           <Property Type="Int32" Name="modified_by" Nullable="false" />
           <Property Type="String" Name="modified_by_name" Nullable="true" MaxLength="90" />
         </ComplexType>
+        <ComplexType Name="transfer_activity_assign_reviewers_Result">
+          <Property Type="Int32" Name="approval_key" Nullable="false" />
+          <Property Type="Int32" Name="btr_key" Nullable="false" />
+          <Property Type="Int32" Name="transfer_activity_key" Nullable="false" />
+          <Property Type="Int32" Name="approval_matrix_key" Nullable="false" />
+          <Property Type="Int32" Name="index_key" Nullable="false" />
+          <Property Type="Int32" Name="account_key" Nullable="false" />
+          <Property Type="Int32" Name="approver_uni_key" Nullable="false" />
+          <Property Type="Int32" Name="role_level" Nullable="false" />
+          <Property Type="Int32" Name="status_key" Nullable="false" />
+          <Property Type="DateTime" Name="created" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="modified" Nullable="false" Precision="23" />
+          <Property Type="Guid" Name="workflow_guid" Nullable="false" />
+          <Property Type="String" Name="uni_name" Nullable="false" MaxLength="80" />
+          <Property Type="String" Name="uni_email" Nullable="false" MaxLength="90" />
+          <Property Type="String" Name="uni_code" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="transfer_activity_set_all_approval_levels_Result">
+          <Property Type="Int32" Name="transfer_activity_key" Nullable="false" />
+          <Property Type="Int32" Name="btr_key" Nullable="false" />
+          <Property Type="Int32" Name="index_key" Nullable="false" />
+          <Property Type="String" Name="index_description" Nullable="true" MaxLength="35" />
+          <Property Type="String" Name="index_number_description" Nullable="true" MaxLength="45" />
+          <Property Type="Int32" Name="account_key" Nullable="false" />
+          <Property Type="String" Name="account_description" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="account_number_description" Nullable="true" MaxLength="110" />
+          <Property Type="Decimal" Name="amount" Nullable="false" Precision="20" Scale="2" />
+          <Property Type="String" Name="jv_doc_id" Nullable="true" MaxLength="8" />
+          <Property Type="Boolean" Name="jv_complete" Nullable="true" />
+          <Property Type="String" Name="create_jv_error_message" Nullable="true" />
+          <Property Type="String" Name="complete_jv_status_message" Nullable="true" />
+          <Property Type="Decimal" Name="account_balance" Nullable="true" Precision="17" Scale="2" />
+          <Property Type="Int32" Name="position_type_key" Nullable="false" />
+          <Property Type="String" Name="position_type" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="approval_status_key" Nullable="true" />
+          <Property Type="DateTime" Name="created" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="created_by" Nullable="false" />
+          <Property Type="String" Name="created_uni_code" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="created_email" Nullable="false" MaxLength="90" />
+          <Property Type="DateTime" Name="modified" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="modified_by" Nullable="false" />
+          <Property Type="String" Name="modified_uni_code" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="modified_email" Nullable="false" MaxLength="90" />
+        </ComplexType>
+        <ComplexType Name="transfer_activity_set_approval_level_Result">
+          <Property Type="Int32" Name="transfer_activity_key" Nullable="false" />
+          <Property Type="Int32" Name="btr_key" Nullable="false" />
+          <Property Type="Int32" Name="index_key" Nullable="false" />
+          <Property Type="String" Name="index_description" Nullable="true" MaxLength="35" />
+          <Property Type="String" Name="index_number_description" Nullable="true" MaxLength="45" />
+          <Property Type="Int32" Name="account_key" Nullable="false" />
+          <Property Type="String" Name="account_description" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="account_number_description" Nullable="true" MaxLength="110" />
+          <Property Type="Decimal" Name="amount" Nullable="false" Precision="20" Scale="2" />
+          <Property Type="String" Name="jv_doc_id" Nullable="true" MaxLength="8" />
+          <Property Type="Boolean" Name="jv_complete" Nullable="true" />
+          <Property Type="String" Name="create_jv_error_message" Nullable="true" />
+          <Property Type="String" Name="complete_jv_status_message" Nullable="true" />
+          <Property Type="Decimal" Name="account_balance" Nullable="true" Precision="17" Scale="2" />
+          <Property Type="Int32" Name="position_type_key" Nullable="false" />
+          <Property Type="String" Name="position_type" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="approval_status_key" Nullable="true" />
+          <Property Type="DateTime" Name="created" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="created_by" Nullable="false" />
+          <Property Type="String" Name="created_uni_code" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="created_email" Nullable="false" MaxLength="90" />
+          <Property Type="DateTime" Name="modified" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="modified_by" Nullable="false" />
+          <Property Type="String" Name="modified_uni_code" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="modified_email" Nullable="false" MaxLength="90" />
+        </ComplexType>
+        <EntityType Name="approval_matrix">
+          <Key>
+            <PropertyRef Name="approval_matrix_key" />
+          </Key>
+          <Property Name="approval_matrix_key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="index_key" Type="Int32" Nullable="false" />
+          <Property Name="role_title" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="role_level" Type="Int32" Nullable="false" />
+          <Property Name="approval_limit" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="next_approval_level" Type="Int32" Nullable="false" />
+          <Property Name="uni_key" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="index" Relationship="BtrServices.DAL.FK_approval_matrix_index" FromRole="approval_matrix" ToRole="index" />
+        </EntityType>
+        <Association Name="FK_approval_matrix_index">
+          <End Type="BtrServices.DAL.index" Role="index" Multiplicity="1" />
+          <End Type="BtrServices.DAL.approval_matrix" Role="approval_matrix" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="index">
+              <PropertyRef Name="index_key" />
+            </Principal>
+            <Dependent Role="approval_matrix">
+              <PropertyRef Name="index_key" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="xref_approval_status">
+          <Key>
+            <PropertyRef Name="approval_status_key" />
+          </Key>
+          <Property Name="approval_status_key" Type="Int32" Nullable="false" />
+          <Property Name="approval_status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="xref_job_change_reason">
+          <Key>
+            <PropertyRef Name="job_change_reason_key" />
+          </Key>
+          <Property Name="job_change_reason_key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="job_change_reason" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="xref_position">
+          <Key>
+            <PropertyRef Name="position_key" />
+          </Key>
+          <Property Name="position_key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="position" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="one_time_payment">
+          <Key>
+            <PropertyRef Name="employee_key" />
+            <PropertyRef Name="current_position_key" />
+            <PropertyRef Name="position_key" />
+            <PropertyRef Name="rate" />
+            <PropertyRef Name="hours_per_pay_period" />
+            <PropertyRef Name="factor" />
+            <PropertyRef Name="index_key" />
+            <PropertyRef Name="account_key" />
+            <PropertyRef Name="created" />
+            <PropertyRef Name="created_by" />
+            <PropertyRef Name="modified" />
+            <PropertyRef Name="modified_by" />
+            <PropertyRef Name="one_time_payment_key" />
+          </Key>
+          <Property Name="employee_key" Type="Int32" Nullable="false" />
+          <Property Name="current_position_key" Type="Int32" Nullable="false" />
+          <Property Name="position_key" Type="Int32" Nullable="false" />
+          <Property Name="suffix" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="job_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="effective_date" Type="DateTime" Precision="3" />
+          <Property Name="job_change_reason_other" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="personnel_date" Type="DateTime" Precision="3" />
+          <Property Name="salary" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="rate" Type="Int32" Nullable="false" />
+          <Property Name="hours_per_pay_period" Type="Int32" Nullable="false" />
+          <Property Name="factor" Type="Int32" Nullable="false" />
+          <Property Name="index_key" Type="Int32" Nullable="false" />
+          <Property Name="account_key" Type="Int32" Nullable="false" />
+          <Property Name="fund" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="percent" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="modified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modified_by" Type="Int32" Nullable="false" />
+          <Property Name="comment" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="supervisor_name" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="job_change_reason_key" Type="Int32" />
+          <Property Name="payroll_key" Type="Int32" />
+          <Property Name="dept_key" Type="Int32" />
+          <Property Name="approval_status_key" Type="Int32" />
+          <Property Name="one_time_payment_key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="transfer_activity_reviewers">
+          <Key>
+            <PropertyRef Name="approval_key" />
+            <PropertyRef Name="btr_key" />
+            <PropertyRef Name="transfer_activity_key" />
+            <PropertyRef Name="approval_matrix_key" />
+            <PropertyRef Name="index_key" />
+            <PropertyRef Name="account_key" />
+            <PropertyRef Name="approver_uni_key" />
+            <PropertyRef Name="role_level" />
+            <PropertyRef Name="status_key" />
+            <PropertyRef Name="created" />
+            <PropertyRef Name="modified" />
+            <PropertyRef Name="workflow_guid" />
+          </Key>
+          <Property Name="approval_key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="btr_key" Type="Int32" Nullable="false" />
+          <Property Name="transfer_activity_key" Type="Int32" Nullable="false" />
+          <Property Name="approval_matrix_key" Type="Int32" Nullable="false" />
+          <Property Name="index_key" Type="Int32" Nullable="false" />
+          <Property Name="account_key" Type="Int32" Nullable="false" />
+          <Property Name="approver_uni_key" Type="Int32" Nullable="false" />
+          <Property Name="role_level" Type="Int32" Nullable="false" />
+          <Property Name="status_key" Type="Int32" Nullable="false" />
+          <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="workflow_guid" Type="Guid" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="one_time_payment_read_record_Result">
+          <Property Type="Int32" Name="employee_key" Nullable="false" />
+          <Property Type="String" Name="employee_name" Nullable="true" MaxLength="120" />
+          <Property Type="Int32" Name="current_position_key" Nullable="false" />
+          <Property Type="String" Name="current_position" Nullable="true" MaxLength="150" />
+          <Property Type="Int32" Name="position_key" Nullable="false" />
+          <Property Type="String" Name="position" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="suffix" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="job_status" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="effective_date" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="job_change_reason_key" Nullable="true" />
+          <Property Type="String" Name="job_change_reason" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="job_change_reason_other" Nullable="true" MaxLength="250" />
+          <Property Type="DateTime" Name="personnel_date" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="salary" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="rate" Nullable="false" />
+          <Property Type="Int32" Name="hours_per_pay_period" Nullable="false" />
+          <Property Type="Int32" Name="factor" Nullable="false" />
+          <Property Type="Int32" Name="index_key" Nullable="false" />
+          <Property Type="Int32" Name="account_key" Nullable="false" />
+          <Property Type="String" Name="fund" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="percent" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="DateTime" Name="created" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="created_by" Nullable="false" />
+          <Property Type="DateTime" Name="modified" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="modified_by" Nullable="false" />
+          <Property Type="String" Name="comment" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="supervisor_name" Nullable="true" MaxLength="80" />
+          <Property Type="Int32" Name="payroll_key" Nullable="true" />
+          <Property Type="Int32" Name="dept_key" Nullable="true" />
+          <Property Type="String" Name="department_number" Nullable="true" MaxLength="3" />
+          <Property Type="String" Name="department_description" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="approval_status_key" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1365,19 +1801,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
                 <ScalarProperty Name="account_description" ColumnName="account_description" />
                 <ScalarProperty Name="account_number_description" ColumnName="account_number_description" />
                 <ScalarProperty Name="account_balance" ColumnName="account_balance" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="approval_matrix">
-            <EntityTypeMapping TypeName="BtrServices.DAL.approval_matrix">
-              <MappingFragment StoreEntitySet="approval_matrix">
-                <ScalarProperty Name="approval_matrix_key" ColumnName="approval_matrix_key" />
-                <ScalarProperty Name="index_key" ColumnName="index_key" />
-                <ScalarProperty Name="uni" ColumnName="uni" />
-                <ScalarProperty Name="role_title" ColumnName="role_title" />
-                <ScalarProperty Name="role_level" ColumnName="role_level" />
-                <ScalarProperty Name="approval_limit" ColumnName="approval_limit" />
-                <ScalarProperty Name="next_approval_level" ColumnName="next_approval_level" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1402,6 +1825,7 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
           <EntitySetMapping Name="employees">
             <EntityTypeMapping TypeName="BtrServices.DAL.employee">
               <MappingFragment StoreEntitySet="employee">
+                <ScalarProperty Name="employee_uni" ColumnName="employee_uni" />
                 <ScalarProperty Name="employee_key" ColumnName="employee_key" />
                 <ScalarProperty Name="job_key" ColumnName="job_key" />
                 <ScalarProperty Name="employee_fname" ColumnName="employee_fname" />
@@ -1800,6 +2224,7 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
           <EntitySetMapping Name="transfer_activity">
             <EntityTypeMapping TypeName="BtrServices.DAL.transfer_activity">
               <MappingFragment StoreEntitySet="transfer_activity">
+                <ScalarProperty Name="approval_level" ColumnName="approval_level" />
                 <ScalarProperty Name="approval_status_key" ColumnName="approval_status_key" />
                 <ScalarProperty Name="status_key" ColumnName="status_key" />
                 <ScalarProperty Name="type_key" ColumnName="type_key" />
@@ -1953,6 +2378,216 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
                 <ScalarProperty Name="modified" ColumnName="modified" />
                 <ScalarProperty Name="modified_by" ColumnName="modified_by" />
                 <ScalarProperty Name="modified_by_name" ColumnName="modified_by_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="transfer_activity_assign_reviewers" FunctionName="BtrServices.DAL.Store.transfer_activity_assign_reviewers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BtrServices.DAL.transfer_activity_assign_reviewers_Result">
+                <ScalarProperty Name="approval_key" ColumnName="approval_key" />
+                <ScalarProperty Name="btr_key" ColumnName="btr_key" />
+                <ScalarProperty Name="transfer_activity_key" ColumnName="transfer_activity_key" />
+                <ScalarProperty Name="approval_matrix_key" ColumnName="approval_matrix_key" />
+                <ScalarProperty Name="index_key" ColumnName="index_key" />
+                <ScalarProperty Name="account_key" ColumnName="account_key" />
+                <ScalarProperty Name="approver_uni_key" ColumnName="approver_uni_key" />
+                <ScalarProperty Name="role_level" ColumnName="role_level" />
+                <ScalarProperty Name="status_key" ColumnName="status_key" />
+                <ScalarProperty Name="created" ColumnName="created" />
+                <ScalarProperty Name="modified" ColumnName="modified" />
+                <ScalarProperty Name="workflow_guid" ColumnName="workflow_guid" />
+                <ScalarProperty Name="uni_name" ColumnName="uni_name" />
+                <ScalarProperty Name="uni_email" ColumnName="uni_email" />
+                <ScalarProperty Name="uni_code" ColumnName="uni_code" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="transfer_activity_set_all_approval_levels" FunctionName="BtrServices.DAL.Store.transfer_activity_set_all_approval_levels">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BtrServices.DAL.transfer_activity_set_all_approval_levels_Result">
+                <ScalarProperty Name="transfer_activity_key" ColumnName="transfer_activity_key" />
+                <ScalarProperty Name="btr_key" ColumnName="btr_key" />
+                <ScalarProperty Name="index_key" ColumnName="index_key" />
+                <ScalarProperty Name="index_description" ColumnName="index_description" />
+                <ScalarProperty Name="index_number_description" ColumnName="index_number_description" />
+                <ScalarProperty Name="account_key" ColumnName="account_key" />
+                <ScalarProperty Name="account_description" ColumnName="account_description" />
+                <ScalarProperty Name="account_number_description" ColumnName="account_number_description" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="jv_doc_id" ColumnName="jv_doc_id" />
+                <ScalarProperty Name="jv_complete" ColumnName="jv_complete" />
+                <ScalarProperty Name="create_jv_error_message" ColumnName="create_jv_error_message" />
+                <ScalarProperty Name="complete_jv_status_message" ColumnName="complete_jv_status_message" />
+                <ScalarProperty Name="account_balance" ColumnName="account_balance" />
+                <ScalarProperty Name="position_type_key" ColumnName="position_type_key" />
+                <ScalarProperty Name="position_type" ColumnName="position_type" />
+                <ScalarProperty Name="approval_status_key" ColumnName="approval_status_key" />
+                <ScalarProperty Name="created" ColumnName="created" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_uni_code" ColumnName="created_uni_code" />
+                <ScalarProperty Name="created_email" ColumnName="created_email" />
+                <ScalarProperty Name="modified" ColumnName="modified" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="modified_uni_code" ColumnName="modified_uni_code" />
+                <ScalarProperty Name="modified_email" ColumnName="modified_email" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="transfer_activity_set_approval_level" FunctionName="BtrServices.DAL.Store.transfer_activity_set_approval_level">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BtrServices.DAL.transfer_activity_set_approval_level_Result">
+                <ScalarProperty Name="transfer_activity_key" ColumnName="transfer_activity_key" />
+                <ScalarProperty Name="btr_key" ColumnName="btr_key" />
+                <ScalarProperty Name="index_key" ColumnName="index_key" />
+                <ScalarProperty Name="index_description" ColumnName="index_description" />
+                <ScalarProperty Name="index_number_description" ColumnName="index_number_description" />
+                <ScalarProperty Name="account_key" ColumnName="account_key" />
+                <ScalarProperty Name="account_description" ColumnName="account_description" />
+                <ScalarProperty Name="account_number_description" ColumnName="account_number_description" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="jv_doc_id" ColumnName="jv_doc_id" />
+                <ScalarProperty Name="jv_complete" ColumnName="jv_complete" />
+                <ScalarProperty Name="create_jv_error_message" ColumnName="create_jv_error_message" />
+                <ScalarProperty Name="complete_jv_status_message" ColumnName="complete_jv_status_message" />
+                <ScalarProperty Name="account_balance" ColumnName="account_balance" />
+                <ScalarProperty Name="position_type_key" ColumnName="position_type_key" />
+                <ScalarProperty Name="position_type" ColumnName="position_type" />
+                <ScalarProperty Name="approval_status_key" ColumnName="approval_status_key" />
+                <ScalarProperty Name="created" ColumnName="created" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_uni_code" ColumnName="created_uni_code" />
+                <ScalarProperty Name="created_email" ColumnName="created_email" />
+                <ScalarProperty Name="modified" ColumnName="modified" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="modified_uni_code" ColumnName="modified_uni_code" />
+                <ScalarProperty Name="modified_email" ColumnName="modified_email" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="approval_matrix">
+            <EntityTypeMapping TypeName="BtrServices.DAL.approval_matrix">
+              <MappingFragment StoreEntitySet="approval_matrix">
+                <ScalarProperty Name="uni_key" ColumnName="uni_key" />
+                <ScalarProperty Name="next_approval_level" ColumnName="next_approval_level" />
+                <ScalarProperty Name="approval_limit" ColumnName="approval_limit" />
+                <ScalarProperty Name="role_level" ColumnName="role_level" />
+                <ScalarProperty Name="role_title" ColumnName="role_title" />
+                <ScalarProperty Name="index_key" ColumnName="index_key" />
+                <ScalarProperty Name="approval_matrix_key" ColumnName="approval_matrix_key" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="xref_approval_status">
+            <EntityTypeMapping TypeName="BtrServices.DAL.xref_approval_status">
+              <MappingFragment StoreEntitySet="xref_approval_status">
+                <ScalarProperty Name="approval_status" ColumnName="approval_status" />
+                <ScalarProperty Name="approval_status_key" ColumnName="approval_status_key" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="xref_job_change_reason">
+            <EntityTypeMapping TypeName="BtrServices.DAL.xref_job_change_reason">
+              <MappingFragment StoreEntitySet="xref_job_change_reason">
+                <ScalarProperty Name="job_change_reason" ColumnName="job_change_reason" />
+                <ScalarProperty Name="job_change_reason_key" ColumnName="job_change_reason_key" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="xref_position">
+            <EntityTypeMapping TypeName="BtrServices.DAL.xref_position">
+              <MappingFragment StoreEntitySet="xref_position">
+                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="position_key" ColumnName="position_key" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="one_time_payment">
+            <EntityTypeMapping TypeName="BtrServices.DAL.one_time_payment">
+              <MappingFragment StoreEntitySet="one_time_payment">
+                <ScalarProperty Name="one_time_payment_key" ColumnName="one_time_payment_key" />
+                <ScalarProperty Name="approval_status_key" ColumnName="approval_status_key" />
+                <ScalarProperty Name="dept_key" ColumnName="dept_key" />
+                <ScalarProperty Name="payroll_key" ColumnName="payroll_key" />
+                <ScalarProperty Name="job_change_reason_key" ColumnName="job_change_reason_key" />
+                <ScalarProperty Name="supervisor_name" ColumnName="supervisor_name" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="modified" ColumnName="modified" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created" ColumnName="created" />
+                <ScalarProperty Name="percent" ColumnName="percent" />
+                <ScalarProperty Name="fund" ColumnName="fund" />
+                <ScalarProperty Name="account_key" ColumnName="account_key" />
+                <ScalarProperty Name="index_key" ColumnName="index_key" />
+                <ScalarProperty Name="factor" ColumnName="factor" />
+                <ScalarProperty Name="hours_per_pay_period" ColumnName="hours_per_pay_period" />
+                <ScalarProperty Name="rate" ColumnName="rate" />
+                <ScalarProperty Name="salary" ColumnName="salary" />
+                <ScalarProperty Name="personnel_date" ColumnName="personnel_date" />
+                <ScalarProperty Name="job_change_reason_other" ColumnName="job_change_reason_other" />
+                <ScalarProperty Name="effective_date" ColumnName="effective_date" />
+                <ScalarProperty Name="job_status" ColumnName="job_status" />
+                <ScalarProperty Name="suffix" ColumnName="suffix" />
+                <ScalarProperty Name="position_key" ColumnName="position_key" />
+                <ScalarProperty Name="current_position_key" ColumnName="current_position_key" />
+                <ScalarProperty Name="employee_key" ColumnName="employee_key" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="transfer_activity_reviewers">
+            <EntityTypeMapping TypeName="BtrServices.DAL.transfer_activity_reviewers">
+              <MappingFragment StoreEntitySet="transfer_activity_reviewers">
+                <ScalarProperty Name="workflow_guid" ColumnName="workflow_guid" />
+                <ScalarProperty Name="modified" ColumnName="modified" />
+                <ScalarProperty Name="created" ColumnName="created" />
+                <ScalarProperty Name="status_key" ColumnName="status_key" />
+                <ScalarProperty Name="role_level" ColumnName="role_level" />
+                <ScalarProperty Name="approver_uni_key" ColumnName="approver_uni_key" />
+                <ScalarProperty Name="account_key" ColumnName="account_key" />
+                <ScalarProperty Name="index_key" ColumnName="index_key" />
+                <ScalarProperty Name="approval_matrix_key" ColumnName="approval_matrix_key" />
+                <ScalarProperty Name="transfer_activity_key" ColumnName="transfer_activity_key" />
+                <ScalarProperty Name="btr_key" ColumnName="btr_key" />
+                <ScalarProperty Name="approval_key" ColumnName="approval_key" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="one_time_payment_create_record" FunctionName="BtrServices.DAL.Store.one_time_payment_create_record" />
+          <FunctionImportMapping FunctionImportName="one_time_payment_read_record" FunctionName="BtrServices.DAL.Store.one_time_payment_read_record">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BtrServices.DAL.one_time_payment_read_record_Result">
+                <ScalarProperty Name="employee_key" ColumnName="employee_key" />
+                <ScalarProperty Name="employee_name" ColumnName="employee_name" />
+                <ScalarProperty Name="current_position_key" ColumnName="current_position_key" />
+                <ScalarProperty Name="current_position" ColumnName="current_position" />
+                <ScalarProperty Name="position_key" ColumnName="position_key" />
+                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="suffix" ColumnName="suffix" />
+                <ScalarProperty Name="job_status" ColumnName="job_status" />
+                <ScalarProperty Name="effective_date" ColumnName="effective_date" />
+                <ScalarProperty Name="job_change_reason_key" ColumnName="job_change_reason_key" />
+                <ScalarProperty Name="job_change_reason" ColumnName="job_change_reason" />
+                <ScalarProperty Name="job_change_reason_other" ColumnName="job_change_reason_other" />
+                <ScalarProperty Name="personnel_date" ColumnName="personnel_date" />
+                <ScalarProperty Name="salary" ColumnName="salary" />
+                <ScalarProperty Name="rate" ColumnName="rate" />
+                <ScalarProperty Name="hours_per_pay_period" ColumnName="hours_per_pay_period" />
+                <ScalarProperty Name="factor" ColumnName="factor" />
+                <ScalarProperty Name="index_key" ColumnName="index_key" />
+                <ScalarProperty Name="account_key" ColumnName="account_key" />
+                <ScalarProperty Name="fund" ColumnName="fund" />
+                <ScalarProperty Name="percent" ColumnName="percent" />
+                <ScalarProperty Name="created" ColumnName="created" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="modified" ColumnName="modified" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="supervisor_name" ColumnName="supervisor_name" />
+                <ScalarProperty Name="payroll_key" ColumnName="payroll_key" />
+                <ScalarProperty Name="dept_key" ColumnName="dept_key" />
+                <ScalarProperty Name="department_number" ColumnName="department_number" />
+                <ScalarProperty Name="department_description" ColumnName="department_description" />
+                <ScalarProperty Name="approval_status_key" ColumnName="approval_status_key" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

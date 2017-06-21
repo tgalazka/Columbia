@@ -254,8 +254,30 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AppInfoController.cs" />
+    <Compile Include="Controllers\ApprovalsController.cs" />
     <Compile Include="Controllers\BtrController.cs" />
     <Compile Include="Controllers\IndicesController.cs" />
+    <Compile Include="Controllers\OneTimePaymentController.cs" />
+    <Compile Include="DAL\one_time_payment.cs">
+      <DependentUpon>BtrEFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\one_time_payment_read_record_Result.cs">
+      <DependentUpon>BtrEFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\transfer_activity_reviewers.cs">
+      <DependentUpon>BtrEFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\xref_approval_status.cs">
+      <DependentUpon>BtrEFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\xref_job_change_reason.cs">
+      <DependentUpon>BtrEFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\xref_position.cs">
+      <DependentUpon>BtrEFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OneTimePaymentDTO.cs" />
+    <Compile Include="Repository\OneTimePaymentRepository.cs" />
     <Compile Include="Controllers\TransferActivityController.cs" />
     <Compile Include="DAL\account.cs">
       <DependentUpon>BtrEFModel.tt</DependentUpon>
@@ -356,7 +378,16 @@
     <Compile Include="DAL\transfer_activity.cs">
       <DependentUpon>BtrEFModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAL\transfer_activity_assign_reviewers_Result.cs">
+      <DependentUpon>BtrEFModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\transfer_activity_create_Result.cs">
+      <DependentUpon>BtrEFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\transfer_activity_set_all_approval_levels_Result.cs">
+      <DependentUpon>BtrEFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\transfer_activity_set_approval_level_Result.cs">
       <DependentUpon>BtrEFModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\transfer_activity_update_Result.cs">
@@ -391,6 +422,8 @@
     </Compile>
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Models\AccountDTO.cs" />
+    <Compile Include="Models\TransferActivityReviewerDTO.cs" />
+    <Compile Include="Models\ApprovalMatrixLevelsDTO.cs" />
     <Compile Include="Models\BtrDTO.cs" />
     <Compile Include="Models\Error.cs" />
     <Compile Include="Models\IndexDTO.cs" />
@@ -408,6 +441,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Utils\HttpUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -510,7 +544,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>56467</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:56467/api/Indices/IndicesByOwner?uni=kcooper&amp;dept_key=1</IISUrl>
+          <IISUrl>http://localhost:56467/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

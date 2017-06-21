@@ -12,6 +12,7 @@ using BTRServices.DAL;
 using Swashbuckle.Swagger.Annotations;
 using BTRServices.Models;
 using BTRServices.Repository;
+using BTRServices.Utils;
 
 namespace BTRServices.Controllers
 {
@@ -59,9 +60,29 @@ namespace BTRServices.Controllers
             }
         }
 
+        [HttpGet]
+        [ActionName("Item")]
+        [SwaggerOperation("Item")]
+        [SwaggerResponse(HttpStatusCode.OK)]
+        [SwaggerResponse(HttpStatusCode.NotFound)]
+
+        public IHttpActionResult Item(int transfer_activity_key)
+        {
+            try
+            {
+                TransferActivityRepository ta = new TransferActivityRepository(db);
+                return Ok(ta.Item(transfer_activity_key));
+            }
+            catch (Exception exError)
+            {
+                return BadRequest((new Error(0, exError.Message, "GetItem").ToString()));
+            }
+        }
+
 
         // PUT: api/TransferActivity/5
         [HttpPut]
+        [ActionName("Item")]
         [SwaggerOperation("Update Item")]
         [SwaggerResponse(HttpStatusCode.OK)]
         [SwaggerResponse(HttpStatusCode.NotFound)]
@@ -83,10 +104,11 @@ namespace BTRServices.Controllers
 
         // POST: api/TransferActivity
         [HttpPost]
+        [ActionName("Item")]
         [SwaggerOperation("Create Item")]
         [SwaggerResponse(HttpStatusCode.OK)]
         [SwaggerResponse(HttpStatusCode.NotFound)]
-        public IHttpActionResult Item(TransferActivityDTO transfer_activity)
+        public IHttpActionResult CreateItem(TransferActivityDTO transfer_activity)
         {
             try
             {
@@ -134,7 +156,7 @@ namespace BTRServices.Controllers
         [SwaggerOperation("Item")]
         [SwaggerResponse(HttpStatusCode.OK)]
         [SwaggerResponse(HttpStatusCode.NotFound)]
-        public IHttpActionResult Item(int transfer_activity_key)
+        public IHttpActionResult DeleteItem(int transfer_activity_key)
         {
             try
             {
@@ -145,6 +167,126 @@ namespace BTRServices.Controllers
             catch (Exception exError)
             {
                 return BadRequest((new Error(0, exError.Message, "Delete Item").ToString()));
+            }
+        }
+
+
+        [HttpGet]
+        [ActionName("UserAssignedApprovals")]
+        [SwaggerOperation("UserAssignedApprovals")]
+        [SwaggerResponse(HttpStatusCode.OK)]
+        [SwaggerResponse(HttpStatusCode.NotFound)]
+        public IHttpActionResult UserAssignedApprovals(int transfer_activity_key, int uni_key)
+        {
+            try
+            {
+
+                TransferActivityRepository ta = new TransferActivityRepository(db);
+
+                return Ok(ta.GetUserAssignedApprovals(transfer_activity_key,uni_key));
+            }
+            catch (Exception exError)
+            {
+                return BadRequest((new Error(0, exError.Message, "InitializeApprovals").ToString()));
+            }
+        }
+
+
+        [HttpGet]
+        [ActionName("ApprovalLevels")]
+        [SwaggerOperation("ApprovalLevels")]
+        [SwaggerResponse(HttpStatusCode.OK)]
+        [SwaggerResponse(HttpStatusCode.NotFound)]
+        public IHttpActionResult GetApprovalLevels()
+        {
+            try
+            {
+                IEnumerable<KeyValuePair<string, string>> queryString = Request.GetQueryNameValuePairs();
+
+                int transfer_activity_key = HttpUtils.QSIntValue(queryString, "transfer_activity_key");
+
+                TransferActivityRepository ta = new TransferActivityRepository(db);
+                
+                return Ok(ta.GetApprovalLevels(transfer_activity_key));
+            }
+            catch (Exception exError)
+            {
+                return BadRequest((new Error(0, exError.Message, "InitializeApprovals").ToString()));
+            }
+        }
+
+        [HttpGet]
+        [ActionName("CurrentApprovalLevel")]
+        [SwaggerOperation("CurrentApprovalLevel")]
+        [SwaggerResponse(HttpStatusCode.OK)]
+        [SwaggerResponse(HttpStatusCode.NotFound)]
+        public IHttpActionResult GetCurrentApprovalLevel()
+        {
+            try
+            {
+                IEnumerable<KeyValuePair<string, string>> queryString = Request.GetQueryNameValuePairs();
+
+                int transfer_activity_key = HttpUtils.QSIntValue(queryString, "transfer_activity_key");
+
+                TransferActivityRepository ta = new TransferActivityRepository(db);
+
+                return Ok(ta.GetCurrentApprovalLevel(transfer_activity_key));
+            }
+            catch (Exception exError)
+            {
+                return BadRequest((new Error(0, exError.Message, "GetCurrentApprovalLevel").ToString()));
+            }
+        }
+
+        // POST: TransferActivity
+
+        [ActionName("InitializeApprovals")]
+        [SwaggerOperation("InitializeApprovals")]
+        [SwaggerResponse(HttpStatusCode.OK)]
+        [SwaggerResponse(HttpStatusCode.NotFound)]
+        [HttpPost]
+        public IHttpActionResult InitializeApprovals()
+        {
+            try
+            {
+                IEnumerable<KeyValuePair<string, string>> queryString = Request.GetQueryNameValuePairs();
+
+                int btr_key = HttpUtils.QSIntValue(queryString, "btr_key");
+                int approval_level = HttpUtils.QSIntValue(queryString, "approval_level");
+
+                TransferActivityRepository ta = new TransferActivityRepository(db);
+                ta.SetApprovalLevels(btr_key,approval_level);
+                
+                return Ok();
+            }
+            catch (Exception exError)
+            {
+                return BadRequest((new Error(0, exError.Message, "InitializeApprovals").ToString()));
+            }
+        }
+
+        [ActionName("AssignReviewers")]
+        [SwaggerOperation("AssignReviewers")]
+        [SwaggerResponse(HttpStatusCode.OK)]
+        [SwaggerResponse(HttpStatusCode.NotFound)]
+        [HttpPost]
+        public IHttpActionResult AssignReviewers()
+        {
+            try
+            {
+                IEnumerable<KeyValuePair<string, string>> queryString = Request.GetQueryNameValuePairs();
+
+                int transfer_activity_key = HttpUtils.QSIntValue(queryString, "transfer_activity_key");
+                int approval_level = HttpUtils.QSIntValue(queryString, "approval_level");
+                Guid workflow_guid = HttpUtils.QSGuidValue(queryString, "workflow_guid");
+
+                TransferActivityRepository ta = new TransferActivityRepository(db);
+
+                return Ok(ta.AssignReviewers(transfer_activity_key,approval_level,workflow_guid));
+            }
+            catch (Exception exError)
+            {
+                return BadRequest((new Error(0, exError.Message, "GetCurrentApprovalLevel").ToString()));
             }
         }
 

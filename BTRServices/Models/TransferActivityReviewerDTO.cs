@@ -7,21 +7,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BTRServices.DAL
+namespace BTRServices.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class approval_matrix
+    public partial class TransferActivityReviewerDTO
     {
+        public int approval_key { get; set; }
+        public int btr_key { get; set; }
+        public int transfer_activity_key { get; set; }
         public int approval_matrix_key { get; set; }
         public int index_key { get; set; }
-        public string role_title { get; set; }
+        public int account_key { get; set; }
+        public int approver_uni_key { get; set; }
         public int role_level { get; set; }
-        public decimal approval_limit { get; set; }
-        public int next_approval_level { get; set; }
-        public int uni_key { get; set; }
-    
-        public virtual index index { get; set; }
+        public int status_key { get; set; }
+        public DateTime created { get; set; }
+        public DateTime modified { get; set; }
+        public Guid workflow_guid { get; set; }
+        public string uni_name { get; set; }
+        public string uni_email { get; set; }
+        public string uni_code { get; set; }
+
     }
 }

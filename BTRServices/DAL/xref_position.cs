@@ -7,15 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BTRServices
+namespace BTRServices.DAL
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class approval_status
+    public partial class xref_position
     {
-        public int approval_status_key { get; set; }
-        public string approval_status_code { get; set; }
-        public string approval_status_description { get; set; }
+        public int position_key { get; set; }
+        public string position { get; set; }
     }
 }

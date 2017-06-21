@@ -7,16 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BTRServices
+namespace BTRServices.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class job
+    public partial class ApprovalMatrixLevelsDTO
     {
-        public int job_key { get; set; }
-        public Nullable<int> account_key { get; set; }
-        public string job_number { get; set; }
-        public string job_description { get; set; }
+        public int role_level { get; set; }
+        public int next_approval_level { get; set; }
+        public decimal approval_limit { get; set; }
     }
 }

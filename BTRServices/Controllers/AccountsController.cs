@@ -44,6 +44,10 @@ namespace BTRServices.Controllers
             }
             catch (Exception exError)
             {
+                if (exError.InnerException != null)
+                {
+                    return BadRequest((new Error(0, exError.InnerException.ToString(), "AccountsByIndexKey").ToString()));
+                }
                 return BadRequest((new Error(0, exError.Message, "AccountsByIndexKey").ToString()));
             }
         }

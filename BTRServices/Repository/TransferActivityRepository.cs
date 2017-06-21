@@ -132,6 +132,11 @@ namespace BTRServices.Repository
                     }).ToList();
         }
 
+        internal object GetUserAssignedApprovals(int transfer_activity_key, int uni_key)
+        {
+            throw new NotImplementedException();
+        }
+
         public TransferActivityDTO Create(TransferActivityDTO item)
         {
             ObjectResult<transfer_activity_create_Result> spData = _context.transfer_activity_create(item.btr_key, item.position_type_key, item.index_key, item.account_key, item.amount, item.created_by);
@@ -161,6 +166,93 @@ namespace BTRServices.Repository
 
             return transferdto;
         }
+
+        public IEnumerable<TransferActivityReviewerDTO> AssignReviewers(int transfer_activity_key, int approval_level, Guid workflow_guid)
+        {
+            ObjectResult<transfer_activity_assign_reviewers_Result> data = _context.transfer_activity_assign_reviewers(transfer_activity_key, approval_level, workflow_guid);
+            transfer_activity_assign_reviewers_Result result = data.FirstOrDefault<transfer_activity_assign_reviewers_Result>();
+            return (from a in _context.transfer_activity_assign_reviewers(transfer_activity_key, approval_level, workflow_guid)
+                     select new TransferActivityReviewerDTO
+                     {
+                         approval_key = a.approval_key,
+                         btr_key =a.btr_key,
+                         transfer_activity_key = a.transfer_activity_key,
+                         approval_matrix_key = a.approval_matrix_key,
+                         index_key = a.index_key,
+                         account_key = a.account_key,
+                         approver_uni_key = a.approver_uni_key,
+                         role_level = a.role_level,
+                         created = a.created,
+                         modified = a.modified,
+                         workflow_guid = a.workflow_guid,
+                         uni_name = a.uni_name,
+                         uni_email =a.uni_email,
+                         uni_code = a.uni_code
+                     }).ToList();
+        }
+
+        public ApprovalMatrixLevelsDTO GetCurrentApprovalLevel(int transfer_activity_key)
+        {
+            //get the index_key for the particular transfer activity
+            var transferActivity = (from a in _context.transfer_activity
+                                    where a.transfer_activity_key == transfer_activity_key
+                                    select new { a.index_key, a.approval_level } );
+            var transferActivityResult = transferActivity.FirstOrDefault();
+
+            //return all distinct approval levels for specified index_key
+            return (from am in _context.approval_matrix
+                    where am.index_key == transferActivityResult.index_key && am.role_level == transferActivityResult.approval_level
+                    select new ApprovalMatrixLevelsDTO
+                    {
+                        role_level = am.role_level,
+                        next_approval_level = am.next_approval_level,
+                        approval_limit = am.approval_limit
+                    }
+                    ).FirstOrDefault();
+        }
+
+        public IEnumerable<ApprovalMatrixLevelsDTO> GetApprovalLevels(int transfer_activity_key)
+        {
+            //get the index_key for the particular transfer activity
+            var transferActivity = (from a in _context.transfer_activity
+                                    where a.transfer_activity_key == transfer_activity_key
+                                    select a.index_key);
+            int index_key = transferActivity.FirstOrDefault();
+
+            //return all distinct approval levels for specified index_key
+            return (from am in _context.approval_matrix
+                    where am.index_key == index_key
+                    select new ApprovalMatrixLevelsDTO
+                    {
+                        role_level = am.role_level,
+                        next_approval_level = am.next_approval_level,
+                        approval_limit = am.approval_limit
+                    }
+                    ).Distinct().OrderBy(t => t.role_level).ToList();
+        }
+
+        public void SetApprovalLevel(int transfer_activity_key, int approval_level)
+        {
+            /*
+            var transferActivity = (from a in _context.transfer_activity
+                                   where a.transfer_activity_key == transfer_activity_key
+                                   select a.index_key);
+            int index_key = transferActivity.FirstOrDefault();
+
+            var x = from a in _context.approval_matrix
+                    where a.index_key == index_key
+                    select a.
+            ObjectResult < transfer_activity_set_all_approval_levels_Result > data = _context.transfer_activity_set_all_approval_levels(btr_key, approval_level);
+            transfer_activity_set_all_approval_levels_Result result = data.FirstOrDefault<transfer_activity_set_all_approval_levels_Result>();
+    */    
+        }
+
+        public void SetApprovalLevels(int btr_key, int approval_level)
+        {
+            ObjectResult<transfer_activity_set_all_approval_levels_Result> data = _context.transfer_activity_set_all_approval_levels(btr_key,approval_level);
+            transfer_activity_set_all_approval_levels_Result result = data.FirstOrDefault<transfer_activity_set_all_approval_levels_Result>();
+        }
+
         public TransferActivityDTO Update(TransferActivityDTO item)
         {
             ObjectResult<transfer_activity_update_Result> data = _context.transfer_activity_update(item.transfer_activity_key, item.index_key, item.account_key, item.amount, item.modified_by);

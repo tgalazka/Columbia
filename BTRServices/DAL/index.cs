@@ -18,8 +18,8 @@ namespace BTRServices.DAL
         public index()
         {
             this.accounts = new HashSet<account>();
-            this.approval_matrix = new HashSet<approval_matrix>();
             this.responsibility_matrix = new HashSet<responsibility_matrix>();
+            this.approval_matrix = new HashSet<approval_matrix>();
         }
     
         public int index_key { get; set; }
@@ -38,8 +38,8 @@ namespace BTRServices.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<account> accounts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<approval_matrix> approval_matrix { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<responsibility_matrix> responsibility_matrix { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<approval_matrix> approval_matrix { get; set; }
     }
 }

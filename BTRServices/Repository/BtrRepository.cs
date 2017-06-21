@@ -101,7 +101,7 @@ namespace BTRServices.Repository
 
         internal BtrDTO Create(BtrDTO btrItem)
         {
-            ObjectResult<budget_transfer_request_create_Result> spData = _context.budget_transfer_request_create(btrItem.title, btrItem.budget_type, btrItem.total_amount, btrItem.explanation, btrItem.requestor_uni_code, btrItem.transfer_type, btrItem.created_by_name);
+            ObjectResult<budget_transfer_request_create_Result> spData = _context.budget_transfer_request_create(btrItem.title, btrItem.budget_type_key, btrItem.total_amount, btrItem.explanation, btrItem.requestor_uni_key, btrItem.transfer_type_key, btrItem.created_by);
             budget_transfer_request_create_Result result = spData.First<budget_transfer_request_create_Result>();
             BtrDTO btrResult = new BtrDTO
             {

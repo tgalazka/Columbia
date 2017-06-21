@@ -28,7 +28,6 @@ namespace BTRServices.DAL
         }
     
         public virtual DbSet<account> accounts { get; set; }
-        public virtual DbSet<approval_matrix> approval_matrix { get; set; }
         public virtual DbSet<approval_status> approval_status { get; set; }
         public virtual DbSet<department> departments { get; set; }
         public virtual DbSet<employee> employees { get; set; }
@@ -49,6 +48,12 @@ namespace BTRServices.DAL
         public virtual DbSet<transfer_activity> transfer_activity { get; set; }
         public virtual DbSet<xref_position_type> xref_position_type { get; set; }
         public virtual DbSet<vw_transfer_activities_datarecords> vw_transfer_activities_datarecords { get; set; }
+        public virtual DbSet<approval_matrix> approval_matrix { get; set; }
+        public virtual DbSet<xref_approval_status> xref_approval_status { get; set; }
+        public virtual DbSet<xref_job_change_reason> xref_job_change_reason { get; set; }
+        public virtual DbSet<xref_position> xref_position { get; set; }
+        public virtual DbSet<one_time_payment> one_time_payment { get; set; }
+        public virtual DbSet<transfer_activity_reviewers> transfer_activity_reviewers { get; set; }
     
         public virtual ObjectResult<account_byId_Result> account_byId(Nullable<int> account_key)
         {
@@ -172,15 +177,15 @@ namespace BTRServices.DAL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<budget_transfer_request_datarecords_Result>("budget_transfer_request_datarecords");
         }
     
-        public virtual ObjectResult<budget_transfer_request_create_Result> budget_transfer_request_create(string title, string budget_type, Nullable<decimal> total_amount, string explanation, string requestor_uni, string transfer_type, string created_by_name)
+        public virtual ObjectResult<budget_transfer_request_create_Result> budget_transfer_request_create(string title, Nullable<int> budget_type_key, Nullable<decimal> total_amount, string explanation, Nullable<int> requestor_uni_key, Nullable<int> transfer_type_key, Nullable<int> created_by)
         {
             var titleParameter = title != null ?
                 new ObjectParameter("title", title) :
                 new ObjectParameter("title", typeof(string));
     
-            var budget_typeParameter = budget_type != null ?
-                new ObjectParameter("budget_type", budget_type) :
-                new ObjectParameter("budget_type", typeof(string));
+            var budget_type_keyParameter = budget_type_key.HasValue ?
+                new ObjectParameter("budget_type_key", budget_type_key) :
+                new ObjectParameter("budget_type_key", typeof(int));
     
             var total_amountParameter = total_amount.HasValue ?
                 new ObjectParameter("total_amount", total_amount) :
@@ -190,19 +195,19 @@ namespace BTRServices.DAL
                 new ObjectParameter("explanation", explanation) :
                 new ObjectParameter("explanation", typeof(string));
     
-            var requestor_uniParameter = requestor_uni != null ?
-                new ObjectParameter("requestor_uni", requestor_uni) :
-                new ObjectParameter("requestor_uni", typeof(string));
+            var requestor_uni_keyParameter = requestor_uni_key.HasValue ?
+                new ObjectParameter("requestor_uni_key", requestor_uni_key) :
+                new ObjectParameter("requestor_uni_key", typeof(int));
     
-            var transfer_typeParameter = transfer_type != null ?
-                new ObjectParameter("transfer_type", transfer_type) :
-                new ObjectParameter("transfer_type", typeof(string));
+            var transfer_type_keyParameter = transfer_type_key.HasValue ?
+                new ObjectParameter("transfer_type_key", transfer_type_key) :
+                new ObjectParameter("transfer_type_key", typeof(int));
     
-            var created_by_nameParameter = created_by_name != null ?
-                new ObjectParameter("created_by_name", created_by_name) :
-                new ObjectParameter("created_by_name", typeof(string));
+            var created_byParameter = created_by.HasValue ?
+                new ObjectParameter("created_by", created_by) :
+                new ObjectParameter("created_by", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<budget_transfer_request_create_Result>("budget_transfer_request_create", titleParameter, budget_typeParameter, total_amountParameter, explanationParameter, requestor_uniParameter, transfer_typeParameter, created_by_nameParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<budget_transfer_request_create_Result>("budget_transfer_request_create", titleParameter, budget_type_keyParameter, total_amountParameter, explanationParameter, requestor_uni_keyParameter, transfer_type_keyParameter, created_byParameter);
         }
     
         public virtual ObjectResult<transfer_activity_create_Result> transfer_activity_create(Nullable<int> btr_key, Nullable<int> position_type_key, Nullable<int> index_key, Nullable<int> account_key, Nullable<decimal> amount, Nullable<int> created_by)
@@ -307,6 +312,155 @@ namespace BTRServices.DAL
                 new ObjectParameter("modified_by", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<budget_transfer_request_update_Result>("budget_transfer_request_update", btr_keyParameter, titleParameter, budget_type_keyParameter, total_amountParameter, explanationParameter, requestor_uni_keyParameter, transfer_type_keyParameter, life_cycle_keyParameter, modified_byParameter);
+        }
+    
+        public virtual ObjectResult<transfer_activity_assign_reviewers_Result> transfer_activity_assign_reviewers(Nullable<int> transfer_activity_key, Nullable<int> approval_level, Nullable<System.Guid> workflow_guid)
+        {
+            var transfer_activity_keyParameter = transfer_activity_key.HasValue ?
+                new ObjectParameter("transfer_activity_key", transfer_activity_key) :
+                new ObjectParameter("transfer_activity_key", typeof(int));
+    
+            var approval_levelParameter = approval_level.HasValue ?
+                new ObjectParameter("approval_level", approval_level) :
+                new ObjectParameter("approval_level", typeof(int));
+    
+            var workflow_guidParameter = workflow_guid.HasValue ?
+                new ObjectParameter("workflow_guid", workflow_guid) :
+                new ObjectParameter("workflow_guid", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<transfer_activity_assign_reviewers_Result>("transfer_activity_assign_reviewers", transfer_activity_keyParameter, approval_levelParameter, workflow_guidParameter);
+        }
+    
+        public virtual ObjectResult<transfer_activity_set_all_approval_levels_Result> transfer_activity_set_all_approval_levels(Nullable<int> btr_key, Nullable<int> approval_level)
+        {
+            var btr_keyParameter = btr_key.HasValue ?
+                new ObjectParameter("btr_key", btr_key) :
+                new ObjectParameter("btr_key", typeof(int));
+    
+            var approval_levelParameter = approval_level.HasValue ?
+                new ObjectParameter("approval_level", approval_level) :
+                new ObjectParameter("approval_level", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<transfer_activity_set_all_approval_levels_Result>("transfer_activity_set_all_approval_levels", btr_keyParameter, approval_levelParameter);
+        }
+    
+        public virtual ObjectResult<transfer_activity_set_approval_level_Result> transfer_activity_set_approval_level(Nullable<int> transfer_activity_key, Nullable<int> approval_level)
+        {
+            var transfer_activity_keyParameter = transfer_activity_key.HasValue ?
+                new ObjectParameter("transfer_activity_key", transfer_activity_key) :
+                new ObjectParameter("transfer_activity_key", typeof(int));
+    
+            var approval_levelParameter = approval_level.HasValue ?
+                new ObjectParameter("approval_level", approval_level) :
+                new ObjectParameter("approval_level", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<transfer_activity_set_approval_level_Result>("transfer_activity_set_approval_level", transfer_activity_keyParameter, approval_levelParameter);
+        }
+    
+        public virtual int one_time_payment_create_record(Nullable<int> employee_key, Nullable<int> current_position_key, Nullable<int> position_key, string suffix, string job_status, Nullable<System.DateTime> effective_date, Nullable<int> job_change_reason_key, string job_change_reason, Nullable<System.DateTime> personnel_date, Nullable<decimal> salary, Nullable<int> rate, Nullable<int> hours_per_pay_period, Nullable<int> factor, Nullable<int> index_key, Nullable<int> account_key, string fund, Nullable<decimal> percent, Nullable<int> created_by, Nullable<int> modified_by, string comment, string supervisor_name, Nullable<int> payroll_key, Nullable<int> dept_key)
+        {
+            var employee_keyParameter = employee_key.HasValue ?
+                new ObjectParameter("employee_key", employee_key) :
+                new ObjectParameter("employee_key", typeof(int));
+    
+            var current_position_keyParameter = current_position_key.HasValue ?
+                new ObjectParameter("current_position_key", current_position_key) :
+                new ObjectParameter("current_position_key", typeof(int));
+    
+            var position_keyParameter = position_key.HasValue ?
+                new ObjectParameter("position_key", position_key) :
+                new ObjectParameter("position_key", typeof(int));
+    
+            var suffixParameter = suffix != null ?
+                new ObjectParameter("suffix", suffix) :
+                new ObjectParameter("suffix", typeof(string));
+    
+            var job_statusParameter = job_status != null ?
+                new ObjectParameter("job_status", job_status) :
+                new ObjectParameter("job_status", typeof(string));
+    
+            var effective_dateParameter = effective_date.HasValue ?
+                new ObjectParameter("effective_date", effective_date) :
+                new ObjectParameter("effective_date", typeof(System.DateTime));
+    
+            var job_change_reason_keyParameter = job_change_reason_key.HasValue ?
+                new ObjectParameter("job_change_reason_key", job_change_reason_key) :
+                new ObjectParameter("job_change_reason_key", typeof(int));
+    
+            var job_change_reasonParameter = job_change_reason != null ?
+                new ObjectParameter("job_change_reason", job_change_reason) :
+                new ObjectParameter("job_change_reason", typeof(string));
+    
+            var personnel_dateParameter = personnel_date.HasValue ?
+                new ObjectParameter("personnel_date", personnel_date) :
+                new ObjectParameter("personnel_date", typeof(System.DateTime));
+    
+            var salaryParameter = salary.HasValue ?
+                new ObjectParameter("salary", salary) :
+                new ObjectParameter("salary", typeof(decimal));
+    
+            var rateParameter = rate.HasValue ?
+                new ObjectParameter("rate", rate) :
+                new ObjectParameter("rate", typeof(int));
+    
+            var hours_per_pay_periodParameter = hours_per_pay_period.HasValue ?
+                new ObjectParameter("hours_per_pay_period", hours_per_pay_period) :
+                new ObjectParameter("hours_per_pay_period", typeof(int));
+    
+            var factorParameter = factor.HasValue ?
+                new ObjectParameter("factor", factor) :
+                new ObjectParameter("factor", typeof(int));
+    
+            var index_keyParameter = index_key.HasValue ?
+                new ObjectParameter("index_key", index_key) :
+                new ObjectParameter("index_key", typeof(int));
+    
+            var account_keyParameter = account_key.HasValue ?
+                new ObjectParameter("account_key", account_key) :
+                new ObjectParameter("account_key", typeof(int));
+    
+            var fundParameter = fund != null ?
+                new ObjectParameter("fund", fund) :
+                new ObjectParameter("fund", typeof(string));
+    
+            var percentParameter = percent.HasValue ?
+                new ObjectParameter("percent", percent) :
+                new ObjectParameter("percent", typeof(decimal));
+    
+            var created_byParameter = created_by.HasValue ?
+                new ObjectParameter("created_by", created_by) :
+                new ObjectParameter("created_by", typeof(int));
+    
+            var modified_byParameter = modified_by.HasValue ?
+                new ObjectParameter("modified_by", modified_by) :
+                new ObjectParameter("modified_by", typeof(int));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("comment", comment) :
+                new ObjectParameter("comment", typeof(string));
+    
+            var supervisor_nameParameter = supervisor_name != null ?
+                new ObjectParameter("supervisor_name", supervisor_name) :
+                new ObjectParameter("supervisor_name", typeof(string));
+    
+            var payroll_keyParameter = payroll_key.HasValue ?
+                new ObjectParameter("payroll_key", payroll_key) :
+                new ObjectParameter("payroll_key", typeof(int));
+    
+            var dept_keyParameter = dept_key.HasValue ?
+                new ObjectParameter("dept_key", dept_key) :
+                new ObjectParameter("dept_key", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("one_time_payment_create_record", employee_keyParameter, current_position_keyParameter, position_keyParameter, suffixParameter, job_statusParameter, effective_dateParameter, job_change_reason_keyParameter, job_change_reasonParameter, personnel_dateParameter, salaryParameter, rateParameter, hours_per_pay_periodParameter, factorParameter, index_keyParameter, account_keyParameter, fundParameter, percentParameter, created_byParameter, modified_byParameter, commentParameter, supervisor_nameParameter, payroll_keyParameter, dept_keyParameter);
+        }
+    
+        public virtual ObjectResult<one_time_payment_read_record_Result> one_time_payment_read_record(Nullable<int> one_time_payment_key)
+        {
+            var one_time_payment_keyParameter = one_time_payment_key.HasValue ?
+                new ObjectParameter("one_time_payment_key", one_time_payment_key) :
+                new ObjectParameter("one_time_payment_key", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<one_time_payment_read_record_Result>("one_time_payment_read_record", one_time_payment_keyParameter);
         }
     }
 }

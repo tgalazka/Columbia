@@ -7,16 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BTRServices
+namespace BTRServices.DAL
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class xref_job_change_reason
     {
-        public string uni { get; set; }
-        public string first_name { get; set; }
-        public string last_name { get; set; }
-        public string email { get; set; }
+        public int job_change_reason_key { get; set; }
+        public string job_change_reason { get; set; }
     }
 }
