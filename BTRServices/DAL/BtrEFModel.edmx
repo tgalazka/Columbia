@@ -1085,7 +1085,7 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
             <Parameter Name="dept_key" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="one_time_payment_read_record" ReturnType="Collection(BtrServices.DAL.one_time_payment_read_record_Result)">
-            <Parameter Name="one_time_payment_key" Mode="In" Type="Int32" />
+          <Parameter Name="one_time_payment_key" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="account_byId_Result">
@@ -1110,7 +1110,7 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
           <Property Type="String" Name="account_number" Nullable="true" MaxLength="6" />
           <Property Type="String" Name="account_description" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="account_number_description" Nullable="true" MaxLength="110" />
-          <Property Type="Decimal" Name="account_balance" Nullable="true" Precision="17" Scale="2" />
+          <Property Type="Decimal" Name="account_balance" Nullable="true" Precision="18" Scale="0" />
         </ComplexType>
         <ComplexType Name="accounts_all_Result">
           <Property Type="Int32" Name="account_key" Nullable="false" />

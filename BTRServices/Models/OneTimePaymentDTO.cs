@@ -14,6 +14,13 @@ namespace BTRServices.Model
     
     public partial class OneTimePaymentDTO
     {
+        public int otp_trns_payment_key_id { get; set; }
+        public int otp_trns_key_id { get; set; }
+        public string otp_trns_payment_index_number { get; set; }
+        public string otp_trns_payment_account_number { get; set; }
+        public Nullable<int> otp_trns_payment_percentage { get; set; }
+        public Nullable<decimal> otp_trns_payment_amount { get; set; }
+/*
         public int employee_key { get; set; }
         public string employee_name { get; set; }
         public int current_position_key { get; set; }
@@ -46,5 +53,6 @@ namespace BTRServices.Model
         public string department_number { get; set; }
         public string department_description { get; set; }
         public Nullable<int> approval_status_key { get; set; }
+*/
     }
 }

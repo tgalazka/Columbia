@@ -204,6 +204,16 @@
       <DependentUpon>BtrEFModel.edmx</DependentUpon>
       <LastGenOutput>BtrEFModel.cs</LastGenOutput>
     </Content>
+    <Content Include="DAL\HrEFModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HrEFModel.edmx</DependentUpon>
+      <LastGenOutput>HrEFModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DAL\HrEFModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HrEFModel.edmx</DependentUpon>
+      <LastGenOutput>HrEFModel.cs</LastGenOutput>
+    </Content>
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="scripts\ai.0.15.0-build58334.js" />
@@ -223,6 +233,13 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <EntityDeploy Include="DAL\HrEFModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>HrEFModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DAL\HrEFModel.edmx.diagram">
+      <DependentUpon>HrEFModel.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\btrservices-dev - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\btrservices-test - Web Deploy.pubxml" />
     <None Include="scripts\jquery-3.1.1.intellisense.js" />
@@ -258,11 +275,42 @@
     <Compile Include="Controllers\BtrController.cs" />
     <Compile Include="Controllers\IndicesController.cs" />
     <Compile Include="Controllers\OneTimePaymentController.cs" />
+    <Compile Include="Controllers\OtpPaymentController.cs" />
+    <Compile Include="DAL\database_firewall_rules.cs">
+      <DependentUpon>HrEFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\HrEFModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HrEFModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\HrEFModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HrEFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\HrEFModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HrEFModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="DAL\one_time_payment.cs">
       <DependentUpon>BtrEFModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\one_time_payment_read_record_Result.cs">
       <DependentUpon>BtrEFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\tc_employee.cs">
+      <DependentUpon>HrEFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\tc_otp_payment.cs">
+      <DependentUpon>HrEFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\tc_otp_trns.cs">
+      <DependentUpon>HrEFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\tc_otp_trns_comments.cs">
+      <DependentUpon>HrEFModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\transfer_activity_reviewers.cs">
       <DependentUpon>BtrEFModel.tt</DependentUpon>
@@ -430,6 +478,7 @@
     <Compile Include="Models\TransferActivityBatchDTO.cs" />
     <Compile Include="Models\TransferActivityDTO.cs" />
     <Compile Include="Repository\AccountRepository.cs" />
+    <Compile Include="Repository\OtpRepository.cs" />
     <Compile Include="Repository\TransferActivityRepository.cs" />
     <Compile Include="Repository\BtrRepository.cs" />
     <Compile Include="Repository\IndexRepository.cs" />
