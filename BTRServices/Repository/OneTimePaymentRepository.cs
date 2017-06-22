@@ -12,19 +12,11 @@ namespace BTRServices.Controllers
         public OneTimePaymentRepository(tc_HRFormsEntities1 context) : base(context)
         {
         }
-        public OneTimePaymentDTO CreateItem(OneTimePaymentDTO record)
+        public tc_otp_payment CreateItem(tc_otp_payment record)
         {
             //_context.tc_otp_payment
-            tc_otp_payment otpRecord = new tc_otp_payment() {
-                otp_trns_key_id = record.otp_trns_key_id,
-                otp_trns_payment_account_number = record.otp_trns_payment_account_number,
-                otp_trns_payment_amount = record.otp_trns_payment_amount,
-                otp_trns_payment_index_number = record.otp_trns_payment_index_number,
-                otp_trns_payment_key_id = record.otp_trns_payment_key_id,
-                otp_trns_payment_percentage = record.otp_trns_payment_percentage,
-            };
 
-            OneTimePaymentDTO newRecord = _context.tc_otp_payment.Add(otpRecord);
+            tc_otp_payment newRecord = _context.tc_otp_payment.Add(record);
             _context.SaveChanges();
             return newRecord;
         }
@@ -42,8 +34,9 @@ namespace BTRServices.Controllers
                         otp_trns_payment_percentage = a.otp_trns_payment_percentage
                     }).FirstOrDefault();
         }
-        public bool UpdateItem(OneTimePaymentDTO record)
+        public bool UpdateItem(tc_otp_payment record)
         {
+            //_context.tc_otp_payment.
             return true;
         }
         public bool DeleteItem(int one_time_payment_key)

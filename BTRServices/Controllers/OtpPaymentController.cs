@@ -43,7 +43,7 @@ namespace BTRServices.Controllers
         [SwaggerOperation("Update Item")]
         [SwaggerResponse(HttpStatusCode.OK)]
         [SwaggerResponse(HttpStatusCode.NotFound)]
-        public IHttpActionResult UpdateItem(OneTimePaymentDTO record)
+        public IHttpActionResult UpdateItem(tc_otp_payment record)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace BTRServices.Controllers
         [SwaggerOperation("Item")]
         [SwaggerResponse(HttpStatusCode.OK)]
         [SwaggerResponse(HttpStatusCode.NotFound)]
-        public IHttpActionResult CreateItem(OneTimePaymentDTO record)
+        public IHttpActionResult CreateItem(tc_otp_payment record)
         {
             try
             {
