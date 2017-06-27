@@ -5,20 +5,12 @@ using System.Linq;
 
 namespace BTRServices.Controllers
 {
-    internal class OneTimePaymentRepository : OtpRepository<OneTimePaymentDTO>
+    internal class OneTimePaymentRepository : HrRepository<OneTimePaymentDTO>
     {
-        private tc_HRFormsEntities1 dbCxt;
+        private HrDbContext dbCxt;
 
-        public OneTimePaymentRepository(tc_HRFormsEntities1 context) : base(context)
+        public OneTimePaymentRepository(HrDbContext context) : base(context)
         {
-        }
-        public tc_otp_payment CreateItem(tc_otp_payment record)
-        {
-            //_context.tc_otp_payment
-
-            tc_otp_payment newRecord = _context.tc_otp_payment.Add(record);
-            _context.SaveChanges();
-            return newRecord;
         }
 
         public OneTimePaymentDTO GetItem(int one_time_payment_key)
@@ -34,15 +26,37 @@ namespace BTRServices.Controllers
                         otp_trns_payment_percentage = a.otp_trns_payment_percentage
                     }).FirstOrDefault();
         }
-        public bool UpdateItem(tc_otp_payment record)
+        public OneTimePaymentDTO CreateItem(OneTimePaymentDTO record)
         {
-            //_context.tc_otp_payment.
-            return true;
+            return (from a in _context.otp_payment_create(record.otp_trns_key_id, record.otp_trns_payment_index_number, record.otp_trns_payment_account_number, record.otp_trns_payment_percentage, record.otp_trns_payment_amount)
+                    select new OneTimePaymentDTO
+                    {
+                        otp_trns_key_id = a.otp_trns_key_id,
+                        otp_trns_payment_index_number = a.otp_trns_payment_index_number,
+                        otp_trns_payment_account_number = a.otp_trns_payment_account_number,
+                        otp_trns_payment_key_id = a.otp_trns_payment_key_id,
+                        otp_trns_payment_percentage = a.otp_trns_payment_percentage,
+                        otp_trns_payment_amount = a.otp_trns_payment_amount
+                    }).ToList().FirstOrDefault();
         }
-        public bool DeleteItem(int one_time_payment_key)
+
+        public OneTimePaymentDTO UpdateItem(OneTimePaymentDTO record)
         {
-            return true;
+            return (from a in _context.otp_payment_update(record.otp_trns_payment_key_id, record.otp_trns_key_id, record.otp_trns_payment_index_number, record.otp_trns_payment_account_number, record.otp_trns_payment_percentage, record.otp_trns_payment_amount)
+                    select new OneTimePaymentDTO
+                    {
+                        otp_trns_key_id = a.otp_trns_key_id,
+                        otp_trns_payment_index_number = a.otp_trns_payment_index_number,
+                        otp_trns_payment_account_number = a.otp_trns_payment_account_number,
+                        otp_trns_payment_key_id = a.otp_trns_payment_key_id,
+                        otp_trns_payment_percentage = a.otp_trns_payment_percentage,
+                        otp_trns_payment_amount = a.otp_trns_payment_amount
+                    }).ToList().FirstOrDefault();
         }
+        public void DeleteItem(int one_time_payment_key)
+        {
+            _context.otp_payment_delete_all(one_time_payment_key);
+         }
 
         /*
         employee_key = a.,

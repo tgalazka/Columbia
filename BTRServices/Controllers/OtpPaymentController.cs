@@ -13,7 +13,7 @@ namespace BTRServices.Controllers
 {
     public class OtpPaymentController : ApiController
     {
-        tc_HRFormsEntities1 dbCxt = new tc_HRFormsEntities1();
+        HrDbContext dbCxt = new HrDbContext();
 
         [HttpGet]
         [ActionName("Item")]
@@ -43,7 +43,7 @@ namespace BTRServices.Controllers
         [SwaggerOperation("Update Item")]
         [SwaggerResponse(HttpStatusCode.OK)]
         [SwaggerResponse(HttpStatusCode.NotFound)]
-        public IHttpActionResult UpdateItem(tc_otp_payment record)
+        public IHttpActionResult UpdateItem(OneTimePaymentDTO record)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace BTRServices.Controllers
         [SwaggerOperation("Item")]
         [SwaggerResponse(HttpStatusCode.OK)]
         [SwaggerResponse(HttpStatusCode.NotFound)]
-        public IHttpActionResult CreateItem(tc_otp_payment record)
+        public IHttpActionResult CreateItem(OneTimePaymentDTO record)
         {
             try
             {
@@ -94,8 +94,8 @@ namespace BTRServices.Controllers
             try
             {
                 OneTimePaymentRepository dbData = new OneTimePaymentRepository(dbCxt);
-
-                return Ok(dbData.DeleteItem(one_time_payment_key));
+                dbData.DeleteItem(one_time_payment_key);
+                return Ok(true);
             }
             catch (Exception exError)
             {
@@ -106,6 +106,5 @@ namespace BTRServices.Controllers
                 return BadRequest((new Error(0, exError.Message, "DeleteItem").ToString()));
             }
         }
-
     }
 }

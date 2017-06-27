@@ -8,11 +8,11 @@ using System.Web;
 
 namespace BTRServices.Repository
 {
-    public class OtpRepository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class HrRepository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        protected tc_HRFormsEntities1 _context; //used in derived classes
+        protected HrDbContext _context; //used in derived classes
 
-        public OtpRepository(tc_HRFormsEntities1 context)
+        public HrRepository(HrDbContext context)
         {
             _context = context;
         }

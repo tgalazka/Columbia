@@ -45,7 +45,7 @@ namespace BTRServices.Controllers
         [ActionName("Items")]
         [SwaggerOperation("Items")]
         [SwaggerResponse(HttpStatusCode.OK)]
-        [SwaggerResponse(HttpStatusCode.NotFound)]
+        [SwaggerResponse(HttpStatusCode.BadRequest)]
 
         public IHttpActionResult Items()
         {
@@ -64,7 +64,7 @@ namespace BTRServices.Controllers
         [ActionName("Item")]
         [SwaggerOperation("Item")]
         [SwaggerResponse(HttpStatusCode.OK)]
-        [SwaggerResponse(HttpStatusCode.NotFound)]
+        [SwaggerResponse(HttpStatusCode.BadRequest)]
 
         public IHttpActionResult Item(int transfer_activity_key)
         {
@@ -85,7 +85,7 @@ namespace BTRServices.Controllers
         [ActionName("Item")]
         [SwaggerOperation("Update Item")]
         [SwaggerResponse(HttpStatusCode.OK)]
-        [SwaggerResponse(HttpStatusCode.NotFound)]
+        [SwaggerResponse(HttpStatusCode.BadRequest)]
         [ResponseType(typeof(void))]
         public IHttpActionResult Item(int id, TransferActivityDTO transfer_activity)
         {
@@ -107,7 +107,7 @@ namespace BTRServices.Controllers
         [ActionName("Item")]
         [SwaggerOperation("Create Item")]
         [SwaggerResponse(HttpStatusCode.OK)]
-        [SwaggerResponse(HttpStatusCode.NotFound)]
+        [SwaggerResponse(HttpStatusCode.BadRequest)]
         public IHttpActionResult CreateItem(TransferActivityDTO transfer_activity)
         {
             try
@@ -126,7 +126,7 @@ namespace BTRServices.Controllers
         [ActionName("BatchSave")]
         [SwaggerOperation("BatchSave")]
         [SwaggerResponse(HttpStatusCode.OK)]
-        [SwaggerResponse(HttpStatusCode.NotFound)]
+        [SwaggerResponse(HttpStatusCode.BadRequest)]
         public IHttpActionResult BatchSave(TransferActivityBatchDTO[] transferactivities)
         {
             TransferActivityRepository ta = new TransferActivityRepository(db);
@@ -175,7 +175,7 @@ namespace BTRServices.Controllers
         [ActionName("UserAssignedApprovals")]
         [SwaggerOperation("UserAssignedApprovals")]
         [SwaggerResponse(HttpStatusCode.OK)]
-        [SwaggerResponse(HttpStatusCode.NotFound)]
+        [SwaggerResponse(HttpStatusCode.BadRequest)]
         public IHttpActionResult UserAssignedApprovals(int transfer_activity_key, int uni_key)
         {
             try
@@ -196,7 +196,7 @@ namespace BTRServices.Controllers
         [ActionName("ApprovalLevels")]
         [SwaggerOperation("ApprovalLevels")]
         [SwaggerResponse(HttpStatusCode.OK)]
-        [SwaggerResponse(HttpStatusCode.NotFound)]
+        [SwaggerResponse(HttpStatusCode.BadRequest)]
         public IHttpActionResult GetApprovalLevels()
         {
             try
@@ -219,14 +219,14 @@ namespace BTRServices.Controllers
         [ActionName("CurrentApprovalLevel")]
         [SwaggerOperation("CurrentApprovalLevel")]
         [SwaggerResponse(HttpStatusCode.OK)]
-        [SwaggerResponse(HttpStatusCode.NotFound)]
-        public IHttpActionResult GetCurrentApprovalLevel()
+        [SwaggerResponse(HttpStatusCode.BadRequest)]
+        public IHttpActionResult GetCurrentApprovalLevel(int transfer_activity_key)
         {
             try
             {
-                IEnumerable<KeyValuePair<string, string>> queryString = Request.GetQueryNameValuePairs();
+                //IEnumerable<KeyValuePair<string, string>> queryString = Request.GetQueryNameValuePairs();
 
-                int transfer_activity_key = HttpUtils.QSIntValue(queryString, "transfer_activity_key");
+                //int transfer_activity_key = HttpUtils.QSIntValue(queryString, "transfer_activity_key");
 
                 TransferActivityRepository ta = new TransferActivityRepository(db);
 
@@ -262,6 +262,47 @@ namespace BTRServices.Controllers
             catch (Exception exError)
             {
                 return BadRequest((new Error(0, exError.Message, "InitializeApprovals").ToString()));
+            }
+        }
+
+        [ActionName("SetApproval")]
+        [SwaggerOperation("SetApproval")]
+        [SwaggerResponse(HttpStatusCode.OK)]
+        [SwaggerResponse(HttpStatusCode.BadRequest)]
+        [HttpPost]
+        public IHttpActionResult SetApproval(int transfer_activity_key, int approval_level)
+        {
+            try
+            {
+                TransferActivityRepository ta = new TransferActivityRepository(db);
+                ta.SetApprovalLevel(transfer_activity_key, approval_level);
+
+                return Ok();
+            }
+            catch (Exception exError)
+            {
+                return BadRequest((new Error(0, exError.Message, "SetApprovals").ToString()));
+            }
+        }
+
+
+        [ActionName("SetApprovals")]
+        [SwaggerOperation("SetApprovals")]
+        [SwaggerResponse(HttpStatusCode.OK)]
+        [SwaggerResponse(HttpStatusCode.NotFound)]
+        [HttpPost]
+        public IHttpActionResult SetApprovals(int btr_key, int approval_level)
+        {
+            try
+            {
+                TransferActivityRepository ta = new TransferActivityRepository(db);
+                ta.SetApprovalLevels(btr_key, approval_level);
+
+                return Ok();
+            }
+            catch (Exception exError)
+            {
+                return BadRequest((new Error(0, exError.Message, "SetApprovals").ToString()));
             }
         }
 

@@ -4,15 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8358e502fb4d4bc591c25fd2a518d44b" Name="Diagram1">
-        <EntityTypeShape EntityType="HrDbContext.tc_employee" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="HrDbContext.tc_otp_payment" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="HrDbContext.tc_otp_trns" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="HrDbContext.tc_otp_trns_comments" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="HrDbContext.database_firewall_rules" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
-        <AssociationConnector Association="HrDbContext.FK_tc_otp_trns_tc_employee" ManuallyRouted="false" />
-        <AssociationConnector Association="HrDbContext.FK_tc_otp_payment_tc_otp_trns" ManuallyRouted="false" />
-        <AssociationConnector Association="HrDbContext.FK_tc_otp_trns_comments_tc_otp_trns" ManuallyRouted="false" />
+      <Diagram DiagramId="f00689ee1e324bdeb6c156f3eba144b9" Name="Diagram1">
+        <EntityTypeShape EntityType="DAL.Model.sysdiagram" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAL.Model.tc_employee" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAL.Model.tc_otp_payment" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAL.Model.tc_otp_trns" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DAL.Model.tc_otp_trns_comments" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <AssociationConnector Association="DAL.Model.FK_tc_otp_trns_tc_employee" ManuallyRouted="false" />
+        <AssociationConnector Association="DAL.Model.FK_tc_otp_trns_comments_tc_otp_trns" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DAL.Model.banner_employee" Width="1.5" PointX="5.375" PointY="4.75" />
+        <EntityTypeShape EntityType="DAL.Model.database_firewall_rules" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -15,7 +15,7 @@ namespace BTRServices.Model
     public partial class OneTimePaymentDTO
     {
         public int otp_trns_payment_key_id { get; set; }
-        public int otp_trns_key_id { get; set; }
+        public int? otp_trns_key_id { get; set; }
         public string otp_trns_payment_index_number { get; set; }
         public string otp_trns_payment_account_number { get; set; }
         public Nullable<int> otp_trns_payment_percentage { get; set; }

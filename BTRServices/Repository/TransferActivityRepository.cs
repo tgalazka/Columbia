@@ -211,6 +211,26 @@ namespace BTRServices.Repository
                     ).FirstOrDefault();
         }
 
+        public ApprovalMatrixLevelsDTO GetSpecifiedApprovalLevel(int transfer_activity_key, int approval_level)
+        {
+            //get the index_key for the particular transfer activity
+            var transferActivity = (from a in _context.transfer_activity
+                                    where a.transfer_activity_key == transfer_activity_key
+                                    select new { a.index_key });
+            var transferActivityResult = transferActivity.FirstOrDefault();
+
+            //return all distinct approval levels for specified index_key
+            return (from am in _context.approval_matrix
+                    where am.index_key == transferActivityResult.index_key && am.role_level == approval_level
+                    select new ApprovalMatrixLevelsDTO
+                    {
+                        role_level = am.role_level,
+                        next_approval_level = am.next_approval_level,
+                        approval_limit = am.approval_limit
+                    }
+                    ).FirstOrDefault();
+        }
+
         public IEnumerable<ApprovalMatrixLevelsDTO> GetApprovalLevels(int transfer_activity_key)
         {
             //get the index_key for the particular transfer activity
@@ -231,20 +251,11 @@ namespace BTRServices.Repository
                     ).Distinct().OrderBy(t => t.role_level).ToList();
         }
 
+
         public void SetApprovalLevel(int transfer_activity_key, int approval_level)
         {
-            /*
-            var transferActivity = (from a in _context.transfer_activity
-                                   where a.transfer_activity_key == transfer_activity_key
-                                   select a.index_key);
-            int index_key = transferActivity.FirstOrDefault();
-
-            var x = from a in _context.approval_matrix
-                    where a.index_key == index_key
-                    select a.
-            ObjectResult < transfer_activity_set_all_approval_levels_Result > data = _context.transfer_activity_set_all_approval_levels(btr_key, approval_level);
-            transfer_activity_set_all_approval_levels_Result result = data.FirstOrDefault<transfer_activity_set_all_approval_levels_Result>();
-    */    
+            ObjectResult <transfer_activity_set_approval_level_Result> data = _context.transfer_activity_set_approval_level(transfer_activity_key, approval_level);
+            //transfer_activity_set_all_approval_levels_Result result = data.FirstOrDefault<transfer_activity_set_all_approval_levels_Result>();
         }
 
         public void SetApprovalLevels(int btr_key, int approval_level)

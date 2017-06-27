@@ -201,6 +201,46 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.one_time_payment' does not h
           <Property Name="status_code" Type="varchar" MaxLength="5" />
           <Property Name="status_description" Type="varchar" MaxLength="20" />
         </EntityType>
+        <EntityType Name="tc_employee">
+          <Key>
+            <PropertyRef Name="employee_key_id" />
+          </Key>
+          <Property Name="employee_key_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="employee_uni" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="tc_otp_payment">
+          <Key>
+            <PropertyRef Name="otp_trns_payment_key_id" />
+          </Key>
+          <Property Name="otp_trns_payment_key_id" Type="int" Nullable="false" />
+          <Property Name="otp_trns_key_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="otp_trns_payment_index_number" Type="varchar" MaxLength="6" />
+          <Property Name="otp_trns_payment_account_number" Type="varchar" MaxLength="6" />
+          <Property Name="otp_trns_payment_percentage" Type="int" />
+          <Property Name="otp_trns_payment_amount" Type="decimal" Precision="20" Scale="2" />
+        </EntityType>
+        <EntityType Name="tc_otp_trns">
+          <Key>
+            <PropertyRef Name="otp_trns_key_id" />
+          </Key>
+          <Property Name="otp_trns_key_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="employee_key_id" Type="int" />
+          <Property Name="otp_trns_reason" Type="varchar" MaxLength="200" />
+          <Property Name="otp_trns_effective_date" Type="datetime" />
+          <Property Name="otp_trns_submitter" Type="varchar" MaxLength="10" />
+          <Property Name="otp_trns_processed" Type="bit" />
+          <Property Name="otp_trns_processed_datatime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tc_otp_trns_comments">
+          <Key>
+            <PropertyRef Name="otp_trns_comments_key_id" />
+          </Key>
+          <Property Name="otp_trns_comments_key_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="otp_trns_key_id" Type="int" />
+          <Property Name="otp_trns_comments" Type="varchar" MaxLength="4000" />
+          <Property Name="otp_trns_commentor" Type="varchar" MaxLength="10" />
+          <Property Name="otp_trns_comments_datetime" Type="datetime" />
+        </EntityType>
         <EntityType Name="transfer_activity">
           <Key>
             <PropertyRef Name="transfer_activity_key" />
@@ -328,6 +368,58 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.transfer_activity_reviewers'
           <Property Name="transfer_type" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'tc_BudgetTransfer.dbo.v_Transfer_Activity_Create_JV' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="v_Transfer_Activity_Create_JV">
+          <Key>
+            <PropertyRef Name="amount" />
+            <PropertyRef Name="total_amount" />
+            <PropertyRef Name="change_type" />
+            <PropertyRef Name="transfer_activity_key" />
+            <PropertyRef Name="btr_key" />
+          </Key>
+          <Property Name="index_number" Type="varchar" MaxLength="6" />
+          <Property Name="index_coas_code" Type="varchar" MaxLength="1" />
+          <Property Name="index_fund_code" Type="varchar" MaxLength="6" />
+          <Property Name="index_orgn_code" Type="varchar" MaxLength="6" />
+          <Property Name="account_number" Type="varchar" MaxLength="6" />
+          <Property Name="index_prog_code" Type="varchar" MaxLength="6" />
+          <Property Name="index_actv_code" Type="varchar" MaxLength="6" />
+          <Property Name="index_locn_code" Type="varchar" MaxLength="6" />
+          <Property Name="P_dr_cr_ind" Type="varchar" MaxLength="1" />
+          <Property Name="amount" Type="decimal" Precision="20" Scale="2" Nullable="false" />
+          <Property Name="total_amount" Type="int" Nullable="false" />
+          <Property Name="change_type" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="creation_user" Type="varchar" MaxLength="20" />
+          <Property Name="transfer_activity_key" Type="int" Nullable="false" />
+          <Property Name="btr_key" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_Accounts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_Accounts">
+          <Key>
+            <PropertyRef Name="account_key" />
+            <PropertyRef Name="index_key" />
+          </Key>
+          <Property Name="account_key" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="index_key" Type="int" Nullable="false" />
+          <Property Name="account_number" Type="varchar" MaxLength="6" />
+          <Property Name="account_description" Type="varchar" MaxLength="100" />
+          <Property Name="account_number_description" Type="varchar" MaxLength="110" />
+          <Property Name="account_balance" Type="decimal" Precision="17" Scale="2" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_Accounts_lk' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_Accounts_lk">
+          <Key>
+            <PropertyRef Name="index_key" />
+            <PropertyRef Name="account_key" />
+          </Key>
+          <Property Name="index_key" Type="int" Nullable="false" />
+          <Property Name="account_key" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="account_number_description" Type="varchar" MaxLength="110" />
+          <Property Name="account_balance" Type="decimal" Precision="17" Scale="2" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_budget_transfer_request_records' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vw_budget_transfer_request_records">
           <Key>
@@ -371,6 +463,139 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_budget_transfer_request_r
           <Property Name="modified_by_name" Type="varchar" MaxLength="90" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_Indices' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_Indices">
+          <Key>
+            <PropertyRef Name="index_key" />
+          </Key>
+          <Property Name="index_key" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="index_code" Type="varchar" MaxLength="6" />
+          <Property Name="dept_code" Type="varchar" MaxLength="6" />
+          <Property Name="index_description" Type="varchar" MaxLength="35" />
+          <Property Name="index_code_description" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_Indices_lk_all' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_Indices_lk_all">
+          <Key>
+            <PropertyRef Name="index_key" />
+          </Key>
+          <Property Name="index_key" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="index_code" Type="varchar" MaxLength="6" />
+          <Property Name="dept_code" Type="varchar" MaxLength="6" />
+          <Property Name="index_description" Type="varchar" MaxLength="35" />
+          <Property Name="index_code_description" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_Indices_lk_byowner' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_Indices_lk_byowner">
+          <Key>
+            <PropertyRef Name="index_key" />
+          </Key>
+          <Property Name="index_key" Type="int" Nullable="false" />
+          <Property Name="index_code" Type="varchar" MaxLength="6" />
+          <Property Name="dept_code" Type="varchar" MaxLength="6" />
+          <Property Name="index_description" Type="varchar" MaxLength="35" />
+          <Property Name="index_code_description" Type="varchar" MaxLength="45" />
+          <Property Name="uni" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_lk_accounts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_lk_accounts">
+          <Key>
+            <PropertyRef Name="account_key" />
+            <PropertyRef Name="index_key" />
+          </Key>
+          <Property Name="account_key" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="index_key" Type="int" Nullable="false" />
+          <Property Name="account_number_description" Type="varchar" MaxLength="110" />
+          <Property Name="account_balance" Type="decimal" Precision="17" Scale="2" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_Transactions' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_Transactions">
+          <Key>
+            <PropertyRef Name="transfer_activity_key" />
+            <PropertyRef Name="type_key" />
+            <PropertyRef Name="status_key" />
+            <PropertyRef Name="approval_status_key" />
+            <PropertyRef Name="index_key" />
+            <PropertyRef Name="account_key" />
+            <PropertyRef Name="activity_direction" />
+            <PropertyRef Name="activity_number" />
+            <PropertyRef Name="activity_line_number" />
+          </Key>
+          <Property Name="transfer_activity_key" Type="int" Nullable="false" />
+          <Property Name="type_key" Type="int" Nullable="false" />
+          <Property Name="status_key" Type="int" Nullable="false" />
+          <Property Name="approval_status_key" Type="int" Nullable="false" />
+          <Property Name="index_key" Type="int" Nullable="false" />
+          <Property Name="account_key" Type="int" Nullable="false" />
+          <Property Name="activity_btr_guid" Type="uniqueidentifier" />
+          <Property Name="activity_row_guid" Type="uniqueidentifier" />
+          <Property Name="activity_item_guid" Type="uniqueidentifier" />
+          <Property Name="activity_direction" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="activity_number" Type="int" Nullable="false" />
+          <Property Name="activity_line_number" Type="int" Nullable="false" />
+          <Property Name="activity_explanation" Type="text" />
+          <Property Name="amount" Type="decimal" Precision="20" Scale="2" />
+          <Property Name="total_amount" Type="decimal" Precision="20" Scale="2" />
+          <Property Name="creation_user" Type="varchar" MaxLength="50" />
+          <Property Name="creation_date" Type="datetime" />
+          <Property Name="modify_user" Type="varchar" MaxLength="50" />
+          <Property Name="modify_date" Type="datetime" />
+          <Property Name="jv_doc_id" Type="varchar" MaxLength="8" />
+          <Property Name="jv_complete" Type="bit" />
+          <Property Name="create_jv_error_message" Type="varchar(max)" />
+          <Property Name="complete_jv_status_message" Type="varchar(max)" />
+          <Property Name="index_description" Type="varchar" MaxLength="35" />
+          <Property Name="index_number_description" Type="varchar" MaxLength="45" />
+          <Property Name="account_number" Type="varchar" MaxLength="6" />
+          <Property Name="account_description" Type="varchar" MaxLength="100" />
+          <Property Name="account_number_description" Type="varchar" MaxLength="110" />
+          <Property Name="account_balance" Type="decimal" Precision="17" Scale="2" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datarecord' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_transfer_activities_datarecord">
+          <Key>
+            <PropertyRef Name="transfer_activity_key" />
+            <PropertyRef Name="index_key" />
+            <PropertyRef Name="account_key" />
+            <PropertyRef Name="amount" />
+            <PropertyRef Name="position_type_key" />
+            <PropertyRef Name="created" />
+            <PropertyRef Name="created_by" />
+            <PropertyRef Name="created_email" />
+            <PropertyRef Name="modified_by" />
+            <PropertyRef Name="modified_email" />
+          </Key>
+          <Property Name="transfer_activity_key" Type="int" Nullable="false" />
+          <Property Name="approval_status_key" Type="int" />
+          <Property Name="index_key" Type="int" Nullable="false" />
+          <Property Name="index_description" Type="varchar" MaxLength="35" />
+          <Property Name="index_number_description" Type="varchar" MaxLength="45" />
+          <Property Name="account_key" Type="int" Nullable="false" />
+          <Property Name="account_description" Type="varchar" MaxLength="100" />
+          <Property Name="account_number_description" Type="varchar" MaxLength="110" />
+          <Property Name="amount" Type="decimal" Precision="20" Scale="2" Nullable="false" />
+          <Property Name="jv_doc_id" Type="varchar" MaxLength="8" />
+          <Property Name="jv_complete" Type="bit" />
+          <Property Name="create_jv_error_message" Type="varchar(max)" />
+          <Property Name="complete_jv_status_message" Type="varchar(max)" />
+          <Property Name="account_balance" Type="decimal" Precision="17" Scale="2" />
+          <Property Name="position_type_key" Type="int" Nullable="false" />
+          <Property Name="position_type" Type="varchar" MaxLength="100" />
+          <Property Name="created" Type="datetime" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_uni_code" Type="varchar" MaxLength="20" />
+          <Property Name="created_email" Type="varchar" MaxLength="90" Nullable="false" />
+          <Property Name="modified" Type="datetime" />
+          <Property Name="modified_by" Type="int" Nullable="false" />
+          <Property Name="modified_uni_code" Type="varchar" MaxLength="20" />
+          <Property Name="modified_email" Type="varchar" MaxLength="90" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datarecords' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vw_transfer_activities_datarecords">
           <Key>
@@ -411,6 +636,24 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
           <Property Name="modified_by" Type="int" Nullable="false" />
           <Property Name="modified_uni_code" Type="varchar" MaxLength="20" />
           <Property Name="modified_email" Type="varchar" MaxLength="90" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="database_firewall_rules">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="start_ip_address" />
+            <PropertyRef Name="end_ip_address" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="modify_date" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="start_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="end_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="create_date" Type="datetime" Nullable="false" />
+          <Property Name="modify_date" Type="datetime" Nullable="false" />
         </EntityType>
         <Association Name="FK_account_index">
           <End Role="index" Type="Self.index" Multiplicity="1" />
@@ -496,6 +739,42 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tc_otp_payment_tc_otp_trns">
+          <End Role="tc_otp_trns" Type="Self.tc_otp_trns" Multiplicity="1" />
+          <End Role="tc_otp_payment" Type="Self.tc_otp_payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tc_otp_trns">
+              <PropertyRef Name="otp_trns_key_id" />
+            </Principal>
+            <Dependent Role="tc_otp_payment">
+              <PropertyRef Name="otp_trns_key_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tc_otp_trns_comments_tc_otp_trns">
+          <End Role="tc_otp_trns" Type="Self.tc_otp_trns" Multiplicity="0..1" />
+          <End Role="tc_otp_trns_comments" Type="Self.tc_otp_trns_comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tc_otp_trns">
+              <PropertyRef Name="otp_trns_key_id" />
+            </Principal>
+            <Dependent Role="tc_otp_trns_comments">
+              <PropertyRef Name="otp_trns_key_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tc_otp_trns_tc_employee">
+          <End Role="tc_employee" Type="Self.tc_employee" Multiplicity="0..1" />
+          <End Role="tc_otp_trns" Type="Self.tc_otp_trns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tc_employee">
+              <PropertyRef Name="employee_key_id" />
+            </Principal>
+            <Dependent Role="tc_otp_trns">
+              <PropertyRef Name="employee_key_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="account_byId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="account_key" Type="int" Mode="In" />
         </Function>
@@ -543,6 +822,23 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
           <Parameter Name="life_cycle_key" Type="int" Mode="In" />
           <Parameter Name="modified_by" Type="int" Mode="In" />
         </Function>
+        <Function Name="Create_JV" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="btr_key" Type="int" Mode="In" />
+          <Parameter Name="jv_doc_id" Type="varchar" Mode="InOut" />
+          <Parameter Name="P_status_ind" Type="varchar" Mode="InOut" />
+          <Parameter Name="P_status_message" Type="varchar" Mode="InOut" />
+        </Function>
+        <Function Name="Get_Account_Available_Balance" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="P_coas_code" Type="varchar" Mode="In" />
+          <Parameter Name="P_fund_code" Type="varchar" Mode="In" />
+          <Parameter Name="P_orgn_code" Type="varchar" Mode="In" />
+          <Parameter Name="P_acct_code" Type="varchar" Mode="In" />
+          <Parameter Name="P_prog_code" Type="varchar" Mode="In" />
+          <Parameter Name="available_balance" Type="decimal" Mode="InOut" />
+        </Function>
+        <Function Name="Get_JV" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="jv_doc_id" Type="varchar" Mode="InOut" />
+        </Function>
         <Function Name="indices_all" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="indices_bydept" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="dept" Type="int" Mode="In" />
@@ -553,6 +849,30 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
         <Function Name="indices_owned_bydept" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="dept" Type="int" Mode="In" />
           <Parameter Name="uni" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="mock_complete_jv" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="jv_doc_id" Type="int" Mode="InOut" />
+          <Parameter Name="P_user_id_in" Type="varchar" Mode="In" />
+          <Parameter Name="P_status_ind" Type="varchar" Mode="InOut" />
+          <Parameter Name="P_status_message" Type="varchar" Mode="InOut" />
+        </Function>
+        <Function Name="mock_create_jv" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="jv_doc_id" Type="varchar" Mode="InOut" />
+          <Parameter Name="P_acci_code" Type="varchar" Mode="In" />
+          <Parameter Name="P_coas_code" Type="varchar" Mode="In" />
+          <Parameter Name="P_fund_code" Type="varchar" Mode="In" />
+          <Parameter Name="P_orgn_code" Type="varchar" Mode="In" />
+          <Parameter Name="P_acct_code" Type="varchar" Mode="In" />
+          <Parameter Name="P_prog_code" Type="varchar" Mode="In" />
+          <Parameter Name="P_actv_code" Type="varchar" Mode="In" />
+          <Parameter Name="P_locn_code" Type="varchar" Mode="In" />
+          <Parameter Name="P_dr_cr_ind" Type="varchar" Mode="In" />
+          <Parameter Name="P_line_amt" Type="decimal" Mode="In" />
+          <Parameter Name="P_doc_total_amt" Type="decimal" Mode="In" />
+          <Parameter Name="P_change_type" Type="varchar" Mode="In" />
+          <Parameter Name="P_user_id_in" Type="varchar" Mode="In" />
+          <Parameter Name="P_status_ind" Type="varchar" Mode="InOut" />
+          <Parameter Name="P_status_message" Type="varchar" Mode="InOut" />
         </Function>
         <Function Name="one_time_payment_create_record" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="employee_key" Type="int" Mode="In" />
@@ -625,6 +945,10 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
           <EntitySet Name="program" EntityType="Self.program" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="responsibility_matrix" EntityType="Self.responsibility_matrix" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="status" EntityType="Self.status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tc_employee" EntityType="Self.tc_employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tc_otp_payment" EntityType="Self.tc_otp_payment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tc_otp_trns" EntityType="Self.tc_otp_trns" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tc_otp_trns_comments" EntityType="Self.tc_otp_trns_comments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="transfer_activity" EntityType="Self.transfer_activity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="xref_approval_status" EntityType="Self.xref_approval_status" Schema="dbo" store:Type="Tables" />
@@ -698,6 +1022,43 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
     [transfer_activity_reviewers].[workflow_guid] AS [workflow_guid]
     FROM [dbo].[transfer_activity_reviewers] AS [transfer_activity_reviewers]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="v_Transfer_Activity_Create_JV" EntityType="Self.v_Transfer_Activity_Create_JV" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [v_Transfer_Activity_Create_JV].[index_number] AS [index_number], 
+    [v_Transfer_Activity_Create_JV].[index_coas_code] AS [index_coas_code], 
+    [v_Transfer_Activity_Create_JV].[index_fund_code] AS [index_fund_code], 
+    [v_Transfer_Activity_Create_JV].[index_orgn_code] AS [index_orgn_code], 
+    [v_Transfer_Activity_Create_JV].[account_number] AS [account_number], 
+    [v_Transfer_Activity_Create_JV].[index_prog_code] AS [index_prog_code], 
+    [v_Transfer_Activity_Create_JV].[index_actv_code] AS [index_actv_code], 
+    [v_Transfer_Activity_Create_JV].[index_locn_code] AS [index_locn_code], 
+    [v_Transfer_Activity_Create_JV].[P_dr_cr_ind] AS [P_dr_cr_ind], 
+    [v_Transfer_Activity_Create_JV].[amount] AS [amount], 
+    [v_Transfer_Activity_Create_JV].[total_amount] AS [total_amount], 
+    [v_Transfer_Activity_Create_JV].[change_type] AS [change_type], 
+    [v_Transfer_Activity_Create_JV].[creation_user] AS [creation_user], 
+    [v_Transfer_Activity_Create_JV].[transfer_activity_key] AS [transfer_activity_key], 
+    [v_Transfer_Activity_Create_JV].[btr_key] AS [btr_key]
+    FROM [dbo].[v_Transfer_Activity_Create_JV] AS [v_Transfer_Activity_Create_JV]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_Accounts" EntityType="Self.vw_Accounts" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_Accounts].[account_key] AS [account_key], 
+    [vw_Accounts].[index_key] AS [index_key], 
+    [vw_Accounts].[account_number] AS [account_number], 
+    [vw_Accounts].[account_description] AS [account_description], 
+    [vw_Accounts].[account_number_description] AS [account_number_description], 
+    [vw_Accounts].[account_balance] AS [account_balance]
+    FROM [dbo].[vw_Accounts] AS [vw_Accounts]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_Accounts_lk" EntityType="Self.vw_Accounts_lk" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_Accounts_lk].[index_key] AS [index_key], 
+    [vw_Accounts_lk].[account_key] AS [account_key], 
+    [vw_Accounts_lk].[account_number_description] AS [account_number_description], 
+    [vw_Accounts_lk].[account_balance] AS [account_balance]
+    FROM [dbo].[vw_Accounts_lk] AS [vw_Accounts_lk]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="vw_budget_transfer_request_records" EntityType="Self.vw_budget_transfer_request_records" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [vw_budget_transfer_request_records].[btr_key] AS [btr_key], 
@@ -723,6 +1084,103 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
     [vw_budget_transfer_request_records].[modified_by] AS [modified_by], 
     [vw_budget_transfer_request_records].[modified_by_name] AS [modified_by_name]
     FROM [dbo].[vw_budget_transfer_request_records] AS [vw_budget_transfer_request_records]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_Indices" EntityType="Self.vw_Indices" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_Indices].[index_key] AS [index_key], 
+    [vw_Indices].[index_code] AS [index_code], 
+    [vw_Indices].[dept_code] AS [dept_code], 
+    [vw_Indices].[index_description] AS [index_description], 
+    [vw_Indices].[index_code_description] AS [index_code_description]
+    FROM [dbo].[vw_Indices] AS [vw_Indices]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_Indices_lk_all" EntityType="Self.vw_Indices_lk_all" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_Indices_lk_all].[index_key] AS [index_key], 
+    [vw_Indices_lk_all].[index_code] AS [index_code], 
+    [vw_Indices_lk_all].[dept_code] AS [dept_code], 
+    [vw_Indices_lk_all].[index_description] AS [index_description], 
+    [vw_Indices_lk_all].[index_code_description] AS [index_code_description]
+    FROM [dbo].[vw_Indices_lk_all] AS [vw_Indices_lk_all]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_Indices_lk_byowner" EntityType="Self.vw_Indices_lk_byowner" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_Indices_lk_byowner].[index_key] AS [index_key], 
+    [vw_Indices_lk_byowner].[index_code] AS [index_code], 
+    [vw_Indices_lk_byowner].[dept_code] AS [dept_code], 
+    [vw_Indices_lk_byowner].[index_description] AS [index_description], 
+    [vw_Indices_lk_byowner].[index_code_description] AS [index_code_description], 
+    [vw_Indices_lk_byowner].[uni] AS [uni]
+    FROM [dbo].[vw_Indices_lk_byowner] AS [vw_Indices_lk_byowner]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_lk_accounts" EntityType="Self.vw_lk_accounts" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_lk_accounts].[account_key] AS [account_key], 
+    [vw_lk_accounts].[index_key] AS [index_key], 
+    [vw_lk_accounts].[account_number_description] AS [account_number_description], 
+    [vw_lk_accounts].[account_balance] AS [account_balance]
+    FROM [dbo].[vw_lk_accounts] AS [vw_lk_accounts]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_Transactions" EntityType="Self.vw_Transactions" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_Transactions].[transfer_activity_key] AS [transfer_activity_key], 
+    [vw_Transactions].[type_key] AS [type_key], 
+    [vw_Transactions].[status_key] AS [status_key], 
+    [vw_Transactions].[approval_status_key] AS [approval_status_key], 
+    [vw_Transactions].[index_key] AS [index_key], 
+    [vw_Transactions].[account_key] AS [account_key], 
+    [vw_Transactions].[activity_btr_guid] AS [activity_btr_guid], 
+    [vw_Transactions].[activity_row_guid] AS [activity_row_guid], 
+    [vw_Transactions].[activity_item_guid] AS [activity_item_guid], 
+    [vw_Transactions].[activity_direction] AS [activity_direction], 
+    [vw_Transactions].[activity_number] AS [activity_number], 
+    [vw_Transactions].[activity_line_number] AS [activity_line_number], 
+    [vw_Transactions].[activity_explanation] AS [activity_explanation], 
+    [vw_Transactions].[amount] AS [amount], 
+    [vw_Transactions].[total_amount] AS [total_amount], 
+    [vw_Transactions].[creation_user] AS [creation_user], 
+    [vw_Transactions].[creation_date] AS [creation_date], 
+    [vw_Transactions].[modify_user] AS [modify_user], 
+    [vw_Transactions].[modify_date] AS [modify_date], 
+    [vw_Transactions].[jv_doc_id] AS [jv_doc_id], 
+    [vw_Transactions].[jv_complete] AS [jv_complete], 
+    [vw_Transactions].[create_jv_error_message] AS [create_jv_error_message], 
+    [vw_Transactions].[complete_jv_status_message] AS [complete_jv_status_message], 
+    [vw_Transactions].[index_description] AS [index_description], 
+    [vw_Transactions].[index_number_description] AS [index_number_description], 
+    [vw_Transactions].[account_number] AS [account_number], 
+    [vw_Transactions].[account_description] AS [account_description], 
+    [vw_Transactions].[account_number_description] AS [account_number_description], 
+    [vw_Transactions].[account_balance] AS [account_balance]
+    FROM [dbo].[vw_Transactions] AS [vw_Transactions]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_transfer_activities_datarecord" EntityType="Self.vw_transfer_activities_datarecord" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_transfer_activities_datarecord].[transfer_activity_key] AS [transfer_activity_key], 
+    [vw_transfer_activities_datarecord].[approval_status_key] AS [approval_status_key], 
+    [vw_transfer_activities_datarecord].[index_key] AS [index_key], 
+    [vw_transfer_activities_datarecord].[index_description] AS [index_description], 
+    [vw_transfer_activities_datarecord].[index_number_description] AS [index_number_description], 
+    [vw_transfer_activities_datarecord].[account_key] AS [account_key], 
+    [vw_transfer_activities_datarecord].[account_description] AS [account_description], 
+    [vw_transfer_activities_datarecord].[account_number_description] AS [account_number_description], 
+    [vw_transfer_activities_datarecord].[amount] AS [amount], 
+    [vw_transfer_activities_datarecord].[jv_doc_id] AS [jv_doc_id], 
+    [vw_transfer_activities_datarecord].[jv_complete] AS [jv_complete], 
+    [vw_transfer_activities_datarecord].[create_jv_error_message] AS [create_jv_error_message], 
+    [vw_transfer_activities_datarecord].[complete_jv_status_message] AS [complete_jv_status_message], 
+    [vw_transfer_activities_datarecord].[account_balance] AS [account_balance], 
+    [vw_transfer_activities_datarecord].[position_type_key] AS [position_type_key], 
+    [vw_transfer_activities_datarecord].[position_type] AS [position_type], 
+    [vw_transfer_activities_datarecord].[created] AS [created], 
+    [vw_transfer_activities_datarecord].[created_by] AS [created_by], 
+    [vw_transfer_activities_datarecord].[created_uni_code] AS [created_uni_code], 
+    [vw_transfer_activities_datarecord].[created_email] AS [created_email], 
+    [vw_transfer_activities_datarecord].[modified] AS [modified], 
+    [vw_transfer_activities_datarecord].[modified_by] AS [modified_by], 
+    [vw_transfer_activities_datarecord].[modified_uni_code] AS [modified_uni_code], 
+    [vw_transfer_activities_datarecord].[modified_email] AS [modified_email]
+    FROM [dbo].[vw_transfer_activities_datarecord] AS [vw_transfer_activities_datarecord]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vw_transfer_activities_datarecords" EntityType="Self.vw_transfer_activities_datarecords" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -753,6 +1211,16 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
     [vw_transfer_activities_datarecords].[modified_email] AS [modified_email]
     FROM [dbo].[vw_transfer_activities_datarecords] AS [vw_transfer_activities_datarecords]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
+            <DefiningQuery>SELECT 
+    [database_firewall_rules].[id] AS [id], 
+    [database_firewall_rules].[name] AS [name], 
+    [database_firewall_rules].[start_ip_address] AS [start_ip_address], 
+    [database_firewall_rules].[end_ip_address] AS [end_ip_address], 
+    [database_firewall_rules].[create_date] AS [create_date], 
+    [database_firewall_rules].[modify_date] AS [modify_date]
+    FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_account_index" Association="Self.FK_account_index">
             <End Role="index" EntitySet="index" />
             <End Role="account" EntitySet="account" />
@@ -780,6 +1248,18 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
           <AssociationSet Name="FK_responsibility_matrix_index" Association="Self.FK_responsibility_matrix_index">
             <End Role="index" EntitySet="index" />
             <End Role="responsibility_matrix" EntitySet="responsibility_matrix" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tc_otp_payment_tc_otp_trns" Association="Self.FK_tc_otp_payment_tc_otp_trns">
+            <End Role="tc_otp_trns" EntitySet="tc_otp_trns" />
+            <End Role="tc_otp_payment" EntitySet="tc_otp_payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tc_otp_trns_comments_tc_otp_trns" Association="Self.FK_tc_otp_trns_comments_tc_otp_trns">
+            <End Role="tc_otp_trns" EntitySet="tc_otp_trns" />
+            <End Role="tc_otp_trns_comments" EntitySet="tc_otp_trns_comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tc_otp_trns_tc_employee" Association="Self.FK_tc_otp_trns_tc_employee">
+            <End Role="tc_employee" EntitySet="tc_employee" />
+            <End Role="tc_otp_trns" EntitySet="tc_otp_trns" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -1086,6 +1566,73 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
           </FunctionImport>
           <FunctionImport Name="one_time_payment_read_record" ReturnType="Collection(BtrServices.DAL.one_time_payment_read_record_Result)">
           <Parameter Name="one_time_payment_key" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="tc_employee" EntityType="BtrServices.DAL.tc_employee" />
+          <EntitySet Name="tc_otp_payment" EntityType="BtrServices.DAL.tc_otp_payment" />
+          <EntitySet Name="tc_otp_trns" EntityType="BtrServices.DAL.tc_otp_trns" />
+          <EntitySet Name="tc_otp_trns_comments" EntityType="BtrServices.DAL.tc_otp_trns_comments" />
+          <EntitySet Name="v_Transfer_Activity_Create_JV" EntityType="BtrServices.DAL.v_Transfer_Activity_Create_JV" />
+          <EntitySet Name="vw_Accounts" EntityType="BtrServices.DAL.vw_Accounts" />
+          <EntitySet Name="vw_Accounts_lk" EntityType="BtrServices.DAL.vw_Accounts_lk" />
+          <EntitySet Name="vw_Indices" EntityType="BtrServices.DAL.vw_Indices" />
+          <EntitySet Name="vw_Indices_lk_all" EntityType="BtrServices.DAL.vw_Indices_lk_all" />
+          <EntitySet Name="vw_Indices_lk_byowner" EntityType="BtrServices.DAL.vw_Indices_lk_byowner" />
+          <EntitySet Name="vw_lk_accounts" EntityType="BtrServices.DAL.vw_lk_accounts" />
+          <EntitySet Name="vw_Transactions" EntityType="BtrServices.DAL.vw_Transactions" />
+          <EntitySet Name="vw_transfer_activities_datarecord" EntityType="BtrServices.DAL.vw_transfer_activities_datarecord" />
+          <EntitySet Name="database_firewall_rules" EntityType="BtrServices.DAL.database_firewall_rules" />
+          <AssociationSet Name="FK_tc_otp_trns_tc_employee" Association="BtrServices.DAL.FK_tc_otp_trns_tc_employee">
+            <End Role="tc_employee" EntitySet="tc_employee" />
+            <End Role="tc_otp_trns" EntitySet="tc_otp_trns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tc_otp_payment_tc_otp_trns" Association="BtrServices.DAL.FK_tc_otp_payment_tc_otp_trns">
+            <End Role="tc_otp_trns" EntitySet="tc_otp_trns" />
+            <End Role="tc_otp_payment" EntitySet="tc_otp_payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tc_otp_trns_comments_tc_otp_trns" Association="BtrServices.DAL.FK_tc_otp_trns_comments_tc_otp_trns">
+            <End Role="tc_otp_trns" EntitySet="tc_otp_trns" />
+            <End Role="tc_otp_trns_comments" EntitySet="tc_otp_trns_comments" />
+          </AssociationSet>
+          <FunctionImport Name="Create_JV" ReturnType="Collection(String)">
+            <Parameter Name="btr_key" Mode="In" Type="Int32" />
+            <Parameter Name="jv_doc_id" Mode="InOut" Type="String" />
+            <Parameter Name="P_status_ind" Mode="InOut" Type="String" />
+            <Parameter Name="P_status_message" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Get_Account_Available_Balance">
+            <Parameter Name="P_coas_code" Mode="In" Type="String" />
+            <Parameter Name="P_fund_code" Mode="In" Type="String" />
+            <Parameter Name="P_orgn_code" Mode="In" Type="String" />
+            <Parameter Name="P_acct_code" Mode="In" Type="String" />
+            <Parameter Name="P_prog_code" Mode="In" Type="String" />
+            <Parameter Name="available_balance" Mode="InOut" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="Get_JV">
+          <Parameter Name="jv_doc_id" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="mock_complete_jv">
+            <Parameter Name="jv_doc_id" Mode="InOut" Type="Int32" />
+            <Parameter Name="P_user_id_in" Mode="In" Type="String" />
+            <Parameter Name="P_status_ind" Mode="InOut" Type="String" />
+            <Parameter Name="P_status_message" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="mock_create_jv">
+            <Parameter Name="jv_doc_id" Mode="InOut" Type="String" />
+            <Parameter Name="P_acci_code" Mode="In" Type="String" />
+            <Parameter Name="P_coas_code" Mode="In" Type="String" />
+            <Parameter Name="P_fund_code" Mode="In" Type="String" />
+            <Parameter Name="P_orgn_code" Mode="In" Type="String" />
+            <Parameter Name="P_acct_code" Mode="In" Type="String" />
+            <Parameter Name="P_prog_code" Mode="In" Type="String" />
+            <Parameter Name="P_actv_code" Mode="In" Type="String" />
+            <Parameter Name="P_locn_code" Mode="In" Type="String" />
+            <Parameter Name="P_dr_cr_ind" Mode="In" Type="String" />
+            <Parameter Name="P_line_amt" Mode="In" Type="Decimal" />
+            <Parameter Name="P_doc_total_amt" Mode="In" Type="Decimal" />
+            <Parameter Name="P_change_type" Mode="In" Type="String" />
+            <Parameter Name="P_user_id_in" Mode="In" Type="String" />
+            <Parameter Name="P_status_ind" Mode="InOut" Type="String" />
+            <Parameter Name="P_status_message" Mode="InOut" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="account_byId_Result">
@@ -1786,6 +2333,271 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
           <Property Type="String" Name="department_description" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="approval_status_key" Nullable="true" />
         </ComplexType>
+        <EntityType Name="tc_employee">
+          <Key>
+            <PropertyRef Name="employee_key_id" />
+          </Key>
+          <Property Name="employee_key_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="employee_uni" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tc_otp_trns" Relationship="BtrServices.DAL.FK_tc_otp_trns_tc_employee" FromRole="tc_employee" ToRole="tc_otp_trns" />
+        </EntityType>
+        <EntityType Name="tc_otp_payment">
+          <Key>
+            <PropertyRef Name="otp_trns_payment_key_id" />
+          </Key>
+          <Property Name="otp_trns_payment_key_id" Type="Int32" Nullable="false" />
+          <Property Name="otp_trns_key_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="otp_trns_payment_index_number" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="otp_trns_payment_account_number" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="otp_trns_payment_percentage" Type="Int32" />
+          <Property Name="otp_trns_payment_amount" Type="Decimal" Precision="20" Scale="2" />
+          <NavigationProperty Name="tc_otp_trns" Relationship="BtrServices.DAL.FK_tc_otp_payment_tc_otp_trns" FromRole="tc_otp_payment" ToRole="tc_otp_trns" />
+        </EntityType>
+        <EntityType Name="tc_otp_trns">
+          <Key>
+            <PropertyRef Name="otp_trns_key_id" />
+          </Key>
+          <Property Name="otp_trns_key_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="employee_key_id" Type="Int32" />
+          <Property Name="otp_trns_reason" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="otp_trns_effective_date" Type="DateTime" Precision="3" />
+          <Property Name="otp_trns_submitter" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="otp_trns_processed" Type="Boolean" />
+          <Property Name="otp_trns_processed_datatime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tc_employee" Relationship="BtrServices.DAL.FK_tc_otp_trns_tc_employee" FromRole="tc_otp_trns" ToRole="tc_employee" />
+          <NavigationProperty Name="tc_otp_payment" Relationship="BtrServices.DAL.FK_tc_otp_payment_tc_otp_trns" FromRole="tc_otp_trns" ToRole="tc_otp_payment" />
+          <NavigationProperty Name="tc_otp_trns_comments" Relationship="BtrServices.DAL.FK_tc_otp_trns_comments_tc_otp_trns" FromRole="tc_otp_trns" ToRole="tc_otp_trns_comments" />
+        </EntityType>
+        <EntityType Name="tc_otp_trns_comments">
+          <Key>
+            <PropertyRef Name="otp_trns_comments_key_id" />
+          </Key>
+          <Property Name="otp_trns_comments_key_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="otp_trns_key_id" Type="Int32" />
+          <Property Name="otp_trns_comments" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="otp_trns_commentor" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="otp_trns_comments_datetime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tc_otp_trns" Relationship="BtrServices.DAL.FK_tc_otp_trns_comments_tc_otp_trns" FromRole="tc_otp_trns_comments" ToRole="tc_otp_trns" />
+        </EntityType>
+        <EntityType Name="v_Transfer_Activity_Create_JV">
+          <Key>
+            <PropertyRef Name="amount" />
+            <PropertyRef Name="total_amount" />
+            <PropertyRef Name="transfer_activity_key" />
+            <PropertyRef Name="btr_key" />
+            <PropertyRef Name="change_type" />
+          </Key>
+          <Property Name="index_number" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="index_coas_code" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="index_fund_code" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="index_orgn_code" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="account_number" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="index_prog_code" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="index_actv_code" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="index_locn_code" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="P_dr_cr_ind" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="amount" Type="Decimal" Nullable="false" Precision="20" Scale="2" />
+          <Property Name="total_amount" Type="Int32" Nullable="false" />
+          <Property Name="creation_user" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="transfer_activity_key" Type="Int32" Nullable="false" />
+          <Property Name="btr_key" Type="Int32" Nullable="false" />
+          <Property Name="change_type" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vw_Accounts">
+          <Key>
+            <PropertyRef Name="account_key" />
+            <PropertyRef Name="index_key" />
+          </Key>
+          <Property Name="account_key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="index_key" Type="Int32" Nullable="false" />
+          <Property Name="account_number" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="account_description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="account_number_description" Type="String" MaxLength="110" FixedLength="false" Unicode="false" />
+          <Property Name="account_balance" Type="Decimal" Precision="17" Scale="2" />
+        </EntityType>
+        <EntityType Name="vw_Accounts_lk">
+          <Key>
+            <PropertyRef Name="index_key" />
+            <PropertyRef Name="account_key" />
+          </Key>
+          <Property Name="index_key" Type="Int32" Nullable="false" />
+          <Property Name="account_key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="account_number_description" Type="String" MaxLength="110" FixedLength="false" Unicode="false" />
+          <Property Name="account_balance" Type="Decimal" Precision="17" Scale="2" />
+        </EntityType>
+        <EntityType Name="vw_Indices">
+          <Key>
+            <PropertyRef Name="index_key" />
+          </Key>
+          <Property Name="index_key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="index_code" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="dept_code" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="index_description" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="index_code_description" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vw_Indices_lk_all">
+          <Key>
+            <PropertyRef Name="index_key" />
+          </Key>
+          <Property Name="index_key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="index_code" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="dept_code" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="index_description" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="index_code_description" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vw_Indices_lk_byowner">
+          <Key>
+            <PropertyRef Name="index_key" />
+          </Key>
+          <Property Name="index_key" Type="Int32" Nullable="false" />
+          <Property Name="index_code" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="dept_code" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="index_description" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="index_code_description" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="uni" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vw_lk_accounts">
+          <Key>
+            <PropertyRef Name="account_key" />
+            <PropertyRef Name="index_key" />
+          </Key>
+          <Property Name="account_key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="index_key" Type="Int32" Nullable="false" />
+          <Property Name="account_number_description" Type="String" MaxLength="110" FixedLength="false" Unicode="false" />
+          <Property Name="account_balance" Type="Decimal" Precision="17" Scale="2" />
+        </EntityType>
+        <EntityType Name="vw_Transactions">
+          <Key>
+            <PropertyRef Name="transfer_activity_key" />
+            <PropertyRef Name="type_key" />
+            <PropertyRef Name="status_key" />
+            <PropertyRef Name="approval_status_key" />
+            <PropertyRef Name="index_key" />
+            <PropertyRef Name="account_key" />
+            <PropertyRef Name="activity_direction" />
+            <PropertyRef Name="activity_number" />
+            <PropertyRef Name="activity_line_number" />
+          </Key>
+          <Property Name="transfer_activity_key" Type="Int32" Nullable="false" />
+          <Property Name="type_key" Type="Int32" Nullable="false" />
+          <Property Name="status_key" Type="Int32" Nullable="false" />
+          <Property Name="approval_status_key" Type="Int32" Nullable="false" />
+          <Property Name="index_key" Type="Int32" Nullable="false" />
+          <Property Name="account_key" Type="Int32" Nullable="false" />
+          <Property Name="activity_btr_guid" Type="Guid" />
+          <Property Name="activity_row_guid" Type="Guid" />
+          <Property Name="activity_item_guid" Type="Guid" />
+          <Property Name="activity_direction" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="activity_number" Type="Int32" Nullable="false" />
+          <Property Name="activity_line_number" Type="Int32" Nullable="false" />
+          <Property Name="activity_explanation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="amount" Type="Decimal" Precision="20" Scale="2" />
+          <Property Name="total_amount" Type="Decimal" Precision="20" Scale="2" />
+          <Property Name="creation_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="creation_date" Type="DateTime" Precision="3" />
+          <Property Name="modify_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="modify_date" Type="DateTime" Precision="3" />
+          <Property Name="jv_doc_id" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="jv_complete" Type="Boolean" />
+          <Property Name="create_jv_error_message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="complete_jv_status_message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="index_description" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="index_number_description" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="account_number" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="account_description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="account_number_description" Type="String" MaxLength="110" FixedLength="false" Unicode="false" />
+          <Property Name="account_balance" Type="Decimal" Precision="17" Scale="2" />
+        </EntityType>
+        <EntityType Name="vw_transfer_activities_datarecord">
+          <Key>
+            <PropertyRef Name="transfer_activity_key" />
+            <PropertyRef Name="index_key" />
+            <PropertyRef Name="account_key" />
+            <PropertyRef Name="amount" />
+            <PropertyRef Name="position_type_key" />
+            <PropertyRef Name="created" />
+            <PropertyRef Name="created_by" />
+            <PropertyRef Name="created_email" />
+            <PropertyRef Name="modified_by" />
+            <PropertyRef Name="modified_email" />
+          </Key>
+          <Property Name="transfer_activity_key" Type="Int32" Nullable="false" />
+          <Property Name="approval_status_key" Type="Int32" />
+          <Property Name="index_key" Type="Int32" Nullable="false" />
+          <Property Name="index_description" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="index_number_description" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="account_key" Type="Int32" Nullable="false" />
+          <Property Name="account_description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="account_number_description" Type="String" MaxLength="110" FixedLength="false" Unicode="false" />
+          <Property Name="amount" Type="Decimal" Nullable="false" Precision="20" Scale="2" />
+          <Property Name="jv_doc_id" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="jv_complete" Type="Boolean" />
+          <Property Name="create_jv_error_message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="complete_jv_status_message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="account_balance" Type="Decimal" Precision="17" Scale="2" />
+          <Property Name="position_type_key" Type="Int32" Nullable="false" />
+          <Property Name="position_type" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_uni_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="created_email" Type="String" Nullable="false" MaxLength="90" FixedLength="false" Unicode="false" />
+          <Property Name="modified" Type="DateTime" Precision="3" />
+          <Property Name="modified_by" Type="Int32" Nullable="false" />
+          <Property Name="modified_uni_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="modified_email" Type="String" Nullable="false" MaxLength="90" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="database_firewall_rules">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="start_ip_address" />
+            <PropertyRef Name="end_ip_address" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="modify_date" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="start_ip_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="end_ip_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <Association Name="FK_tc_otp_trns_tc_employee">
+          <End Type="BtrServices.DAL.tc_employee" Role="tc_employee" Multiplicity="0..1" />
+          <End Type="BtrServices.DAL.tc_otp_trns" Role="tc_otp_trns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tc_employee">
+              <PropertyRef Name="employee_key_id" />
+            </Principal>
+            <Dependent Role="tc_otp_trns">
+              <PropertyRef Name="employee_key_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tc_otp_payment_tc_otp_trns">
+          <End Type="BtrServices.DAL.tc_otp_trns" Role="tc_otp_trns" Multiplicity="1" />
+          <End Type="BtrServices.DAL.tc_otp_payment" Role="tc_otp_payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tc_otp_trns">
+              <PropertyRef Name="otp_trns_key_id" />
+            </Principal>
+            <Dependent Role="tc_otp_payment">
+              <PropertyRef Name="otp_trns_key_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tc_otp_trns_comments_tc_otp_trns">
+          <End Type="BtrServices.DAL.tc_otp_trns" Role="tc_otp_trns" Multiplicity="0..1" />
+          <End Type="BtrServices.DAL.tc_otp_trns_comments" Role="tc_otp_trns_comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tc_otp_trns">
+              <PropertyRef Name="otp_trns_key_id" />
+            </Principal>
+            <Dependent Role="tc_otp_trns_comments">
+              <PropertyRef Name="otp_trns_key_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2591,6 +3403,219 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="tc_employee">
+            <EntityTypeMapping TypeName="BtrServices.DAL.tc_employee">
+              <MappingFragment StoreEntitySet="tc_employee">
+                <ScalarProperty Name="employee_uni" ColumnName="employee_uni" />
+                <ScalarProperty Name="employee_key_id" ColumnName="employee_key_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tc_otp_payment">
+            <EntityTypeMapping TypeName="BtrServices.DAL.tc_otp_payment">
+              <MappingFragment StoreEntitySet="tc_otp_payment">
+                <ScalarProperty Name="otp_trns_payment_amount" ColumnName="otp_trns_payment_amount" />
+                <ScalarProperty Name="otp_trns_payment_percentage" ColumnName="otp_trns_payment_percentage" />
+                <ScalarProperty Name="otp_trns_payment_account_number" ColumnName="otp_trns_payment_account_number" />
+                <ScalarProperty Name="otp_trns_payment_index_number" ColumnName="otp_trns_payment_index_number" />
+                <ScalarProperty Name="otp_trns_key_id" ColumnName="otp_trns_key_id" />
+                <ScalarProperty Name="otp_trns_payment_key_id" ColumnName="otp_trns_payment_key_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tc_otp_trns">
+            <EntityTypeMapping TypeName="BtrServices.DAL.tc_otp_trns">
+              <MappingFragment StoreEntitySet="tc_otp_trns">
+                <ScalarProperty Name="otp_trns_processed_datatime" ColumnName="otp_trns_processed_datatime" />
+                <ScalarProperty Name="otp_trns_processed" ColumnName="otp_trns_processed" />
+                <ScalarProperty Name="otp_trns_submitter" ColumnName="otp_trns_submitter" />
+                <ScalarProperty Name="otp_trns_effective_date" ColumnName="otp_trns_effective_date" />
+                <ScalarProperty Name="otp_trns_reason" ColumnName="otp_trns_reason" />
+                <ScalarProperty Name="employee_key_id" ColumnName="employee_key_id" />
+                <ScalarProperty Name="otp_trns_key_id" ColumnName="otp_trns_key_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tc_otp_trns_comments">
+            <EntityTypeMapping TypeName="BtrServices.DAL.tc_otp_trns_comments">
+              <MappingFragment StoreEntitySet="tc_otp_trns_comments">
+                <ScalarProperty Name="otp_trns_comments_datetime" ColumnName="otp_trns_comments_datetime" />
+                <ScalarProperty Name="otp_trns_commentor" ColumnName="otp_trns_commentor" />
+                <ScalarProperty Name="otp_trns_comments" ColumnName="otp_trns_comments" />
+                <ScalarProperty Name="otp_trns_key_id" ColumnName="otp_trns_key_id" />
+                <ScalarProperty Name="otp_trns_comments_key_id" ColumnName="otp_trns_comments_key_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="v_Transfer_Activity_Create_JV">
+            <EntityTypeMapping TypeName="BtrServices.DAL.v_Transfer_Activity_Create_JV">
+              <MappingFragment StoreEntitySet="v_Transfer_Activity_Create_JV">
+                <ScalarProperty Name="change_type" ColumnName="change_type" />
+                <ScalarProperty Name="btr_key" ColumnName="btr_key" />
+                <ScalarProperty Name="transfer_activity_key" ColumnName="transfer_activity_key" />
+                <ScalarProperty Name="creation_user" ColumnName="creation_user" />
+                <ScalarProperty Name="total_amount" ColumnName="total_amount" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="P_dr_cr_ind" ColumnName="P_dr_cr_ind" />
+                <ScalarProperty Name="index_locn_code" ColumnName="index_locn_code" />
+                <ScalarProperty Name="index_actv_code" ColumnName="index_actv_code" />
+                <ScalarProperty Name="index_prog_code" ColumnName="index_prog_code" />
+                <ScalarProperty Name="account_number" ColumnName="account_number" />
+                <ScalarProperty Name="index_orgn_code" ColumnName="index_orgn_code" />
+                <ScalarProperty Name="index_fund_code" ColumnName="index_fund_code" />
+                <ScalarProperty Name="index_coas_code" ColumnName="index_coas_code" />
+                <ScalarProperty Name="index_number" ColumnName="index_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_Accounts">
+            <EntityTypeMapping TypeName="BtrServices.DAL.vw_Accounts">
+              <MappingFragment StoreEntitySet="vw_Accounts">
+                <ScalarProperty Name="account_balance" ColumnName="account_balance" />
+                <ScalarProperty Name="account_number_description" ColumnName="account_number_description" />
+                <ScalarProperty Name="account_description" ColumnName="account_description" />
+                <ScalarProperty Name="account_number" ColumnName="account_number" />
+                <ScalarProperty Name="index_key" ColumnName="index_key" />
+                <ScalarProperty Name="account_key" ColumnName="account_key" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_Accounts_lk">
+            <EntityTypeMapping TypeName="BtrServices.DAL.vw_Accounts_lk">
+              <MappingFragment StoreEntitySet="vw_Accounts_lk">
+                <ScalarProperty Name="account_balance" ColumnName="account_balance" />
+                <ScalarProperty Name="account_number_description" ColumnName="account_number_description" />
+                <ScalarProperty Name="account_key" ColumnName="account_key" />
+                <ScalarProperty Name="index_key" ColumnName="index_key" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_Indices">
+            <EntityTypeMapping TypeName="BtrServices.DAL.vw_Indices">
+              <MappingFragment StoreEntitySet="vw_Indices">
+                <ScalarProperty Name="index_code_description" ColumnName="index_code_description" />
+                <ScalarProperty Name="index_description" ColumnName="index_description" />
+                <ScalarProperty Name="dept_code" ColumnName="dept_code" />
+                <ScalarProperty Name="index_code" ColumnName="index_code" />
+                <ScalarProperty Name="index_key" ColumnName="index_key" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_Indices_lk_all">
+            <EntityTypeMapping TypeName="BtrServices.DAL.vw_Indices_lk_all">
+              <MappingFragment StoreEntitySet="vw_Indices_lk_all">
+                <ScalarProperty Name="index_code_description" ColumnName="index_code_description" />
+                <ScalarProperty Name="index_description" ColumnName="index_description" />
+                <ScalarProperty Name="dept_code" ColumnName="dept_code" />
+                <ScalarProperty Name="index_code" ColumnName="index_code" />
+                <ScalarProperty Name="index_key" ColumnName="index_key" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_Indices_lk_byowner">
+            <EntityTypeMapping TypeName="BtrServices.DAL.vw_Indices_lk_byowner">
+              <MappingFragment StoreEntitySet="vw_Indices_lk_byowner">
+                <ScalarProperty Name="uni" ColumnName="uni" />
+                <ScalarProperty Name="index_code_description" ColumnName="index_code_description" />
+                <ScalarProperty Name="index_description" ColumnName="index_description" />
+                <ScalarProperty Name="dept_code" ColumnName="dept_code" />
+                <ScalarProperty Name="index_code" ColumnName="index_code" />
+                <ScalarProperty Name="index_key" ColumnName="index_key" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_lk_accounts">
+            <EntityTypeMapping TypeName="BtrServices.DAL.vw_lk_accounts">
+              <MappingFragment StoreEntitySet="vw_lk_accounts">
+                <ScalarProperty Name="account_balance" ColumnName="account_balance" />
+                <ScalarProperty Name="account_number_description" ColumnName="account_number_description" />
+                <ScalarProperty Name="index_key" ColumnName="index_key" />
+                <ScalarProperty Name="account_key" ColumnName="account_key" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_Transactions">
+            <EntityTypeMapping TypeName="BtrServices.DAL.vw_Transactions">
+              <MappingFragment StoreEntitySet="vw_Transactions">
+                <ScalarProperty Name="account_balance" ColumnName="account_balance" />
+                <ScalarProperty Name="account_number_description" ColumnName="account_number_description" />
+                <ScalarProperty Name="account_description" ColumnName="account_description" />
+                <ScalarProperty Name="account_number" ColumnName="account_number" />
+                <ScalarProperty Name="index_number_description" ColumnName="index_number_description" />
+                <ScalarProperty Name="index_description" ColumnName="index_description" />
+                <ScalarProperty Name="complete_jv_status_message" ColumnName="complete_jv_status_message" />
+                <ScalarProperty Name="create_jv_error_message" ColumnName="create_jv_error_message" />
+                <ScalarProperty Name="jv_complete" ColumnName="jv_complete" />
+                <ScalarProperty Name="jv_doc_id" ColumnName="jv_doc_id" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
+                <ScalarProperty Name="creation_date" ColumnName="creation_date" />
+                <ScalarProperty Name="creation_user" ColumnName="creation_user" />
+                <ScalarProperty Name="total_amount" ColumnName="total_amount" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="activity_explanation" ColumnName="activity_explanation" />
+                <ScalarProperty Name="activity_line_number" ColumnName="activity_line_number" />
+                <ScalarProperty Name="activity_number" ColumnName="activity_number" />
+                <ScalarProperty Name="activity_direction" ColumnName="activity_direction" />
+                <ScalarProperty Name="activity_item_guid" ColumnName="activity_item_guid" />
+                <ScalarProperty Name="activity_row_guid" ColumnName="activity_row_guid" />
+                <ScalarProperty Name="activity_btr_guid" ColumnName="activity_btr_guid" />
+                <ScalarProperty Name="account_key" ColumnName="account_key" />
+                <ScalarProperty Name="index_key" ColumnName="index_key" />
+                <ScalarProperty Name="approval_status_key" ColumnName="approval_status_key" />
+                <ScalarProperty Name="status_key" ColumnName="status_key" />
+                <ScalarProperty Name="type_key" ColumnName="type_key" />
+                <ScalarProperty Name="transfer_activity_key" ColumnName="transfer_activity_key" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_transfer_activities_datarecord">
+            <EntityTypeMapping TypeName="BtrServices.DAL.vw_transfer_activities_datarecord">
+              <MappingFragment StoreEntitySet="vw_transfer_activities_datarecord">
+                <ScalarProperty Name="modified_email" ColumnName="modified_email" />
+                <ScalarProperty Name="modified_uni_code" ColumnName="modified_uni_code" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="modified" ColumnName="modified" />
+                <ScalarProperty Name="created_email" ColumnName="created_email" />
+                <ScalarProperty Name="created_uni_code" ColumnName="created_uni_code" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created" ColumnName="created" />
+                <ScalarProperty Name="position_type" ColumnName="position_type" />
+                <ScalarProperty Name="position_type_key" ColumnName="position_type_key" />
+                <ScalarProperty Name="account_balance" ColumnName="account_balance" />
+                <ScalarProperty Name="complete_jv_status_message" ColumnName="complete_jv_status_message" />
+                <ScalarProperty Name="create_jv_error_message" ColumnName="create_jv_error_message" />
+                <ScalarProperty Name="jv_complete" ColumnName="jv_complete" />
+                <ScalarProperty Name="jv_doc_id" ColumnName="jv_doc_id" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="account_number_description" ColumnName="account_number_description" />
+                <ScalarProperty Name="account_description" ColumnName="account_description" />
+                <ScalarProperty Name="account_key" ColumnName="account_key" />
+                <ScalarProperty Name="index_number_description" ColumnName="index_number_description" />
+                <ScalarProperty Name="index_description" ColumnName="index_description" />
+                <ScalarProperty Name="index_key" ColumnName="index_key" />
+                <ScalarProperty Name="approval_status_key" ColumnName="approval_status_key" />
+                <ScalarProperty Name="transfer_activity_key" ColumnName="transfer_activity_key" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="database_firewall_rules">
+            <EntityTypeMapping TypeName="BtrServices.DAL.database_firewall_rules">
+              <MappingFragment StoreEntitySet="database_firewall_rules">
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="end_ip_address" ColumnName="end_ip_address" />
+                <ScalarProperty Name="start_ip_address" ColumnName="start_ip_address" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Create_JV" FunctionName="BtrServices.DAL.Store.Create_JV" />
+          <FunctionImportMapping FunctionImportName="Get_Account_Available_Balance" FunctionName="BtrServices.DAL.Store.Get_Account_Available_Balance" />
+          <FunctionImportMapping FunctionImportName="Get_JV" FunctionName="BtrServices.DAL.Store.Get_JV" />
+          <FunctionImportMapping FunctionImportName="mock_complete_jv" FunctionName="BtrServices.DAL.Store.mock_complete_jv" />
+          <FunctionImportMapping FunctionImportName="mock_create_jv" FunctionName="BtrServices.DAL.Store.mock_create_jv" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -54,6 +54,20 @@ namespace BTRServices.DAL
         public virtual DbSet<xref_position> xref_position { get; set; }
         public virtual DbSet<one_time_payment> one_time_payment { get; set; }
         public virtual DbSet<transfer_activity_reviewers> transfer_activity_reviewers { get; set; }
+        public virtual DbSet<tc_employee> tc_employee { get; set; }
+        public virtual DbSet<tc_otp_payment> tc_otp_payment { get; set; }
+        public virtual DbSet<tc_otp_trns> tc_otp_trns { get; set; }
+        public virtual DbSet<tc_otp_trns_comments> tc_otp_trns_comments { get; set; }
+        public virtual DbSet<v_Transfer_Activity_Create_JV> v_Transfer_Activity_Create_JV { get; set; }
+        public virtual DbSet<vw_Accounts> vw_Accounts { get; set; }
+        public virtual DbSet<vw_Accounts_lk> vw_Accounts_lk { get; set; }
+        public virtual DbSet<vw_Indices> vw_Indices { get; set; }
+        public virtual DbSet<vw_Indices_lk_all> vw_Indices_lk_all { get; set; }
+        public virtual DbSet<vw_Indices_lk_byowner> vw_Indices_lk_byowner { get; set; }
+        public virtual DbSet<vw_lk_accounts> vw_lk_accounts { get; set; }
+        public virtual DbSet<vw_Transactions> vw_Transactions { get; set; }
+        public virtual DbSet<vw_transfer_activities_datarecord> vw_transfer_activities_datarecord { get; set; }
+        public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
     
         public virtual ObjectResult<account_byId_Result> account_byId(Nullable<int> account_key)
         {
@@ -461,6 +475,111 @@ namespace BTRServices.DAL
                 new ObjectParameter("one_time_payment_key", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<one_time_payment_read_record_Result>("one_time_payment_read_record", one_time_payment_keyParameter);
+        }
+    
+        public virtual ObjectResult<string> Create_JV(Nullable<int> btr_key, ObjectParameter jv_doc_id, ObjectParameter p_status_ind, ObjectParameter p_status_message)
+        {
+            var btr_keyParameter = btr_key.HasValue ?
+                new ObjectParameter("btr_key", btr_key) :
+                new ObjectParameter("btr_key", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("Create_JV", btr_keyParameter, jv_doc_id, p_status_ind, p_status_message);
+        }
+    
+        public virtual int Get_Account_Available_Balance(string p_coas_code, string p_fund_code, string p_orgn_code, string p_acct_code, string p_prog_code, ObjectParameter available_balance)
+        {
+            var p_coas_codeParameter = p_coas_code != null ?
+                new ObjectParameter("P_coas_code", p_coas_code) :
+                new ObjectParameter("P_coas_code", typeof(string));
+    
+            var p_fund_codeParameter = p_fund_code != null ?
+                new ObjectParameter("P_fund_code", p_fund_code) :
+                new ObjectParameter("P_fund_code", typeof(string));
+    
+            var p_orgn_codeParameter = p_orgn_code != null ?
+                new ObjectParameter("P_orgn_code", p_orgn_code) :
+                new ObjectParameter("P_orgn_code", typeof(string));
+    
+            var p_acct_codeParameter = p_acct_code != null ?
+                new ObjectParameter("P_acct_code", p_acct_code) :
+                new ObjectParameter("P_acct_code", typeof(string));
+    
+            var p_prog_codeParameter = p_prog_code != null ?
+                new ObjectParameter("P_prog_code", p_prog_code) :
+                new ObjectParameter("P_prog_code", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Get_Account_Available_Balance", p_coas_codeParameter, p_fund_codeParameter, p_orgn_codeParameter, p_acct_codeParameter, p_prog_codeParameter, available_balance);
+        }
+    
+        public virtual int Get_JV(ObjectParameter jv_doc_id)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Get_JV", jv_doc_id);
+        }
+    
+        public virtual int mock_complete_jv(ObjectParameter jv_doc_id, string p_user_id_in, ObjectParameter p_status_ind, ObjectParameter p_status_message)
+        {
+            var p_user_id_inParameter = p_user_id_in != null ?
+                new ObjectParameter("P_user_id_in", p_user_id_in) :
+                new ObjectParameter("P_user_id_in", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("mock_complete_jv", jv_doc_id, p_user_id_inParameter, p_status_ind, p_status_message);
+        }
+    
+        public virtual int mock_create_jv(ObjectParameter jv_doc_id, string p_acci_code, string p_coas_code, string p_fund_code, string p_orgn_code, string p_acct_code, string p_prog_code, string p_actv_code, string p_locn_code, string p_dr_cr_ind, Nullable<decimal> p_line_amt, Nullable<decimal> p_doc_total_amt, string p_change_type, string p_user_id_in, ObjectParameter p_status_ind, ObjectParameter p_status_message)
+        {
+            var p_acci_codeParameter = p_acci_code != null ?
+                new ObjectParameter("P_acci_code", p_acci_code) :
+                new ObjectParameter("P_acci_code", typeof(string));
+    
+            var p_coas_codeParameter = p_coas_code != null ?
+                new ObjectParameter("P_coas_code", p_coas_code) :
+                new ObjectParameter("P_coas_code", typeof(string));
+    
+            var p_fund_codeParameter = p_fund_code != null ?
+                new ObjectParameter("P_fund_code", p_fund_code) :
+                new ObjectParameter("P_fund_code", typeof(string));
+    
+            var p_orgn_codeParameter = p_orgn_code != null ?
+                new ObjectParameter("P_orgn_code", p_orgn_code) :
+                new ObjectParameter("P_orgn_code", typeof(string));
+    
+            var p_acct_codeParameter = p_acct_code != null ?
+                new ObjectParameter("P_acct_code", p_acct_code) :
+                new ObjectParameter("P_acct_code", typeof(string));
+    
+            var p_prog_codeParameter = p_prog_code != null ?
+                new ObjectParameter("P_prog_code", p_prog_code) :
+                new ObjectParameter("P_prog_code", typeof(string));
+    
+            var p_actv_codeParameter = p_actv_code != null ?
+                new ObjectParameter("P_actv_code", p_actv_code) :
+                new ObjectParameter("P_actv_code", typeof(string));
+    
+            var p_locn_codeParameter = p_locn_code != null ?
+                new ObjectParameter("P_locn_code", p_locn_code) :
+                new ObjectParameter("P_locn_code", typeof(string));
+    
+            var p_dr_cr_indParameter = p_dr_cr_ind != null ?
+                new ObjectParameter("P_dr_cr_ind", p_dr_cr_ind) :
+                new ObjectParameter("P_dr_cr_ind", typeof(string));
+    
+            var p_line_amtParameter = p_line_amt.HasValue ?
+                new ObjectParameter("P_line_amt", p_line_amt) :
+                new ObjectParameter("P_line_amt", typeof(decimal));
+    
+            var p_doc_total_amtParameter = p_doc_total_amt.HasValue ?
+                new ObjectParameter("P_doc_total_amt", p_doc_total_amt) :
+                new ObjectParameter("P_doc_total_amt", typeof(decimal));
+    
+            var p_change_typeParameter = p_change_type != null ?
+                new ObjectParameter("P_change_type", p_change_type) :
+                new ObjectParameter("P_change_type", typeof(string));
+    
+            var p_user_id_inParameter = p_user_id_in != null ?
+                new ObjectParameter("P_user_id_in", p_user_id_in) :
+                new ObjectParameter("P_user_id_in", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("mock_create_jv", jv_doc_id, p_acci_codeParameter, p_coas_codeParameter, p_fund_codeParameter, p_orgn_codeParameter, p_acct_codeParameter, p_prog_codeParameter, p_actv_codeParameter, p_locn_codeParameter, p_dr_cr_indParameter, p_line_amtParameter, p_doc_total_amtParameter, p_change_typeParameter, p_user_id_inParameter, p_status_ind, p_status_message);
         }
     }
 }

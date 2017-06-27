@@ -167,6 +167,12 @@ namespace BTRServices.Controllers
                 return BadRequest((new Error(0, exError.Message, "PutbudgetTransferRequest").ToString()));
             }
         }
+        [HttpPost]
+        [ActionName("CreateJV")]
+        [SwaggerOperation("CreateJV")]
+        [SwaggerResponse(HttpStatusCode.OK)]
+        [SwaggerResponse(HttpStatusCode.BadRequest)]
+        [ResponseType(typeof(void))]
 
         protected override void Dispose(bool disposing)
         {

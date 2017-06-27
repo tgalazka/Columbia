@@ -1,32 +1,34 @@
 ﻿using BTRServices.DAL;
-using BTRServices.Model;
 using BTRServices.Models;
+using BTRServices.Models.Banner;
+using BTRServices.Repository.Banner;
 using Swashbuckle.Swagger.Annotations;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
-namespace BTRServices.Controllers
+namespace BTRServices.Controllers.Banner
 {
-    public class OneTimePaymentController : ApiController
+    public class EmployeeController : ApiController
     {
-        tc_HRFormsEntities1 dbCxt = new tc_HRFormsEntities1();
+        HrDbContext dbCxt = new HrDbContext();
 
         [HttpGet]
         [ActionName("Item")]
         [SwaggerOperation("Item")]
         [SwaggerResponse(HttpStatusCode.OK)]
         [SwaggerResponse(HttpStatusCode.NotFound)]
-        public IHttpActionResult GetItem(int one_time_payment_key)
+        public IHttpActionResult GetItem(string uni)
         {
             try
             {
-                OneTimePaymentRepository dbData = new OneTimePaymentRepository(dbCxt);
-
-                return Ok(dbData.GetItem(one_time_payment_key));
+                EmployeeRepository dbData = new EmployeeRepository(dbCxt);
+                Models.Banner.EmployeeDTO data = dbData.GetItem(uni);
+                if (data == null)
+                {
+                    return NotFound();
+                }
+                return Ok(data);
             }
             catch (Exception exError)
             {
@@ -37,17 +39,17 @@ namespace BTRServices.Controllers
                 return BadRequest((new Error(0, exError.Message, "GetItem").ToString()));
             }
         }
-
+        /*
         [HttpPut]
         [ActionName("Item")]
         [SwaggerOperation("Update Item")]
         [SwaggerResponse(HttpStatusCode.OK)]
         [SwaggerResponse(HttpStatusCode.NotFound)]
-        public IHttpActionResult UpdateItem(tc_otp_payment record)
+        public IHttpActionResult UpdateItem(EmployeeDTO record)
         {
             try
             {
-                OneTimePaymentRepository dbData = new OneTimePaymentRepository(dbCxt);
+                EmployeeRepository dbData = new EmployeeRepository(dbCxt);
 
                 return Ok(dbData.UpdateItem(record));
             }
@@ -66,11 +68,11 @@ namespace BTRServices.Controllers
         [SwaggerOperation("Item")]
         [SwaggerResponse(HttpStatusCode.OK)]
         [SwaggerResponse(HttpStatusCode.NotFound)]
-        public IHttpActionResult CreateItem(tc_otp_payment record)
+        public IHttpActionResult CreateItem(EmployeeDTO record)
         {
             try
             {
-                OneTimePaymentRepository dbData = new OneTimePaymentRepository(dbCxt);
+                EmployeeRepository dbData = new EmployeeRepository(dbCxt);
 
                 return Ok(dbData.CreateItem(record));
             }
@@ -94,8 +96,8 @@ namespace BTRServices.Controllers
             try
             {
                 OneTimePaymentRepository dbData = new OneTimePaymentRepository(dbCxt);
-
-                return Ok(dbData.DeleteItem(one_time_payment_key));
+                dbData.DeleteItem(one_time_payment_key);
+                return Ok(true);
             }
             catch (Exception exError)
             {
@@ -106,6 +108,6 @@ namespace BTRServices.Controllers
                 return BadRequest((new Error(0, exError.Message, "DeleteItem").ToString()));
             }
         }
-
+        */
     }
 }
