@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>BTRdb</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{12817ea5-7492-4641-b09f-b9988da408cf}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.SqlAzureV12DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>BTRdb</RootNamespace>
+    <AssemblyName>BTRdb</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Views\" />
+    <Folder Include="Security\" />
+    <Folder Include="dbo\Stored Procedures\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\xref_position.sql" />
+    <Build Include="dbo\Tables\xref_job_change_reason.sql" />
+    <Build Include="dbo\Tables\xref_transfer_type.sql" />
+    <Build Include="dbo\Tables\tc_employee.sql" />
+    <Build Include="dbo\Tables\tc_otp_payment.sql" />
+    <Build Include="dbo\Tables\tc_otp_trns.sql" />
+    <Build Include="dbo\Tables\tc_otp_trns_comments.sql" />
+    <Build Include="dbo\Tables\mock_jv.sql" />
+    <Build Include="dbo\Tables\transfer_activity.sql" />
+    <Build Include="dbo\Tables\account.sql" />
+    <Build Include="dbo\Tables\approval_status.sql" />
+    <Build Include="dbo\Tables\Audit.sql" />
+    <Build Include="dbo\Tables\available_balances.sql" />
+    <Build Include="dbo\Tables\department.sql" />
+    <Build Include="dbo\Tables\employee.sql" />
+    <Build Include="dbo\Tables\index.sql" />
+    <Build Include="dbo\Tables\job.sql" />
+    <Build Include="dbo\Tables\program.sql" />
+    <Build Include="dbo\Tables\responsibility_matrix.sql" />
+    <Build Include="dbo\Tables\status.sql" />
+    <Build Include="dbo\Tables\xref_position_type.sql" />
+    <Build Include="dbo\Tables\transfer_activity_reviewers.sql" />
+    <Build Include="dbo\Tables\approval_matrix.sql" />
+    <Build Include="dbo\Tables\xref_budget_type.sql" />
+    <Build Include="dbo\Tables\xref_life_cycle.sql" />
+    <Build Include="dbo\Tables\xref_internal_state.sql" />
+    <Build Include="dbo\Tables\xref_approval_status.sql" />
+    <Build Include="dbo\Tables\users.sql" />
+    <Build Include="dbo\Tables\one_time_payment.sql" />
+    <Build Include="dbo\Tables\budget_transfer_request.sql" />
+    <Build Include="dbo\Views\vw_budget_transfer_request_records.sql" />
+    <Build Include="dbo\Views\vw_transfer_activities_datarecord.sql" />
+    <Build Include="dbo\Views\v_Transfer_Activity_Create_JV.sql" />
+    <Build Include="dbo\Views\vw_transfer_activities_datarecords.sql" />
+    <Build Include="dbo\Views\vw_Indices_lk_all.sql" />
+    <Build Include="dbo\Views\vw_Accounts.sql" />
+    <Build Include="dbo\Views\vw_Transactions.sql" />
+    <Build Include="dbo\Views\vw_Indices.sql" />
+    <Build Include="dbo\Views\vw_Indices_lk_byowner.sql" />
+    <Build Include="dbo\Views\vw_lk_accounts.sql" />
+    <Build Include="dbo\Views\vw_Accounts_lk.sql" />
+    <Build Include="Security\btrReader.sql" />
+    <Build Include="Security\btrReader_1.sql" />
+    <Build Include="dbo\Stored Procedures\one_time_payment_read_record.sql" />
+    <Build Include="dbo\Stored Procedures\accountbalances_byindexkeys.sql" />
+    <Build Include="dbo\Stored Procedures\budget_transfer_request_datarecords.sql" />
+    <Build Include="dbo\Stored Procedures\Get_Account_Available_Balance.sql" />
+    <Build Include="dbo\Stored Procedures\mock_create_jv.sql" />
+    <Build Include="dbo\Stored Procedures\mock_complete_jv.sql" />
+    <Build Include="dbo\Stored Procedures\Get_JV.sql" />
+    <Build Include="dbo\Stored Procedures\approval_matrix_approver.sql" />
+    <Build Include="dbo\Stored Procedures\approval_matrix_all_approvers.sql" />
+    <Build Include="dbo\Stored Procedures\transfer_activity_create.sql" />
+    <Build Include="dbo\Stored Procedures\accountbalance_byaccountkey.sql" />
+    <Build Include="dbo\Stored Procedures\Budget_Transfer_Request_Complete.sql" />
+    <Build Include="dbo\Stored Procedures\Create_JV.sql" />
+    <Build Include="dbo\Stored Procedures\indices_all.sql" />
+    <Build Include="dbo\Stored Procedures\indices_byowner.sql" />
+    <Build Include="dbo\Stored Procedures\indices_owned_bydept.sql" />
+    <Build Include="dbo\Stored Procedures\transfer_activity_update.sql" />
+    <Build Include="dbo\Stored Procedures\transfer_activity_delete.sql" />
+    <Build Include="dbo\Stored Procedures\budget_transfer_request_update.sql" />
+    <Build Include="dbo\Stored Procedures\transfer_activity_set_approval_level.sql" />
+    <Build Include="dbo\Stored Procedures\transfer_activity_set_all_approval_levels.sql" />
+    <Build Include="dbo\Stored Procedures\indices_bydept.sql" />
+    <Build Include="dbo\Stored Procedures\transfer_activity_assign_reviewers.sql" />
+    <Build Include="dbo\Stored Procedures\budget_transfer_request_create.sql" />
+    <Build Include="dbo\Stored Procedures\budget_transfer_request_datarecord.sql" />
+    <Build Include="dbo\Stored Procedures\accounts_all.sql" />
+    <Build Include="dbo\Stored Procedures\account_byId.sql" />
+    <Build Include="dbo\Stored Procedures\account_byIndex.sql" />
+    <Build Include="dbo\Stored Procedures\one_time_payment_create_record.sql" />
+  </ItemGroup>
+</Project>
