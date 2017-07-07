@@ -545,6 +545,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Utils\HttpUtils.cs" />
+    <Compile Include="Utils\HTTP\QueryString.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
