@@ -22,6 +22,8 @@ namespace BTRServices.Utils
         /// <exception cref="ArgumentNullException">If the supplied query string collection is null.</exception>
         /// <exception cref="Exception">If the supplied key is not present in the query string.</exception>
         /// <exception cref="Exception">If the value for the supplied key could not be parsed into an integer.</exception>
+        /// <see cref="Utils.HTTP.QueryString.GetIntValue(IEnumerable{KeyValuePair{string, string}}, string)"/>
+        [System.Obsolete("Use new HTTP.QueryString utility class.")]
         public static int QSIntValue(IEnumerable<KeyValuePair<string, string>> queryString, string key)
         {
             string sValue = queryString.Where(nv => nv.Key == key).Select(nv => nv.Value).FirstOrDefault();
