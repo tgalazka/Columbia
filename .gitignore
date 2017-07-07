@@ -24,6 +24,8 @@ bld/
 
 # Visual Studio 2015 cache/options directory
 .vs/
+# Based on: https://stackoverflow.com/questions/37704514/visual-studio-2015-database-project-directory-contains-a-file-with-extension-jfm
+*.jfm 
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
