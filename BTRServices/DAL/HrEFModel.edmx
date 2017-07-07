@@ -180,12 +180,15 @@
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
         <ComplexType Name="sp_GET_Employee_By_Uni_Result">
-          <Property Type="String" Name="uni" Nullable="false" MaxLength="10" />
-          <Property Type="String" Name="last_name" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="first_name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="uni" Nullable="true" MaxLength="9" />
+          <Property Type="String" Name="last_name" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="first_name" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="position_number" Nullable="true" MaxLength="6" />
-          <Property Type="String" Name="position_description" Nullable="true" MaxLength="80" />
+          <Property Type="String" Name="position_description" Nullable="true" MaxLength="30" />
           <Property Type="String" Name="position_suffix" Nullable="true" MaxLength="2" />
+          <Property Type="Int32" Name="employee_key_id" Nullable="false" />
+          <Property Type="String" Name="supervisor_uni" Nullable="true" MaxLength="9" />
+          <Property Type="String" Name="supervisor" Nullable="true" MaxLength="111" />
         </ComplexType>
         <ComplexType Name="sp_GET_Employees_From_Banner_Result">
           <Property Type="String" Name="uni" Nullable="true" MaxLength="9" />
@@ -262,6 +265,9 @@
                 <ScalarProperty Name="position_number" ColumnName="position_number" />
                 <ScalarProperty Name="position_description" ColumnName="position_description" />
                 <ScalarProperty Name="position_suffix" ColumnName="position_suffix" />
+                <ScalarProperty Name="employee_key_id" ColumnName="employee_key_id" />
+                <ScalarProperty Name="supervisor_uni" ColumnName="supervisor_uni" />
+                <ScalarProperty Name="supervisor" ColumnName="supervisor" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
