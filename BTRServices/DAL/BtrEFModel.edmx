@@ -90,20 +90,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.available_balances' does not
           <Property Name="department_number" Type="varchar" MaxLength="3" />
           <Property Name="department_description" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="employee">
-          <Key>
-            <PropertyRef Name="employee_key" />
-          </Key>
-          <Property Name="employee_key" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="job_key" Type="int" Nullable="false" />
-          <Property Name="employee_fname" Type="varchar" MaxLength="30" />
-          <Property Name="employee_lname" Type="varchar" MaxLength="50" />
-          <Property Name="employee_mi" Type="varchar" MaxLength="4" />
-          <Property Name="employee_prefix" Type="varchar" MaxLength="4" />
-          <Property Name="employee_suffix" Type="varchar" MaxLength="5" />
-          <Property Name="employee_name" Type="varchar" MaxLength="120" />
-          <Property Name="employee_uni" Type="varchar" MaxLength="20" />
-        </EntityType>
         <EntityType Name="index">
           <Key>
             <PropertyRef Name="index_key" />
@@ -129,52 +115,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.available_balances' does not
           <Property Name="account_key" Type="int" />
           <Property Name="job_number" Type="varchar" MaxLength="6" />
           <Property Name="job_description" Type="varchar" MaxLength="100" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'tc_BudgetTransfer.dbo.one_time_payment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="one_time_payment">
-          <Key>
-            <PropertyRef Name="employee_key" />
-            <PropertyRef Name="current_position_key" />
-            <PropertyRef Name="position_key" />
-            <PropertyRef Name="rate" />
-            <PropertyRef Name="hours_per_pay_period" />
-            <PropertyRef Name="factor" />
-            <PropertyRef Name="index_key" />
-            <PropertyRef Name="account_key" />
-            <PropertyRef Name="created" />
-            <PropertyRef Name="created_by" />
-            <PropertyRef Name="modified" />
-            <PropertyRef Name="modified_by" />
-            <PropertyRef Name="one_time_payment_key" />
-          </Key>
-          <Property Name="employee_key" Type="int" Nullable="false" />
-          <Property Name="current_position_key" Type="int" Nullable="false" />
-          <Property Name="position_key" Type="int" Nullable="false" />
-          <Property Name="suffix" Type="varchar" MaxLength="50" />
-          <Property Name="job_status" Type="varchar" MaxLength="50" />
-          <Property Name="effective_date" Type="datetime" />
-          <Property Name="job_change_reason_other" Type="varchar" MaxLength="250" />
-          <Property Name="personnel_date" Type="datetime" />
-          <Property Name="salary" Type="money" />
-          <Property Name="rate" Type="int" Nullable="false" />
-          <Property Name="hours_per_pay_period" Type="int" Nullable="false" />
-          <Property Name="factor" Type="int" Nullable="false" />
-          <Property Name="index_key" Type="int" Nullable="false" />
-          <Property Name="account_key" Type="int" Nullable="false" />
-          <Property Name="fund" Type="varchar" MaxLength="50" />
-          <Property Name="percent" Type="numeric" Precision="18" Scale="0" />
-          <Property Name="created" Type="datetime" Nullable="false" />
-          <Property Name="created_by" Type="int" Nullable="false" />
-          <Property Name="modified" Type="datetime" Nullable="false" />
-          <Property Name="modified_by" Type="int" Nullable="false" />
-          <Property Name="comment" Type="varchar" MaxLength="255" />
-          <Property Name="supervisor_name" Type="varchar" MaxLength="80" />
-          <Property Name="job_change_reason_key" Type="int" />
-          <Property Name="payroll_key" Type="int" />
-          <Property Name="dept_key" Type="int" />
-          <Property Name="approval_status_key" Type="int" />
-          <Property Name="one_time_payment_key" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="program">
           <Key>
@@ -207,39 +147,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.one_time_payment' does not h
           </Key>
           <Property Name="employee_key_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="employee_uni" Type="varchar" MaxLength="10" />
-        </EntityType>
-        <EntityType Name="tc_otp_payment">
-          <Key>
-            <PropertyRef Name="otp_trns_payment_key_id" />
-          </Key>
-          <Property Name="otp_trns_payment_key_id" Type="int" Nullable="false" />
-          <Property Name="otp_trns_key_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="otp_trns_payment_index_number" Type="varchar" MaxLength="6" />
-          <Property Name="otp_trns_payment_account_number" Type="varchar" MaxLength="6" />
-          <Property Name="otp_trns_payment_percentage" Type="int" />
-          <Property Name="otp_trns_payment_amount" Type="decimal" Precision="20" Scale="2" />
-        </EntityType>
-        <EntityType Name="tc_otp_trns">
-          <Key>
-            <PropertyRef Name="otp_trns_key_id" />
-          </Key>
-          <Property Name="otp_trns_key_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="employee_key_id" Type="int" />
-          <Property Name="otp_trns_reason" Type="varchar" MaxLength="200" />
-          <Property Name="otp_trns_effective_date" Type="datetime" />
-          <Property Name="otp_trns_submitter" Type="varchar" MaxLength="10" />
-          <Property Name="otp_trns_processed" Type="bit" />
-          <Property Name="otp_trns_processed_datatime" Type="datetime" />
-        </EntityType>
-        <EntityType Name="tc_otp_trns_comments">
-          <Key>
-            <PropertyRef Name="otp_trns_comments_key_id" />
-          </Key>
-          <Property Name="otp_trns_comments_key_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="otp_trns_key_id" Type="int" />
-          <Property Name="otp_trns_comments" Type="varchar" MaxLength="4000" />
-          <Property Name="otp_trns_commentor" Type="varchar" MaxLength="10" />
-          <Property Name="otp_trns_comments_datetime" Type="datetime" />
         </EntityType>
         <EntityType Name="transfer_activity">
           <Key>
@@ -512,50 +419,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_lk_accounts' does not hav
           <Property Name="account_balance" Type="decimal" Precision="17" Scale="2" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_Transactions' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="vw_Transactions">
-          <Key>
-            <PropertyRef Name="transfer_activity_key" />
-            <PropertyRef Name="type_key" />
-            <PropertyRef Name="status_key" />
-            <PropertyRef Name="approval_status_key" />
-            <PropertyRef Name="index_key" />
-            <PropertyRef Name="account_key" />
-            <PropertyRef Name="activity_direction" />
-            <PropertyRef Name="activity_number" />
-            <PropertyRef Name="activity_line_number" />
-          </Key>
-          <Property Name="transfer_activity_key" Type="int" Nullable="false" />
-          <Property Name="type_key" Type="int" Nullable="false" />
-          <Property Name="status_key" Type="int" Nullable="false" />
-          <Property Name="approval_status_key" Type="int" Nullable="false" />
-          <Property Name="index_key" Type="int" Nullable="false" />
-          <Property Name="account_key" Type="int" Nullable="false" />
-          <Property Name="activity_btr_guid" Type="uniqueidentifier" />
-          <Property Name="activity_row_guid" Type="uniqueidentifier" />
-          <Property Name="activity_item_guid" Type="uniqueidentifier" />
-          <Property Name="activity_direction" Type="varchar" MaxLength="5" Nullable="false" />
-          <Property Name="activity_number" Type="int" Nullable="false" />
-          <Property Name="activity_line_number" Type="int" Nullable="false" />
-          <Property Name="activity_explanation" Type="text" />
-          <Property Name="amount" Type="decimal" Precision="20" Scale="2" />
-          <Property Name="total_amount" Type="decimal" Precision="20" Scale="2" />
-          <Property Name="creation_user" Type="varchar" MaxLength="50" />
-          <Property Name="creation_date" Type="datetime" />
-          <Property Name="modify_user" Type="varchar" MaxLength="50" />
-          <Property Name="modify_date" Type="datetime" />
-          <Property Name="jv_doc_id" Type="varchar" MaxLength="8" />
-          <Property Name="jv_complete" Type="bit" />
-          <Property Name="create_jv_error_message" Type="varchar(max)" />
-          <Property Name="complete_jv_status_message" Type="varchar(max)" />
-          <Property Name="index_description" Type="varchar" MaxLength="35" />
-          <Property Name="index_number_description" Type="varchar" MaxLength="45" />
-          <Property Name="account_number" Type="varchar" MaxLength="6" />
-          <Property Name="account_description" Type="varchar" MaxLength="100" />
-          <Property Name="account_number_description" Type="varchar" MaxLength="110" />
-          <Property Name="account_balance" Type="decimal" Precision="17" Scale="2" />
-        </EntityType>
-        <!--Errors Found During Generation:
 warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datarecord' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vw_transfer_activities_datarecord">
           <Key>
@@ -739,42 +602,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tc_otp_payment_tc_otp_trns">
-          <End Role="tc_otp_trns" Type="Self.tc_otp_trns" Multiplicity="1" />
-          <End Role="tc_otp_payment" Type="Self.tc_otp_payment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tc_otp_trns">
-              <PropertyRef Name="otp_trns_key_id" />
-            </Principal>
-            <Dependent Role="tc_otp_payment">
-              <PropertyRef Name="otp_trns_key_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tc_otp_trns_comments_tc_otp_trns">
-          <End Role="tc_otp_trns" Type="Self.tc_otp_trns" Multiplicity="0..1" />
-          <End Role="tc_otp_trns_comments" Type="Self.tc_otp_trns_comments" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tc_otp_trns">
-              <PropertyRef Name="otp_trns_key_id" />
-            </Principal>
-            <Dependent Role="tc_otp_trns_comments">
-              <PropertyRef Name="otp_trns_key_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tc_otp_trns_tc_employee">
-          <End Role="tc_employee" Type="Self.tc_employee" Multiplicity="0..1" />
-          <End Role="tc_otp_trns" Type="Self.tc_otp_trns" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tc_employee">
-              <PropertyRef Name="employee_key_id" />
-            </Principal>
-            <Dependent Role="tc_otp_trns">
-              <PropertyRef Name="employee_key_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Function Name="account_byId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="account_key" Type="int" Mode="In" />
         </Function>
@@ -795,6 +622,12 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <Parameter Name="index_key" Type="int" Mode="In" />
           <Parameter Name="role_level" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="Budget_Transfer_Request_Complete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="btr_key" Type="int" Mode="In" />
+          <Parameter Name="jv_doc_id" Type="varchar" Mode="InOut" />
+          <Parameter Name="P_status_ind" Type="varchar" Mode="InOut" />
+          <Parameter Name="P_status_message" Type="varchar" Mode="InOut" />
+        </Function>
         <Function Name="budget_transfer_request_create" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="title" Type="varchar" Mode="In" />
           <Parameter Name="budget_type_key" Type="int" Mode="In" />
@@ -808,9 +641,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <Parameter Name="btr_key" Type="int" Mode="In" />
         </Function>
         <Function Name="budget_transfer_request_datarecords" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="budget_transfer_request_display" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="btr_key" Type="int" Mode="In" />
-        </Function>
         <Function Name="budget_transfer_request_update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="btr_key" Type="int" Mode="In" />
           <Parameter Name="title" Type="varchar" Mode="In" />
@@ -874,34 +704,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <Parameter Name="P_status_ind" Type="varchar" Mode="InOut" />
           <Parameter Name="P_status_message" Type="varchar" Mode="InOut" />
         </Function>
-        <Function Name="one_time_payment_create_record" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="employee_key" Type="int" Mode="In" />
-          <Parameter Name="current_position_key" Type="int" Mode="In" />
-          <Parameter Name="position_key" Type="int" Mode="In" />
-          <Parameter Name="suffix" Type="varchar" Mode="In" />
-          <Parameter Name="job_status" Type="varchar" Mode="In" />
-          <Parameter Name="effective_date" Type="datetime" Mode="In" />
-          <Parameter Name="job_change_reason_key" Type="int" Mode="In" />
-          <Parameter Name="job_change_reason" Type="varchar" Mode="In" />
-          <Parameter Name="personnel_date" Type="datetime" Mode="In" />
-          <Parameter Name="salary" Type="money" Mode="In" />
-          <Parameter Name="rate" Type="int" Mode="In" />
-          <Parameter Name="hours_per_pay_period" Type="int" Mode="In" />
-          <Parameter Name="factor" Type="int" Mode="In" />
-          <Parameter Name="index_key" Type="int" Mode="In" />
-          <Parameter Name="account_key" Type="int" Mode="In" />
-          <Parameter Name="fund" Type="varchar" Mode="In" />
-          <Parameter Name="percent" Type="numeric" Mode="In" />
-          <Parameter Name="created_by" Type="int" Mode="In" />
-          <Parameter Name="modified_by" Type="int" Mode="In" />
-          <Parameter Name="comment" Type="varchar" Mode="In" />
-          <Parameter Name="supervisor_name" Type="varchar" Mode="In" />
-          <Parameter Name="payroll_key" Type="int" Mode="In" />
-          <Parameter Name="dept_key" Type="int" Mode="In" />
-        </Function>
-        <Function Name="one_time_payment_read_record" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="one_time_payment_key" Type="int" Mode="In" />
-        </Function>
         <Function Name="transfer_activity_assign_reviewers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="transfer_activity_key" Type="int" Mode="In" />
           <Parameter Name="approval_level" Type="int" Mode="In" />
@@ -939,16 +741,12 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <EntitySet Name="approval_status" EntityType="Self.approval_status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="budget_transfer_request" EntityType="Self.budget_transfer_request" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="department" EntityType="Self.department" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="index" EntityType="Self.index" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="job" EntityType="Self.job" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="program" EntityType="Self.program" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="responsibility_matrix" EntityType="Self.responsibility_matrix" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="status" EntityType="Self.status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tc_employee" EntityType="Self.tc_employee" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tc_otp_payment" EntityType="Self.tc_otp_payment" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tc_otp_trns" EntityType="Self.tc_otp_trns" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tc_otp_trns_comments" EntityType="Self.tc_otp_trns_comments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="transfer_activity" EntityType="Self.transfer_activity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="xref_approval_status" EntityType="Self.xref_approval_status" Schema="dbo" store:Type="Tables" />
@@ -974,37 +772,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
     [available_balances].[available_balance_key] AS [available_balance_key], 
     [available_balances].[available_balance] AS [available_balance]
     FROM [dbo].[available_balances] AS [available_balances]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="one_time_payment" EntityType="Self.one_time_payment" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [one_time_payment].[employee_key] AS [employee_key], 
-    [one_time_payment].[current_position_key] AS [current_position_key], 
-    [one_time_payment].[position_key] AS [position_key], 
-    [one_time_payment].[suffix] AS [suffix], 
-    [one_time_payment].[job_status] AS [job_status], 
-    [one_time_payment].[effective_date] AS [effective_date], 
-    [one_time_payment].[job_change_reason_other] AS [job_change_reason_other], 
-    [one_time_payment].[personnel_date] AS [personnel_date], 
-    [one_time_payment].[salary] AS [salary], 
-    [one_time_payment].[rate] AS [rate], 
-    [one_time_payment].[hours_per_pay_period] AS [hours_per_pay_period], 
-    [one_time_payment].[factor] AS [factor], 
-    [one_time_payment].[index_key] AS [index_key], 
-    [one_time_payment].[account_key] AS [account_key], 
-    [one_time_payment].[fund] AS [fund], 
-    [one_time_payment].[percent] AS [percent], 
-    [one_time_payment].[created] AS [created], 
-    [one_time_payment].[created_by] AS [created_by], 
-    [one_time_payment].[modified] AS [modified], 
-    [one_time_payment].[modified_by] AS [modified_by], 
-    [one_time_payment].[comment] AS [comment], 
-    [one_time_payment].[supervisor_name] AS [supervisor_name], 
-    [one_time_payment].[job_change_reason_key] AS [job_change_reason_key], 
-    [one_time_payment].[payroll_key] AS [payroll_key], 
-    [one_time_payment].[dept_key] AS [dept_key], 
-    [one_time_payment].[approval_status_key] AS [approval_status_key], 
-    [one_time_payment].[one_time_payment_key] AS [one_time_payment_key]
-    FROM [dbo].[one_time_payment] AS [one_time_payment]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="transfer_activity_reviewers" EntityType="Self.transfer_activity_reviewers" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -1121,39 +888,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
     [vw_lk_accounts].[account_balance] AS [account_balance]
     FROM [dbo].[vw_lk_accounts] AS [vw_lk_accounts]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="vw_Transactions" EntityType="Self.vw_Transactions" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [vw_Transactions].[transfer_activity_key] AS [transfer_activity_key], 
-    [vw_Transactions].[type_key] AS [type_key], 
-    [vw_Transactions].[status_key] AS [status_key], 
-    [vw_Transactions].[approval_status_key] AS [approval_status_key], 
-    [vw_Transactions].[index_key] AS [index_key], 
-    [vw_Transactions].[account_key] AS [account_key], 
-    [vw_Transactions].[activity_btr_guid] AS [activity_btr_guid], 
-    [vw_Transactions].[activity_row_guid] AS [activity_row_guid], 
-    [vw_Transactions].[activity_item_guid] AS [activity_item_guid], 
-    [vw_Transactions].[activity_direction] AS [activity_direction], 
-    [vw_Transactions].[activity_number] AS [activity_number], 
-    [vw_Transactions].[activity_line_number] AS [activity_line_number], 
-    [vw_Transactions].[activity_explanation] AS [activity_explanation], 
-    [vw_Transactions].[amount] AS [amount], 
-    [vw_Transactions].[total_amount] AS [total_amount], 
-    [vw_Transactions].[creation_user] AS [creation_user], 
-    [vw_Transactions].[creation_date] AS [creation_date], 
-    [vw_Transactions].[modify_user] AS [modify_user], 
-    [vw_Transactions].[modify_date] AS [modify_date], 
-    [vw_Transactions].[jv_doc_id] AS [jv_doc_id], 
-    [vw_Transactions].[jv_complete] AS [jv_complete], 
-    [vw_Transactions].[create_jv_error_message] AS [create_jv_error_message], 
-    [vw_Transactions].[complete_jv_status_message] AS [complete_jv_status_message], 
-    [vw_Transactions].[index_description] AS [index_description], 
-    [vw_Transactions].[index_number_description] AS [index_number_description], 
-    [vw_Transactions].[account_number] AS [account_number], 
-    [vw_Transactions].[account_description] AS [account_description], 
-    [vw_Transactions].[account_number_description] AS [account_number_description], 
-    [vw_Transactions].[account_balance] AS [account_balance]
-    FROM [dbo].[vw_Transactions] AS [vw_Transactions]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="vw_transfer_activities_datarecord" EntityType="Self.vw_transfer_activities_datarecord" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [vw_transfer_activities_datarecord].[transfer_activity_key] AS [transfer_activity_key], 
@@ -1249,18 +983,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
             <End Role="index" EntitySet="index" />
             <End Role="responsibility_matrix" EntitySet="responsibility_matrix" />
           </AssociationSet>
-          <AssociationSet Name="FK_tc_otp_payment_tc_otp_trns" Association="Self.FK_tc_otp_payment_tc_otp_trns">
-            <End Role="tc_otp_trns" EntitySet="tc_otp_trns" />
-            <End Role="tc_otp_payment" EntitySet="tc_otp_payment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tc_otp_trns_comments_tc_otp_trns" Association="Self.FK_tc_otp_trns_comments_tc_otp_trns">
-            <End Role="tc_otp_trns" EntitySet="tc_otp_trns" />
-            <End Role="tc_otp_trns_comments" EntitySet="tc_otp_trns_comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tc_otp_trns_tc_employee" Association="Self.FK_tc_otp_trns_tc_employee">
-            <End Role="tc_employee" EntitySet="tc_employee" />
-            <End Role="tc_otp_trns" EntitySet="tc_otp_trns" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -1293,20 +1015,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <Property Name="department_key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="department_number" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="department_description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="employee">
-          <Key>
-            <PropertyRef Name="employee_key" />
-          </Key>
-          <Property Name="employee_key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="job_key" Type="Int32" Nullable="false" />
-          <Property Name="employee_fname" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="employee_lname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="employee_mi" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="employee_prefix" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="employee_suffix" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="employee_name" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
-          <Property Name="employee_uni" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="index">
           <Key>
@@ -1398,7 +1106,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <EntitySet Name="accounts" EntityType="Self.account" />
           <EntitySet Name="approval_status" EntityType="Self.approval_status" />
           <EntitySet Name="departments" EntityType="Self.department" />
-          <EntitySet Name="employees" EntityType="Self.employee" />
           <EntitySet Name="indices" EntityType="Self.index" />
           <EntitySet Name="jobs" EntityType="Self.job" />
           <EntitySet Name="programs" EntityType="Self.program" />
@@ -1537,7 +1244,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <EntitySet Name="xref_approval_status" EntityType="BtrServices.DAL.xref_approval_status" />
           <EntitySet Name="xref_job_change_reason" EntityType="BtrServices.DAL.xref_job_change_reason" />
           <EntitySet Name="xref_position" EntityType="BtrServices.DAL.xref_position" />
-          <EntitySet Name="one_time_payment" EntityType="BtrServices.DAL.one_time_payment" />
           <EntitySet Name="transfer_activity_reviewers" EntityType="BtrServices.DAL.transfer_activity_reviewers" />
           <FunctionImport Name="one_time_payment_create_record">
             <Parameter Name="employee_key" Mode="In" Type="Int32" />
@@ -1568,9 +1274,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <Parameter Name="one_time_payment_key" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="tc_employee" EntityType="BtrServices.DAL.tc_employee" />
-          <EntitySet Name="tc_otp_payment" EntityType="BtrServices.DAL.tc_otp_payment" />
-          <EntitySet Name="tc_otp_trns" EntityType="BtrServices.DAL.tc_otp_trns" />
-          <EntitySet Name="tc_otp_trns_comments" EntityType="BtrServices.DAL.tc_otp_trns_comments" />
           <EntitySet Name="v_Transfer_Activity_Create_JV" EntityType="BtrServices.DAL.v_Transfer_Activity_Create_JV" />
           <EntitySet Name="vw_Accounts" EntityType="BtrServices.DAL.vw_Accounts" />
           <EntitySet Name="vw_Accounts_lk" EntityType="BtrServices.DAL.vw_Accounts_lk" />
@@ -1578,21 +1281,8 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <EntitySet Name="vw_Indices_lk_all" EntityType="BtrServices.DAL.vw_Indices_lk_all" />
           <EntitySet Name="vw_Indices_lk_byowner" EntityType="BtrServices.DAL.vw_Indices_lk_byowner" />
           <EntitySet Name="vw_lk_accounts" EntityType="BtrServices.DAL.vw_lk_accounts" />
-          <EntitySet Name="vw_Transactions" EntityType="BtrServices.DAL.vw_Transactions" />
           <EntitySet Name="vw_transfer_activities_datarecord" EntityType="BtrServices.DAL.vw_transfer_activities_datarecord" />
           <EntitySet Name="database_firewall_rules" EntityType="BtrServices.DAL.database_firewall_rules" />
-          <AssociationSet Name="FK_tc_otp_trns_tc_employee" Association="BtrServices.DAL.FK_tc_otp_trns_tc_employee">
-            <End Role="tc_employee" EntitySet="tc_employee" />
-            <End Role="tc_otp_trns" EntitySet="tc_otp_trns" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tc_otp_payment_tc_otp_trns" Association="BtrServices.DAL.FK_tc_otp_payment_tc_otp_trns">
-            <End Role="tc_otp_trns" EntitySet="tc_otp_trns" />
-            <End Role="tc_otp_payment" EntitySet="tc_otp_payment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tc_otp_trns_comments_tc_otp_trns" Association="BtrServices.DAL.FK_tc_otp_trns_comments_tc_otp_trns">
-            <End Role="tc_otp_trns" EntitySet="tc_otp_trns" />
-            <End Role="tc_otp_trns_comments" EntitySet="tc_otp_trns_comments" />
-          </AssociationSet>
           <FunctionImport Name="Create_JV" ReturnType="Collection(String)">
             <Parameter Name="btr_key" Mode="In" Type="Int32" />
             <Parameter Name="jv_doc_id" Mode="InOut" Type="String" />
@@ -1631,6 +1321,12 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
             <Parameter Name="P_doc_total_amt" Mode="In" Type="Decimal" />
             <Parameter Name="P_change_type" Mode="In" Type="String" />
             <Parameter Name="P_user_id_in" Mode="In" Type="String" />
+            <Parameter Name="P_status_ind" Mode="InOut" Type="String" />
+            <Parameter Name="P_status_message" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Budget_Transfer_Request_Complete">
+            <Parameter Name="btr_key" Mode="In" Type="Int32" />
+            <Parameter Name="jv_doc_id" Mode="InOut" Type="String" />
             <Parameter Name="P_status_ind" Mode="InOut" Type="String" />
             <Parameter Name="P_status_message" Mode="InOut" Type="String" />
           </FunctionImport>
@@ -2227,50 +1923,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <Property Name="position_key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="position" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="one_time_payment">
-          <Key>
-            <PropertyRef Name="employee_key" />
-            <PropertyRef Name="current_position_key" />
-            <PropertyRef Name="position_key" />
-            <PropertyRef Name="rate" />
-            <PropertyRef Name="hours_per_pay_period" />
-            <PropertyRef Name="factor" />
-            <PropertyRef Name="index_key" />
-            <PropertyRef Name="account_key" />
-            <PropertyRef Name="created" />
-            <PropertyRef Name="created_by" />
-            <PropertyRef Name="modified" />
-            <PropertyRef Name="modified_by" />
-            <PropertyRef Name="one_time_payment_key" />
-          </Key>
-          <Property Name="employee_key" Type="Int32" Nullable="false" />
-          <Property Name="current_position_key" Type="Int32" Nullable="false" />
-          <Property Name="position_key" Type="Int32" Nullable="false" />
-          <Property Name="suffix" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="job_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="effective_date" Type="DateTime" Precision="3" />
-          <Property Name="job_change_reason_other" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="personnel_date" Type="DateTime" Precision="3" />
-          <Property Name="salary" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="rate" Type="Int32" Nullable="false" />
-          <Property Name="hours_per_pay_period" Type="Int32" Nullable="false" />
-          <Property Name="factor" Type="Int32" Nullable="false" />
-          <Property Name="index_key" Type="Int32" Nullable="false" />
-          <Property Name="account_key" Type="Int32" Nullable="false" />
-          <Property Name="fund" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="percent" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="created_by" Type="Int32" Nullable="false" />
-          <Property Name="modified" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="modified_by" Type="Int32" Nullable="false" />
-          <Property Name="comment" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="supervisor_name" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Name="job_change_reason_key" Type="Int32" />
-          <Property Name="payroll_key" Type="Int32" />
-          <Property Name="dept_key" Type="Int32" />
-          <Property Name="approval_status_key" Type="Int32" />
-          <Property Name="one_time_payment_key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
         <EntityType Name="transfer_activity_reviewers">
           <Key>
             <PropertyRef Name="approval_key" />
@@ -2339,45 +1991,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           </Key>
           <Property Name="employee_key_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="employee_uni" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tc_otp_trns" Relationship="BtrServices.DAL.FK_tc_otp_trns_tc_employee" FromRole="tc_employee" ToRole="tc_otp_trns" />
-        </EntityType>
-        <EntityType Name="tc_otp_payment">
-          <Key>
-            <PropertyRef Name="otp_trns_payment_key_id" />
-          </Key>
-          <Property Name="otp_trns_payment_key_id" Type="Int32" Nullable="false" />
-          <Property Name="otp_trns_key_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="otp_trns_payment_index_number" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
-          <Property Name="otp_trns_payment_account_number" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
-          <Property Name="otp_trns_payment_percentage" Type="Int32" />
-          <Property Name="otp_trns_payment_amount" Type="Decimal" Precision="20" Scale="2" />
-          <NavigationProperty Name="tc_otp_trns" Relationship="BtrServices.DAL.FK_tc_otp_payment_tc_otp_trns" FromRole="tc_otp_payment" ToRole="tc_otp_trns" />
-        </EntityType>
-        <EntityType Name="tc_otp_trns">
-          <Key>
-            <PropertyRef Name="otp_trns_key_id" />
-          </Key>
-          <Property Name="otp_trns_key_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="employee_key_id" Type="Int32" />
-          <Property Name="otp_trns_reason" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="otp_trns_effective_date" Type="DateTime" Precision="3" />
-          <Property Name="otp_trns_submitter" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="otp_trns_processed" Type="Boolean" />
-          <Property Name="otp_trns_processed_datatime" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tc_employee" Relationship="BtrServices.DAL.FK_tc_otp_trns_tc_employee" FromRole="tc_otp_trns" ToRole="tc_employee" />
-          <NavigationProperty Name="tc_otp_payment" Relationship="BtrServices.DAL.FK_tc_otp_payment_tc_otp_trns" FromRole="tc_otp_trns" ToRole="tc_otp_payment" />
-          <NavigationProperty Name="tc_otp_trns_comments" Relationship="BtrServices.DAL.FK_tc_otp_trns_comments_tc_otp_trns" FromRole="tc_otp_trns" ToRole="tc_otp_trns_comments" />
-        </EntityType>
-        <EntityType Name="tc_otp_trns_comments">
-          <Key>
-            <PropertyRef Name="otp_trns_comments_key_id" />
-          </Key>
-          <Property Name="otp_trns_comments_key_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="otp_trns_key_id" Type="Int32" />
-          <Property Name="otp_trns_comments" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
-          <Property Name="otp_trns_commentor" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="otp_trns_comments_datetime" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tc_otp_trns" Relationship="BtrServices.DAL.FK_tc_otp_trns_comments_tc_otp_trns" FromRole="tc_otp_trns_comments" ToRole="tc_otp_trns" />
         </EntityType>
         <EntityType Name="v_Transfer_Activity_Create_JV">
           <Key>
@@ -2466,48 +2079,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <Property Name="account_number_description" Type="String" MaxLength="110" FixedLength="false" Unicode="false" />
           <Property Name="account_balance" Type="Decimal" Precision="17" Scale="2" />
         </EntityType>
-        <EntityType Name="vw_Transactions">
-          <Key>
-            <PropertyRef Name="transfer_activity_key" />
-            <PropertyRef Name="type_key" />
-            <PropertyRef Name="status_key" />
-            <PropertyRef Name="approval_status_key" />
-            <PropertyRef Name="index_key" />
-            <PropertyRef Name="account_key" />
-            <PropertyRef Name="activity_direction" />
-            <PropertyRef Name="activity_number" />
-            <PropertyRef Name="activity_line_number" />
-          </Key>
-          <Property Name="transfer_activity_key" Type="Int32" Nullable="false" />
-          <Property Name="type_key" Type="Int32" Nullable="false" />
-          <Property Name="status_key" Type="Int32" Nullable="false" />
-          <Property Name="approval_status_key" Type="Int32" Nullable="false" />
-          <Property Name="index_key" Type="Int32" Nullable="false" />
-          <Property Name="account_key" Type="Int32" Nullable="false" />
-          <Property Name="activity_btr_guid" Type="Guid" />
-          <Property Name="activity_row_guid" Type="Guid" />
-          <Property Name="activity_item_guid" Type="Guid" />
-          <Property Name="activity_direction" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="activity_number" Type="Int32" Nullable="false" />
-          <Property Name="activity_line_number" Type="Int32" Nullable="false" />
-          <Property Name="activity_explanation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="amount" Type="Decimal" Precision="20" Scale="2" />
-          <Property Name="total_amount" Type="Decimal" Precision="20" Scale="2" />
-          <Property Name="creation_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="creation_date" Type="DateTime" Precision="3" />
-          <Property Name="modify_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="modify_date" Type="DateTime" Precision="3" />
-          <Property Name="jv_doc_id" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="jv_complete" Type="Boolean" />
-          <Property Name="create_jv_error_message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="complete_jv_status_message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="index_description" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
-          <Property Name="index_number_description" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="account_number" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
-          <Property Name="account_description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="account_number_description" Type="String" MaxLength="110" FixedLength="false" Unicode="false" />
-          <Property Name="account_balance" Type="Decimal" Precision="17" Scale="2" />
-        </EntityType>
         <EntityType Name="vw_transfer_activities_datarecord">
           <Key>
             <PropertyRef Name="transfer_activity_key" />
@@ -2562,42 +2133,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
-        <Association Name="FK_tc_otp_trns_tc_employee">
-          <End Type="BtrServices.DAL.tc_employee" Role="tc_employee" Multiplicity="0..1" />
-          <End Type="BtrServices.DAL.tc_otp_trns" Role="tc_otp_trns" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tc_employee">
-              <PropertyRef Name="employee_key_id" />
-            </Principal>
-            <Dependent Role="tc_otp_trns">
-              <PropertyRef Name="employee_key_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tc_otp_payment_tc_otp_trns">
-          <End Type="BtrServices.DAL.tc_otp_trns" Role="tc_otp_trns" Multiplicity="1" />
-          <End Type="BtrServices.DAL.tc_otp_payment" Role="tc_otp_payment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tc_otp_trns">
-              <PropertyRef Name="otp_trns_key_id" />
-            </Principal>
-            <Dependent Role="tc_otp_payment">
-              <PropertyRef Name="otp_trns_key_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tc_otp_trns_comments_tc_otp_trns">
-          <End Type="BtrServices.DAL.tc_otp_trns" Role="tc_otp_trns" Multiplicity="0..1" />
-          <End Type="BtrServices.DAL.tc_otp_trns_comments" Role="tc_otp_trns_comments" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tc_otp_trns">
-              <PropertyRef Name="otp_trns_key_id" />
-            </Principal>
-            <Dependent Role="tc_otp_trns_comments">
-              <PropertyRef Name="otp_trns_key_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2631,21 +2166,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
                 <ScalarProperty Name="department_key" ColumnName="department_key" />
                 <ScalarProperty Name="department_number" ColumnName="department_number" />
                 <ScalarProperty Name="department_description" ColumnName="department_description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="employees">
-            <EntityTypeMapping TypeName="BtrServices.DAL.employee">
-              <MappingFragment StoreEntitySet="employee">
-                <ScalarProperty Name="employee_uni" ColumnName="employee_uni" />
-                <ScalarProperty Name="employee_key" ColumnName="employee_key" />
-                <ScalarProperty Name="job_key" ColumnName="job_key" />
-                <ScalarProperty Name="employee_fname" ColumnName="employee_fname" />
-                <ScalarProperty Name="employee_lname" ColumnName="employee_lname" />
-                <ScalarProperty Name="employee_mi" ColumnName="employee_mi" />
-                <ScalarProperty Name="employee_prefix" ColumnName="employee_prefix" />
-                <ScalarProperty Name="employee_suffix" ColumnName="employee_suffix" />
-                <ScalarProperty Name="employee_name" ColumnName="employee_name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2928,7 +2448,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="budget_transfer_request_display" FunctionName="BtrServices.DAL.Store.budget_transfer_request_display" />
           <EntitySetMapping Name="Audits">
             <EntityTypeMapping TypeName="BtrServices.DAL.Audit">
               <MappingFragment StoreEntitySet="Audit">
@@ -3313,39 +2832,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="one_time_payment">
-            <EntityTypeMapping TypeName="BtrServices.DAL.one_time_payment">
-              <MappingFragment StoreEntitySet="one_time_payment">
-                <ScalarProperty Name="one_time_payment_key" ColumnName="one_time_payment_key" />
-                <ScalarProperty Name="approval_status_key" ColumnName="approval_status_key" />
-                <ScalarProperty Name="dept_key" ColumnName="dept_key" />
-                <ScalarProperty Name="payroll_key" ColumnName="payroll_key" />
-                <ScalarProperty Name="job_change_reason_key" ColumnName="job_change_reason_key" />
-                <ScalarProperty Name="supervisor_name" ColumnName="supervisor_name" />
-                <ScalarProperty Name="comment" ColumnName="comment" />
-                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
-                <ScalarProperty Name="modified" ColumnName="modified" />
-                <ScalarProperty Name="created_by" ColumnName="created_by" />
-                <ScalarProperty Name="created" ColumnName="created" />
-                <ScalarProperty Name="percent" ColumnName="percent" />
-                <ScalarProperty Name="fund" ColumnName="fund" />
-                <ScalarProperty Name="account_key" ColumnName="account_key" />
-                <ScalarProperty Name="index_key" ColumnName="index_key" />
-                <ScalarProperty Name="factor" ColumnName="factor" />
-                <ScalarProperty Name="hours_per_pay_period" ColumnName="hours_per_pay_period" />
-                <ScalarProperty Name="rate" ColumnName="rate" />
-                <ScalarProperty Name="salary" ColumnName="salary" />
-                <ScalarProperty Name="personnel_date" ColumnName="personnel_date" />
-                <ScalarProperty Name="job_change_reason_other" ColumnName="job_change_reason_other" />
-                <ScalarProperty Name="effective_date" ColumnName="effective_date" />
-                <ScalarProperty Name="job_status" ColumnName="job_status" />
-                <ScalarProperty Name="suffix" ColumnName="suffix" />
-                <ScalarProperty Name="position_key" ColumnName="position_key" />
-                <ScalarProperty Name="current_position_key" ColumnName="current_position_key" />
-                <ScalarProperty Name="employee_key" ColumnName="employee_key" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="transfer_activity_reviewers">
             <EntityTypeMapping TypeName="BtrServices.DAL.transfer_activity_reviewers">
               <MappingFragment StoreEntitySet="transfer_activity_reviewers">
@@ -3364,86 +2850,11 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="one_time_payment_create_record" FunctionName="BtrServices.DAL.Store.one_time_payment_create_record" />
-          <FunctionImportMapping FunctionImportName="one_time_payment_read_record" FunctionName="BtrServices.DAL.Store.one_time_payment_read_record">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="BtrServices.DAL.one_time_payment_read_record_Result">
-                <ScalarProperty Name="employee_key" ColumnName="employee_key" />
-                <ScalarProperty Name="employee_name" ColumnName="employee_name" />
-                <ScalarProperty Name="current_position_key" ColumnName="current_position_key" />
-                <ScalarProperty Name="current_position" ColumnName="current_position" />
-                <ScalarProperty Name="position_key" ColumnName="position_key" />
-                <ScalarProperty Name="position" ColumnName="position" />
-                <ScalarProperty Name="suffix" ColumnName="suffix" />
-                <ScalarProperty Name="job_status" ColumnName="job_status" />
-                <ScalarProperty Name="effective_date" ColumnName="effective_date" />
-                <ScalarProperty Name="job_change_reason_key" ColumnName="job_change_reason_key" />
-                <ScalarProperty Name="job_change_reason" ColumnName="job_change_reason" />
-                <ScalarProperty Name="job_change_reason_other" ColumnName="job_change_reason_other" />
-                <ScalarProperty Name="personnel_date" ColumnName="personnel_date" />
-                <ScalarProperty Name="salary" ColumnName="salary" />
-                <ScalarProperty Name="rate" ColumnName="rate" />
-                <ScalarProperty Name="hours_per_pay_period" ColumnName="hours_per_pay_period" />
-                <ScalarProperty Name="factor" ColumnName="factor" />
-                <ScalarProperty Name="index_key" ColumnName="index_key" />
-                <ScalarProperty Name="account_key" ColumnName="account_key" />
-                <ScalarProperty Name="fund" ColumnName="fund" />
-                <ScalarProperty Name="percent" ColumnName="percent" />
-                <ScalarProperty Name="created" ColumnName="created" />
-                <ScalarProperty Name="created_by" ColumnName="created_by" />
-                <ScalarProperty Name="modified" ColumnName="modified" />
-                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
-                <ScalarProperty Name="comment" ColumnName="comment" />
-                <ScalarProperty Name="supervisor_name" ColumnName="supervisor_name" />
-                <ScalarProperty Name="payroll_key" ColumnName="payroll_key" />
-                <ScalarProperty Name="dept_key" ColumnName="dept_key" />
-                <ScalarProperty Name="department_number" ColumnName="department_number" />
-                <ScalarProperty Name="department_description" ColumnName="department_description" />
-                <ScalarProperty Name="approval_status_key" ColumnName="approval_status_key" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <EntitySetMapping Name="tc_employee">
             <EntityTypeMapping TypeName="BtrServices.DAL.tc_employee">
               <MappingFragment StoreEntitySet="tc_employee">
                 <ScalarProperty Name="employee_uni" ColumnName="employee_uni" />
                 <ScalarProperty Name="employee_key_id" ColumnName="employee_key_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tc_otp_payment">
-            <EntityTypeMapping TypeName="BtrServices.DAL.tc_otp_payment">
-              <MappingFragment StoreEntitySet="tc_otp_payment">
-                <ScalarProperty Name="otp_trns_payment_amount" ColumnName="otp_trns_payment_amount" />
-                <ScalarProperty Name="otp_trns_payment_percentage" ColumnName="otp_trns_payment_percentage" />
-                <ScalarProperty Name="otp_trns_payment_account_number" ColumnName="otp_trns_payment_account_number" />
-                <ScalarProperty Name="otp_trns_payment_index_number" ColumnName="otp_trns_payment_index_number" />
-                <ScalarProperty Name="otp_trns_key_id" ColumnName="otp_trns_key_id" />
-                <ScalarProperty Name="otp_trns_payment_key_id" ColumnName="otp_trns_payment_key_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tc_otp_trns">
-            <EntityTypeMapping TypeName="BtrServices.DAL.tc_otp_trns">
-              <MappingFragment StoreEntitySet="tc_otp_trns">
-                <ScalarProperty Name="otp_trns_processed_datatime" ColumnName="otp_trns_processed_datatime" />
-                <ScalarProperty Name="otp_trns_processed" ColumnName="otp_trns_processed" />
-                <ScalarProperty Name="otp_trns_submitter" ColumnName="otp_trns_submitter" />
-                <ScalarProperty Name="otp_trns_effective_date" ColumnName="otp_trns_effective_date" />
-                <ScalarProperty Name="otp_trns_reason" ColumnName="otp_trns_reason" />
-                <ScalarProperty Name="employee_key_id" ColumnName="employee_key_id" />
-                <ScalarProperty Name="otp_trns_key_id" ColumnName="otp_trns_key_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tc_otp_trns_comments">
-            <EntityTypeMapping TypeName="BtrServices.DAL.tc_otp_trns_comments">
-              <MappingFragment StoreEntitySet="tc_otp_trns_comments">
-                <ScalarProperty Name="otp_trns_comments_datetime" ColumnName="otp_trns_comments_datetime" />
-                <ScalarProperty Name="otp_trns_commentor" ColumnName="otp_trns_commentor" />
-                <ScalarProperty Name="otp_trns_comments" ColumnName="otp_trns_comments" />
-                <ScalarProperty Name="otp_trns_key_id" ColumnName="otp_trns_key_id" />
-                <ScalarProperty Name="otp_trns_comments_key_id" ColumnName="otp_trns_comments_key_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3534,41 +2945,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="vw_Transactions">
-            <EntityTypeMapping TypeName="BtrServices.DAL.vw_Transactions">
-              <MappingFragment StoreEntitySet="vw_Transactions">
-                <ScalarProperty Name="account_balance" ColumnName="account_balance" />
-                <ScalarProperty Name="account_number_description" ColumnName="account_number_description" />
-                <ScalarProperty Name="account_description" ColumnName="account_description" />
-                <ScalarProperty Name="account_number" ColumnName="account_number" />
-                <ScalarProperty Name="index_number_description" ColumnName="index_number_description" />
-                <ScalarProperty Name="index_description" ColumnName="index_description" />
-                <ScalarProperty Name="complete_jv_status_message" ColumnName="complete_jv_status_message" />
-                <ScalarProperty Name="create_jv_error_message" ColumnName="create_jv_error_message" />
-                <ScalarProperty Name="jv_complete" ColumnName="jv_complete" />
-                <ScalarProperty Name="jv_doc_id" ColumnName="jv_doc_id" />
-                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
-                <ScalarProperty Name="modify_user" ColumnName="modify_user" />
-                <ScalarProperty Name="creation_date" ColumnName="creation_date" />
-                <ScalarProperty Name="creation_user" ColumnName="creation_user" />
-                <ScalarProperty Name="total_amount" ColumnName="total_amount" />
-                <ScalarProperty Name="amount" ColumnName="amount" />
-                <ScalarProperty Name="activity_explanation" ColumnName="activity_explanation" />
-                <ScalarProperty Name="activity_line_number" ColumnName="activity_line_number" />
-                <ScalarProperty Name="activity_number" ColumnName="activity_number" />
-                <ScalarProperty Name="activity_direction" ColumnName="activity_direction" />
-                <ScalarProperty Name="activity_item_guid" ColumnName="activity_item_guid" />
-                <ScalarProperty Name="activity_row_guid" ColumnName="activity_row_guid" />
-                <ScalarProperty Name="activity_btr_guid" ColumnName="activity_btr_guid" />
-                <ScalarProperty Name="account_key" ColumnName="account_key" />
-                <ScalarProperty Name="index_key" ColumnName="index_key" />
-                <ScalarProperty Name="approval_status_key" ColumnName="approval_status_key" />
-                <ScalarProperty Name="status_key" ColumnName="status_key" />
-                <ScalarProperty Name="type_key" ColumnName="type_key" />
-                <ScalarProperty Name="transfer_activity_key" ColumnName="transfer_activity_key" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="vw_transfer_activities_datarecord">
             <EntityTypeMapping TypeName="BtrServices.DAL.vw_transfer_activities_datarecord">
               <MappingFragment StoreEntitySet="vw_transfer_activities_datarecord">
@@ -3616,6 +2992,7 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <FunctionImportMapping FunctionImportName="Get_JV" FunctionName="BtrServices.DAL.Store.Get_JV" />
           <FunctionImportMapping FunctionImportName="mock_complete_jv" FunctionName="BtrServices.DAL.Store.mock_complete_jv" />
           <FunctionImportMapping FunctionImportName="mock_create_jv" FunctionName="BtrServices.DAL.Store.mock_create_jv" />
+          <FunctionImportMapping FunctionImportName="Budget_Transfer_Request_Complete" FunctionName="BtrServices.DAL.Store.Budget_Transfer_Request_Complete" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

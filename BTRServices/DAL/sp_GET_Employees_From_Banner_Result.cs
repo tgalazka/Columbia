@@ -10,9 +10,8 @@
 namespace BTRServices.DAL
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class banner_employee
+    public partial class sp_GET_Employees_From_Banner_Result
     {
         public string uni { get; set; }
         public string last_name { get; set; }
@@ -20,5 +19,6 @@ namespace BTRServices.DAL
         public string position_number { get; set; }
         public string position_description { get; set; }
         public string position_suffix { get; set; }
+        public string reports_to_uni { get; set; }
     }
 }

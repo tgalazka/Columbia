@@ -30,7 +30,6 @@ namespace BTRServices.DAL
         public virtual DbSet<account> accounts { get; set; }
         public virtual DbSet<approval_status> approval_status { get; set; }
         public virtual DbSet<department> departments { get; set; }
-        public virtual DbSet<employee> employees { get; set; }
         public virtual DbSet<index> indices { get; set; }
         public virtual DbSet<job> jobs { get; set; }
         public virtual DbSet<program> programs { get; set; }
@@ -52,12 +51,8 @@ namespace BTRServices.DAL
         public virtual DbSet<xref_approval_status> xref_approval_status { get; set; }
         public virtual DbSet<xref_job_change_reason> xref_job_change_reason { get; set; }
         public virtual DbSet<xref_position> xref_position { get; set; }
-        public virtual DbSet<one_time_payment> one_time_payment { get; set; }
         public virtual DbSet<transfer_activity_reviewers> transfer_activity_reviewers { get; set; }
         public virtual DbSet<tc_employee> tc_employee { get; set; }
-        public virtual DbSet<tc_otp_payment> tc_otp_payment { get; set; }
-        public virtual DbSet<tc_otp_trns> tc_otp_trns { get; set; }
-        public virtual DbSet<tc_otp_trns_comments> tc_otp_trns_comments { get; set; }
         public virtual DbSet<v_Transfer_Activity_Create_JV> v_Transfer_Activity_Create_JV { get; set; }
         public virtual DbSet<vw_Accounts> vw_Accounts { get; set; }
         public virtual DbSet<vw_Accounts_lk> vw_Accounts_lk { get; set; }
@@ -65,7 +60,6 @@ namespace BTRServices.DAL
         public virtual DbSet<vw_Indices_lk_all> vw_Indices_lk_all { get; set; }
         public virtual DbSet<vw_Indices_lk_byowner> vw_Indices_lk_byowner { get; set; }
         public virtual DbSet<vw_lk_accounts> vw_lk_accounts { get; set; }
-        public virtual DbSet<vw_Transactions> vw_Transactions { get; set; }
         public virtual DbSet<vw_transfer_activities_datarecord> vw_transfer_activities_datarecord { get; set; }
         public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
     
@@ -580,6 +574,15 @@ namespace BTRServices.DAL
                 new ObjectParameter("P_user_id_in", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("mock_create_jv", jv_doc_id, p_acci_codeParameter, p_coas_codeParameter, p_fund_codeParameter, p_orgn_codeParameter, p_acct_codeParameter, p_prog_codeParameter, p_actv_codeParameter, p_locn_codeParameter, p_dr_cr_indParameter, p_line_amtParameter, p_doc_total_amtParameter, p_change_typeParameter, p_user_id_inParameter, p_status_ind, p_status_message);
+        }
+    
+        public virtual int Budget_Transfer_Request_Complete(Nullable<int> btr_key, ObjectParameter jv_doc_id, ObjectParameter p_status_ind, ObjectParameter p_status_message)
+        {
+            var btr_keyParameter = btr_key.HasValue ?
+                new ObjectParameter("btr_key", btr_key) :
+                new ObjectParameter("btr_key", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Budget_Transfer_Request_Complete", btr_keyParameter, jv_doc_id, p_status_ind, p_status_message);
         }
     }
 }

@@ -27,13 +27,7 @@ namespace BTRServices.DAL
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<tc_employee> tc_employee { get; set; }
-        public virtual DbSet<tc_otp_payment> tc_otp_payment { get; set; }
-        public virtual DbSet<tc_otp_trns> tc_otp_trns { get; set; }
-        public virtual DbSet<tc_otp_trns_comments> tc_otp_trns_comments { get; set; }
-        public virtual DbSet<banner_employee> banner_employee { get; set; }
-        public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
     
         public virtual ObjectResult<otp_payment_create_Result> otp_payment_create(Nullable<int> otp_trns_key_id, string otp_trns_payment_index_number, string otp_trns_payment_account_number, Nullable<int> otp_trns_payment_percentage, Nullable<decimal> otp_trns_payment_amount)
         {
@@ -208,6 +202,20 @@ namespace BTRServices.DAL
         public virtual int sp_upgraddiagrams()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
+        }
+    
+        public virtual ObjectResult<sp_GET_Employees_From_Banner_Result> sp_GET_Employees_From_Banner()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GET_Employees_From_Banner_Result>("sp_GET_Employees_From_Banner");
+        }
+    
+        public virtual ObjectResult<sp_GET_Subordinates_By_Uni_Result> sp_GET_Subordinates_By_Uni(string employee_uni)
+        {
+            var employee_uniParameter = employee_uni != null ?
+                new ObjectParameter("employee_uni", employee_uni) :
+                new ObjectParameter("employee_uni", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GET_Subordinates_By_Uni_Result>("sp_GET_Subordinates_By_Uni", employee_uniParameter);
         }
     }
 }
