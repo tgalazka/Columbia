@@ -38,5 +38,7 @@ namespace BTRServices.DAL
         public string modified_uni_code { get; set; }
         public string modified_email { get; set; }
         public int btr_key { get; set; }
+        public string approval_status_code { get; set; }
+        public string approval_status_description { get; set; }
     }
 }

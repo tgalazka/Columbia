@@ -1,0 +1,1 @@
+﻿CREATE LOGIN [btrEditor] WITH PASSWORD = N'!@Bye#the*way';

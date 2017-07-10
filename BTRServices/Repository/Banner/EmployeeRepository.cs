@@ -6,8 +6,6 @@ namespace BTRServices.Repository.Banner
 {
     internal class EmployeeRepository : HrRepository<EmployeeDTO>
     {
-        private HrDbContext dbCxt;
-
         public EmployeeRepository(HrDbContext context) : base(context)
         {
         }
@@ -22,6 +20,8 @@ namespace BTRServices.Repository.Banner
                         position_description = a.position_description,
                         position_number = a.position_number,
                         position_suffix = a.position_suffix,
+                        supervisor = a.supervisor,
+                        supervisor_uni = a.supervisor_uni,
                         uni = a.uni
                     }).FirstOrDefault();
         }

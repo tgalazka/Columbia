@@ -19,5 +19,8 @@ namespace BTRServices.DAL
         public string position_number { get; set; }
         public string position_description { get; set; }
         public string position_suffix { get; set; }
+        public int employee_key_id { get; set; }
+        public string supervisor_uni { get; set; }
+        public string supervisor { get; set; }
     }
 }

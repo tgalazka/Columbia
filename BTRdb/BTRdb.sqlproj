@@ -69,10 +69,6 @@
     <Build Include="dbo\Tables\xref_position.sql" />
     <Build Include="dbo\Tables\xref_job_change_reason.sql" />
     <Build Include="dbo\Tables\xref_transfer_type.sql" />
-    <Build Include="dbo\Tables\tc_employee.sql" />
-    <Build Include="dbo\Tables\tc_otp_payment.sql" />
-    <Build Include="dbo\Tables\tc_otp_trns.sql" />
-    <Build Include="dbo\Tables\tc_otp_trns_comments.sql" />
     <Build Include="dbo\Tables\mock_jv.sql" />
     <Build Include="dbo\Tables\transfer_activity.sql" />
     <Build Include="dbo\Tables\account.sql" />
@@ -80,7 +76,6 @@
     <Build Include="dbo\Tables\Audit.sql" />
     <Build Include="dbo\Tables\available_balances.sql" />
     <Build Include="dbo\Tables\department.sql" />
-    <Build Include="dbo\Tables\employee.sql" />
     <Build Include="dbo\Tables\index.sql" />
     <Build Include="dbo\Tables\job.sql" />
     <Build Include="dbo\Tables\program.sql" />
@@ -102,14 +97,12 @@
     <Build Include="dbo\Views\vw_transfer_activities_datarecords.sql" />
     <Build Include="dbo\Views\vw_Indices_lk_all.sql" />
     <Build Include="dbo\Views\vw_Accounts.sql" />
-    <Build Include="dbo\Views\vw_Transactions.sql" />
     <Build Include="dbo\Views\vw_Indices.sql" />
     <Build Include="dbo\Views\vw_Indices_lk_byowner.sql" />
     <Build Include="dbo\Views\vw_lk_accounts.sql" />
     <Build Include="dbo\Views\vw_Accounts_lk.sql" />
-    <Build Include="Security\btrReader.sql" />
-    <Build Include="Security\btrReader_1.sql" />
-    <Build Include="dbo\Stored Procedures\one_time_payment_read_record.sql" />
+    <Build Include="Security\btrReader_login.sql" />
+    <Build Include="Security\btrReader_create.sql" />
     <Build Include="dbo\Stored Procedures\accountbalances_byindexkeys.sql" />
     <Build Include="dbo\Stored Procedures\budget_transfer_request_datarecords.sql" />
     <Build Include="dbo\Stored Procedures\Get_Account_Available_Balance.sql" />
@@ -137,6 +130,9 @@
     <Build Include="dbo\Stored Procedures\accounts_all.sql" />
     <Build Include="dbo\Stored Procedures\account_byId.sql" />
     <Build Include="dbo\Stored Procedures\account_byIndex.sql" />
-    <Build Include="dbo\Stored Procedures\one_time_payment_create_record.sql" />
+    <Build Include="Security\btrEditor_create.sql" />
+    <Build Include="Security\btrEditor_login.sql" />
+    <Build Include="Security\btrReader_role.sql" />
+    <Build Include="Security\btrEditor_role.sql" />
   </ItemGroup>
 </Project>
