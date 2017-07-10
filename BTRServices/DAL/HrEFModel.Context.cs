@@ -32,7 +32,6 @@ namespace BTRServices.DAL
         public virtual DbSet<tc_otp_payment> tc_otp_payment { get; set; }
         public virtual DbSet<tc_otp_trns> tc_otp_trns { get; set; }
         public virtual DbSet<tc_otp_trns_comments> tc_otp_trns_comments { get; set; }
-        public virtual DbSet<banner_employee> banner_employee { get; set; }
         public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
     
         public virtual ObjectResult<otp_payment_create_Result> otp_payment_create(Nullable<int> otp_trns_key_id, string otp_trns_payment_index_number, string otp_trns_payment_account_number, Nullable<int> otp_trns_payment_percentage, Nullable<decimal> otp_trns_payment_amount)

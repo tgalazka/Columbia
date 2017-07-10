@@ -5,21 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DAL.Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'tc_HRForms.dbo.banner_employee' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="banner_employee">
-          <Key>
-            <PropertyRef Name="uni" />
-            <PropertyRef Name="last_name" />
-            <PropertyRef Name="first_name" />
-          </Key>
-          <Property Name="uni" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="last_name" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="first_name" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="position_number" Type="varchar" MaxLength="6" />
-          <Property Name="position_description" Type="varchar" MaxLength="80" />
-          <Property Name="position_suffix" Type="varchar" MaxLength="2" />
-        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -35,7 +20,13 @@ warning 6002: The table/view 'tc_HRForms.dbo.banner_employee' does not have a pr
             <PropertyRef Name="employee_key_id" />
           </Key>
           <Property Name="employee_key_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="employee_uni" Type="varchar" MaxLength="10" />
+          <Property Name="employee_uni" Type="varchar" MaxLength="9" />
+          <Property Name="employee_last_name" Type="varchar" MaxLength="60" />
+          <Property Name="employee_first_name" Type="varchar" MaxLength="50" />
+          <Property Name="employee_position_number" Type="varchar" MaxLength="6" />
+          <Property Name="employee_position_description" Type="varchar" MaxLength="30" />
+          <Property Name="employee_position_suffix" Type="varchar" MaxLength="2" />
+          <Property Name="employee_reports_to_uni" Type="varchar" MaxLength="9" />
         </EntityType>
         <EntityType Name="tc_otp_payment">
           <Key>
@@ -100,18 +91,6 @@ warning 6002: The table/view 'tc_HRForms.sys.database_firewall_rules' does not h
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tc_otp_trns_tc_employee">
-          <End Role="tc_employee" Type="Self.tc_employee" Multiplicity="0..1" />
-          <End Role="tc_otp_trns" Type="Self.tc_otp_trns" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tc_employee">
-              <PropertyRef Name="employee_key_id" />
-            </Principal>
-            <Dependent Role="tc_otp_trns">
-              <PropertyRef Name="employee_key_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="otp_payment_create" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="otp_trns_key_id" Type="int" Mode="In" />
@@ -170,16 +149,6 @@ warning 6002: The table/view 'tc_HRForms.sys.database_firewall_rules' does not h
           <EntitySet Name="tc_otp_payment" EntityType="Self.tc_otp_payment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tc_otp_trns" EntityType="Self.tc_otp_trns" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tc_otp_trns_comments" EntityType="Self.tc_otp_trns_comments" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="banner_employee" EntityType="Self.banner_employee" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [banner_employee].[uni] AS [uni], 
-    [banner_employee].[last_name] AS [last_name], 
-    [banner_employee].[first_name] AS [first_name], 
-    [banner_employee].[position_number] AS [position_number], 
-    [banner_employee].[position_description] AS [position_description], 
-    [banner_employee].[position_suffix] AS [position_suffix]
-    FROM [dbo].[banner_employee] AS [banner_employee]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
             <DefiningQuery>SELECT 
     [database_firewall_rules].[id] AS [id], 
@@ -193,10 +162,6 @@ warning 6002: The table/view 'tc_HRForms.sys.database_firewall_rules' does not h
           <AssociationSet Name="FK_tc_otp_trns_comments_tc_otp_trns" Association="Self.FK_tc_otp_trns_comments_tc_otp_trns">
             <End Role="tc_otp_trns" EntitySet="tc_otp_trns" />
             <End Role="tc_otp_trns_comments" EntitySet="tc_otp_trns_comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tc_otp_trns_tc_employee" Association="Self.FK_tc_otp_trns_tc_employee">
-            <End Role="tc_employee" EntitySet="tc_employee" />
-            <End Role="tc_otp_trns" EntitySet="tc_otp_trns" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -218,8 +183,14 @@ warning 6002: The table/view 'tc_HRForms.sys.database_firewall_rules' does not h
             <PropertyRef Name="employee_key_id" />
           </Key>
           <Property Name="employee_key_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="employee_uni" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="employee_uni" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tc_otp_trns" Relationship="Self.FK_tc_otp_trns_tc_employee" FromRole="tc_employee" ToRole="tc_otp_trns" />
+          <Property Name="employee_last_name" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="employee_first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="employee_position_number" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="employee_position_description" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="employee_position_suffix" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="employee_reports_to_uni" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tc_otp_payment">
           <Key>
@@ -346,7 +317,6 @@ warning 6002: The table/view 'tc_HRForms.sys.database_firewall_rules' does not h
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
-          <EntitySet Name="banner_employee" EntityType="DAL.Model.banner_employee" />
           <EntitySet Name="database_firewall_rules" EntityType="DAL.Model.database_firewall_rules" />
         </EntityContainer>
         <ComplexType Name="otp_payment_create_Result">
@@ -376,19 +346,6 @@ warning 6002: The table/view 'tc_HRForms.sys.database_firewall_rules' does not h
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
-        <EntityType Name="banner_employee">
-          <Key>
-            <PropertyRef Name="uni" />
-            <PropertyRef Name="last_name" />
-            <PropertyRef Name="first_name" />
-          </Key>
-          <Property Name="uni" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="last_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="first_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="position_number" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
-          <Property Name="position_description" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Name="position_suffix" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="database_firewall_rules">
           <Key>
             <PropertyRef Name="id" />
@@ -433,6 +390,12 @@ warning 6002: The table/view 'tc_HRForms.sys.database_firewall_rules' does not h
           <EntitySetMapping Name="tc_employee">
             <EntityTypeMapping TypeName="DAL.Model.tc_employee">
               <MappingFragment StoreEntitySet="tc_employee">
+                <ScalarProperty Name="employee_reports_to_uni" ColumnName="employee_reports_to_uni" />
+                <ScalarProperty Name="employee_position_suffix" ColumnName="employee_position_suffix" />
+                <ScalarProperty Name="employee_position_description" ColumnName="employee_position_description" />
+                <ScalarProperty Name="employee_position_number" ColumnName="employee_position_number" />
+                <ScalarProperty Name="employee_first_name" ColumnName="employee_first_name" />
+                <ScalarProperty Name="employee_last_name" ColumnName="employee_last_name" />
                 <ScalarProperty Name="employee_key_id" ColumnName="employee_key_id" />
                 <ScalarProperty Name="employee_uni" ColumnName="employee_uni" />
               </MappingFragment>
@@ -535,18 +498,6 @@ warning 6002: The table/view 'tc_HRForms.sys.database_firewall_rules' does not h
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="DAL.Model.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="DAL.Model.Store.sp_upgraddiagrams" />
-          <EntitySetMapping Name="banner_employee">
-            <EntityTypeMapping TypeName="DAL.Model.banner_employee">
-              <MappingFragment StoreEntitySet="banner_employee">
-                <ScalarProperty Name="position_suffix" ColumnName="position_suffix" />
-                <ScalarProperty Name="position_description" ColumnName="position_description" />
-                <ScalarProperty Name="position_number" ColumnName="position_number" />
-                <ScalarProperty Name="first_name" ColumnName="first_name" />
-                <ScalarProperty Name="last_name" ColumnName="last_name" />
-                <ScalarProperty Name="uni" ColumnName="uni" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="database_firewall_rules">
             <EntityTypeMapping TypeName="DAL.Model.database_firewall_rules">
               <MappingFragment StoreEntitySet="database_firewall_rules">

@@ -35,5 +35,7 @@ namespace BTRServices.DAL
         public System.DateTime modified { get; set; }
         public int modified_by { get; set; }
         public string modified_by_name { get; set; }
+        public string jv_doc_id { get; set; }
+        public string jv_status_code { get; set; }
     }
 }

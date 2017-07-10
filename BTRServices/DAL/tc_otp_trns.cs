@@ -17,7 +17,6 @@ namespace BTRServices.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tc_otp_trns()
         {
-            this.tc_otp_payment = new HashSet<tc_otp_payment>();
             this.tc_otp_trns_comments = new HashSet<tc_otp_trns_comments>();
         }
     
@@ -30,8 +29,6 @@ namespace BTRServices.DAL
         public Nullable<System.DateTime> otp_trns_processed_datatime { get; set; }
     
         public virtual tc_employee tc_employee { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tc_otp_payment> tc_otp_payment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tc_otp_trns_comments> tc_otp_trns_comments { get; set; }
     }

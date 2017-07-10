@@ -12,7 +12,6 @@
         <EntityTypeShape EntityType="DAL.Model.tc_otp_trns_comments" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
         <AssociationConnector Association="DAL.Model.FK_tc_otp_trns_tc_employee" ManuallyRouted="false" />
         <AssociationConnector Association="DAL.Model.FK_tc_otp_trns_comments_tc_otp_trns" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="DAL.Model.banner_employee" Width="1.5" PointX="5.375" PointY="4.75" />
         <EntityTypeShape EntityType="DAL.Model.database_firewall_rules" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>

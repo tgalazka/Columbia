@@ -22,6 +22,12 @@ namespace BTRServices.DAL
     
         public int employee_key_id { get; set; }
         public string employee_uni { get; set; }
+        public string employee_last_name { get; set; }
+        public string employee_first_name { get; set; }
+        public string employee_position_number { get; set; }
+        public string employee_position_description { get; set; }
+        public string employee_position_suffix { get; set; }
+        public string employee_reports_to_uni { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tc_otp_trns> tc_otp_trns { get; set; }

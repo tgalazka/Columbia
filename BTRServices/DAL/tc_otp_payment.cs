@@ -15,12 +15,10 @@ namespace BTRServices.DAL
     public partial class tc_otp_payment
     {
         public int otp_trns_payment_key_id { get; set; }
-        public int otp_trns_key_id { get; set; }
         public string otp_trns_payment_index_number { get; set; }
         public string otp_trns_payment_account_number { get; set; }
         public Nullable<int> otp_trns_payment_percentage { get; set; }
         public Nullable<decimal> otp_trns_payment_amount { get; set; }
-    
-        public virtual tc_otp_trns tc_otp_trns { get; set; }
+        public Nullable<int> otp_trns_key_id { get; set; }
     }
 }

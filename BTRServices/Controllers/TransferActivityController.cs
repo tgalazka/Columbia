@@ -60,6 +60,26 @@ namespace BTRServices.Controllers
             }
         }
 
+        // GET: api/TransferActivity
+        [HttpGet]
+        [ActionName("ReviewerOwned")]
+        [SwaggerOperation("ReviewerOwned")]
+        [SwaggerResponse(HttpStatusCode.OK)]
+        [SwaggerResponse(HttpStatusCode.BadRequest)]
+
+        public IHttpActionResult ReviewerOwned(int approver_uni_key)
+        {
+            try
+            {
+                TransferActivityRepository ta = new TransferActivityRepository(db);
+                return Ok(ta.ItemsByReviewer(approver_uni_key));
+            }
+            catch (Exception exError)
+            {
+                return BadRequest((new Error(0, exError.Message, "ReviewerOwned").ToString()));
+            }
+        }
+
         [HttpGet]
         [ActionName("Item")]
         [SwaggerOperation("Item")]
