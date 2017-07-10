@@ -276,10 +276,13 @@
     <Compile Include="Controllers\Banner\EmployeeController.cs" />
     <Compile Include="Controllers\JVController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="DAL\tc_employee.cs">
+    <Compile Include="DAL\sp_GET_Employees_From_Banner_Result.cs">
       <DependentUpon>HrEFModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\tc_otp_trns_comments.cs">
+    <Compile Include="DAL\sp_GET_Subordinates_By_Uni_Result.cs">
+      <DependentUpon>HrEFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\tc_employee.cs">
       <DependentUpon>HrEFModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\vw_Accounts.cs">
@@ -347,9 +350,6 @@
       <DependentUpon>HrEFModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\sp_helpdiagrams_Result.cs">
-      <DependentUpon>HrEFModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\tc_employee.cs">
       <DependentUpon>HrEFModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\transfer_activity_reviewers.cs">

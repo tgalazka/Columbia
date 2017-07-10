@@ -3,7 +3,7 @@ using BTRServices.Model;
 using BTRServices.Repository;
 using System.Linq;
 
-namespace BTRServices.Controllers
+namespace BTRServices.Repository
 {
     internal class OneTimePaymentRepository : HrRepository<OneTimePaymentDTO>
     {
