@@ -39,7 +39,10 @@ namespace BTRServices.Repository
                         modified_by = a.modified_by,
                         created_by = a.created_by,
                         created_by_name = a.created_by_name,
-                        modified_by_name = a.modified_by_name
+                        modified_by_name = a.modified_by_name,
+                        budget_type_key = a.budget_type_key,
+                        jv_doc_id = a.jv_doc_id,
+                        jv_status_code = a.jv_status_code
                     }).FirstOrDefault();
        }
 
@@ -66,7 +69,11 @@ namespace BTRServices.Repository
                         modified_by = a.modified_by,
                         created_by = a.created_by,
                         created_by_name = a.created_by_name,
-                        modified_by_name = a.modified_by_name
+                        modified_by_name = a.modified_by_name,
+                        budget_type_key = a.budget_type_key,
+                        jv_doc_id = a.jv_doc_id,
+                        jv_status_code = a.jv_status_code
+
                     }).ToList();
         }
 
@@ -95,13 +102,17 @@ namespace BTRServices.Repository
                         modified_by = a.modified_by,
                         created_by = a.created_by,
                         created_by_name = a.created_by_name,
-                        modified_by_name = a.modified_by_name
+                        modified_by_name = a.modified_by_name,
+                        budget_type_key = a.budget_type_key,
+                        jv_doc_id = a.jv_doc_id,
+                        jv_status_code = a.jv_status_code
+
                     }).ToList();
         }
 
         internal BtrDTO Create(BtrDTO btrItem)
         {
-            ObjectResult<budget_transfer_request_create_Result> spData = _context.budget_transfer_request_create(btrItem.title, btrItem.budget_type_key, btrItem.total_amount, btrItem.explanation, btrItem.requestor_uni_key, btrItem.transfer_type_key, btrItem.created_by);
+            ObjectResult<budget_transfer_request_create_Result> spData = _context.budget_transfer_request_create(btrItem.title, btrItem.budget_type_key, btrItem.total_amount, btrItem.explanation, btrItem.requestor_uni_key, btrItem.transfer_type_key,btrItem.life_cycle_key, btrItem.created_by);
             budget_transfer_request_create_Result result = spData.First<budget_transfer_request_create_Result>();
             BtrDTO btrResult = new BtrDTO
             {

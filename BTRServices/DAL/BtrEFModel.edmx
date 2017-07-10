@@ -81,6 +81,8 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.available_balances' does not
           <Property Name="created" Type="datetime" Nullable="false" />
           <Property Name="modified_by" Type="int" Nullable="false" />
           <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="jv_doc_id" Type="varchar" MaxLength="8" />
+          <Property Name="jv_status_code" Type="nchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="department">
           <Key>
@@ -140,13 +142,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.available_balances' does not
           <Property Name="status_key" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="status_code" Type="varchar" MaxLength="5" />
           <Property Name="status_description" Type="varchar" MaxLength="20" />
-        </EntityType>
-        <EntityType Name="tc_employee">
-          <Key>
-            <PropertyRef Name="employee_key_id" />
-          </Key>
-          <Property Name="employee_key_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="employee_uni" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="transfer_activity">
           <Key>
@@ -315,18 +310,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_Accounts' does not have a
           <Property Name="account_balance" Type="decimal" Precision="17" Scale="2" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_Accounts_lk' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="vw_Accounts_lk">
-          <Key>
-            <PropertyRef Name="index_key" />
-            <PropertyRef Name="account_key" />
-          </Key>
-          <Property Name="index_key" Type="int" Nullable="false" />
-          <Property Name="account_key" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="account_number_description" Type="varchar" MaxLength="110" />
-          <Property Name="account_balance" Type="decimal" Precision="17" Scale="2" />
-        </EntityType>
-        <!--Errors Found During Generation:
 warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_budget_transfer_request_records' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vw_budget_transfer_request_records">
           <Key>
@@ -350,12 +333,14 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_budget_transfer_request_r
           <Property Name="btr_guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="title" Type="varchar" MaxLength="200" />
           <Property Name="budget_type_key" Type="int" Nullable="false" />
+          <Property Name="jv_doc_id" Type="varchar" MaxLength="8" />
+          <Property Name="jv_status_code" Type="nchar" MaxLength="1" />
           <Property Name="budget_type" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="life_cycle_key" Type="int" Nullable="false" />
           <Property Name="life_cycle" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="internal_state" Type="varchar" MaxLength="50" />
           <Property Name="internal_state_key" Type="int" Nullable="false" />
-          <Property Name="request_uni_code" Type="varchar" MaxLength="10" />
+          <Property Name="request_uni_code" Type="varchar" MaxLength="20" />
           <Property Name="requestor_uni_key" Type="int" Nullable="false" />
           <Property Name="total_amount" Type="money" Nullable="false" />
           <Property Name="explanation" Type="varchar" MaxLength="300" />
@@ -434,7 +419,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
             <PropertyRef Name="modified_email" />
           </Key>
           <Property Name="transfer_activity_key" Type="int" Nullable="false" />
-          <Property Name="approval_status_key" Type="int" />
           <Property Name="index_key" Type="int" Nullable="false" />
           <Property Name="index_description" Type="varchar" MaxLength="35" />
           <Property Name="index_number_description" Type="varchar" MaxLength="45" />
@@ -457,13 +441,16 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
           <Property Name="modified_by" Type="int" Nullable="false" />
           <Property Name="modified_uni_code" Type="varchar" MaxLength="20" />
           <Property Name="modified_email" Type="varchar" MaxLength="90" Nullable="false" />
+          <Property Name="approval_status_key" Type="int" />
+          <Property Name="approval_status_code" Type="varchar" MaxLength="5" />
+          <Property Name="approval_status_description" Type="varchar" MaxLength="20" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datarecords' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vw_transfer_activities_datarecords">
           <Key>
-            <PropertyRef Name="transfer_activity_key" />
             <PropertyRef Name="btr_key" />
+            <PropertyRef Name="transfer_activity_key" />
             <PropertyRef Name="index_key" />
             <PropertyRef Name="account_key" />
             <PropertyRef Name="amount" />
@@ -474,8 +461,8 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
             <PropertyRef Name="modified_by" />
             <PropertyRef Name="modified_email" />
           </Key>
-          <Property Name="transfer_activity_key" Type="int" Nullable="false" />
           <Property Name="btr_key" Type="int" Nullable="false" />
+          <Property Name="transfer_activity_key" Type="int" Nullable="false" />
           <Property Name="index_key" Type="int" Nullable="false" />
           <Property Name="index_description" Type="varchar" MaxLength="35" />
           <Property Name="index_number_description" Type="varchar" MaxLength="45" />
@@ -490,7 +477,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
           <Property Name="account_balance" Type="decimal" Precision="17" Scale="2" />
           <Property Name="position_type_key" Type="int" Nullable="false" />
           <Property Name="position_type" Type="varchar" MaxLength="100" />
-          <Property Name="approval_status_key" Type="int" />
           <Property Name="created" Type="datetime" Nullable="false" />
           <Property Name="created_by" Type="int" Nullable="false" />
           <Property Name="created_uni_code" Type="varchar" MaxLength="20" />
@@ -499,6 +485,64 @@ warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_datar
           <Property Name="modified_by" Type="int" Nullable="false" />
           <Property Name="modified_uni_code" Type="varchar" MaxLength="20" />
           <Property Name="modified_email" Type="varchar" MaxLength="90" Nullable="false" />
+          <Property Name="approval_status_key" Type="int" />
+          <Property Name="approval_status_code" Type="varchar" MaxLength="5" />
+          <Property Name="approval_status_description" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'tc_BudgetTransfer.dbo.vw_transfer_activities_reviewers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_transfer_activities_reviewers">
+          <Key>
+            <PropertyRef Name="btr_key" />
+            <PropertyRef Name="transfer_activity_key" />
+            <PropertyRef Name="index_key" />
+            <PropertyRef Name="account_key" />
+            <PropertyRef Name="amount" />
+            <PropertyRef Name="position_type_key" />
+            <PropertyRef Name="created" />
+            <PropertyRef Name="created_by" />
+            <PropertyRef Name="created_email" />
+            <PropertyRef Name="modified_by" />
+            <PropertyRef Name="modified_email" />
+            <PropertyRef Name="role_level" />
+            <PropertyRef Name="approver_status_key" />
+            <PropertyRef Name="approver_uni_key" />
+            <PropertyRef Name="approver_uni_name" />
+            <PropertyRef Name="approver_email" />
+          </Key>
+          <Property Name="btr_key" Type="int" Nullable="false" />
+          <Property Name="transfer_activity_key" Type="int" Nullable="false" />
+          <Property Name="index_key" Type="int" Nullable="false" />
+          <Property Name="index_description" Type="varchar" MaxLength="35" />
+          <Property Name="index_number_description" Type="varchar" MaxLength="45" />
+          <Property Name="account_key" Type="int" Nullable="false" />
+          <Property Name="account_description" Type="varchar" MaxLength="100" />
+          <Property Name="account_number_description" Type="varchar" MaxLength="110" />
+          <Property Name="amount" Type="decimal" Precision="20" Scale="2" Nullable="false" />
+          <Property Name="jv_doc_id" Type="varchar" MaxLength="8" />
+          <Property Name="jv_complete" Type="bit" />
+          <Property Name="create_jv_error_message" Type="varchar(max)" />
+          <Property Name="complete_jv_status_message" Type="varchar(max)" />
+          <Property Name="account_balance" Type="decimal" Precision="17" Scale="2" />
+          <Property Name="position_type_key" Type="int" Nullable="false" />
+          <Property Name="position_type" Type="varchar" MaxLength="100" />
+          <Property Name="created" Type="datetime" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="created_uni_code" Type="varchar" MaxLength="20" />
+          <Property Name="created_email" Type="varchar" MaxLength="90" Nullable="false" />
+          <Property Name="modified" Type="datetime" />
+          <Property Name="modified_by" Type="int" Nullable="false" />
+          <Property Name="modified_uni_code" Type="varchar" MaxLength="20" />
+          <Property Name="modified_email" Type="varchar" MaxLength="90" Nullable="false" />
+          <Property Name="approval_status_key" Type="int" />
+          <Property Name="approval_status_code" Type="varchar" MaxLength="5" />
+          <Property Name="approval_status_description" Type="varchar" MaxLength="20" />
+          <Property Name="role_level" Type="int" Nullable="false" />
+          <Property Name="approver_status_key" Type="int" Nullable="false" />
+          <Property Name="approver_uni_key" Type="int" Nullable="false" />
+          <Property Name="approver_uni_name" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="approver_email" Type="varchar" MaxLength="90" Nullable="false" />
+          <Property Name="approver_uni_code" Type="varchar" MaxLength="20" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -635,6 +679,7 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <Parameter Name="explanation" Type="varchar" Mode="In" />
           <Parameter Name="requestor_uni_key" Type="int" Mode="In" />
           <Parameter Name="transfer_type_key" Type="int" Mode="In" />
+          <Parameter Name="life_cycle_key" Type="int" Mode="In" />
           <Parameter Name="created_by" Type="int" Mode="In" />
         </Function>
         <Function Name="budget_transfer_request_datarecord" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -746,7 +791,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <EntitySet Name="program" EntityType="Self.program" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="responsibility_matrix" EntityType="Self.responsibility_matrix" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="status" EntityType="Self.status" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tc_employee" EntityType="Self.tc_employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="transfer_activity" EntityType="Self.transfer_activity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="xref_approval_status" EntityType="Self.xref_approval_status" Schema="dbo" store:Type="Tables" />
@@ -818,20 +862,14 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
     [vw_Accounts].[account_balance] AS [account_balance]
     FROM [dbo].[vw_Accounts] AS [vw_Accounts]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="vw_Accounts_lk" EntityType="Self.vw_Accounts_lk" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [vw_Accounts_lk].[index_key] AS [index_key], 
-    [vw_Accounts_lk].[account_key] AS [account_key], 
-    [vw_Accounts_lk].[account_number_description] AS [account_number_description], 
-    [vw_Accounts_lk].[account_balance] AS [account_balance]
-    FROM [dbo].[vw_Accounts_lk] AS [vw_Accounts_lk]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="vw_budget_transfer_request_records" EntityType="Self.vw_budget_transfer_request_records" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [vw_budget_transfer_request_records].[btr_key] AS [btr_key], 
     [vw_budget_transfer_request_records].[btr_guid] AS [btr_guid], 
     [vw_budget_transfer_request_records].[title] AS [title], 
     [vw_budget_transfer_request_records].[budget_type_key] AS [budget_type_key], 
+    [vw_budget_transfer_request_records].[jv_doc_id] AS [jv_doc_id], 
+    [vw_budget_transfer_request_records].[jv_status_code] AS [jv_status_code], 
     [vw_budget_transfer_request_records].[budget_type] AS [budget_type], 
     [vw_budget_transfer_request_records].[life_cycle_key] AS [life_cycle_key], 
     [vw_budget_transfer_request_records].[life_cycle] AS [life_cycle], 
@@ -891,7 +929,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <EntitySet Name="vw_transfer_activities_datarecord" EntityType="Self.vw_transfer_activities_datarecord" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [vw_transfer_activities_datarecord].[transfer_activity_key] AS [transfer_activity_key], 
-    [vw_transfer_activities_datarecord].[approval_status_key] AS [approval_status_key], 
     [vw_transfer_activities_datarecord].[index_key] AS [index_key], 
     [vw_transfer_activities_datarecord].[index_description] AS [index_description], 
     [vw_transfer_activities_datarecord].[index_number_description] AS [index_number_description], 
@@ -913,13 +950,16 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
     [vw_transfer_activities_datarecord].[modified] AS [modified], 
     [vw_transfer_activities_datarecord].[modified_by] AS [modified_by], 
     [vw_transfer_activities_datarecord].[modified_uni_code] AS [modified_uni_code], 
-    [vw_transfer_activities_datarecord].[modified_email] AS [modified_email]
+    [vw_transfer_activities_datarecord].[modified_email] AS [modified_email], 
+    [vw_transfer_activities_datarecord].[approval_status_key] AS [approval_status_key], 
+    [vw_transfer_activities_datarecord].[approval_status_code] AS [approval_status_code], 
+    [vw_transfer_activities_datarecord].[approval_status_description] AS [approval_status_description]
     FROM [dbo].[vw_transfer_activities_datarecord] AS [vw_transfer_activities_datarecord]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vw_transfer_activities_datarecords" EntityType="Self.vw_transfer_activities_datarecords" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [vw_transfer_activities_datarecords].[transfer_activity_key] AS [transfer_activity_key], 
     [vw_transfer_activities_datarecords].[btr_key] AS [btr_key], 
+    [vw_transfer_activities_datarecords].[transfer_activity_key] AS [transfer_activity_key], 
     [vw_transfer_activities_datarecords].[index_key] AS [index_key], 
     [vw_transfer_activities_datarecords].[index_description] AS [index_description], 
     [vw_transfer_activities_datarecords].[index_number_description] AS [index_number_description], 
@@ -934,7 +974,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
     [vw_transfer_activities_datarecords].[account_balance] AS [account_balance], 
     [vw_transfer_activities_datarecords].[position_type_key] AS [position_type_key], 
     [vw_transfer_activities_datarecords].[position_type] AS [position_type], 
-    [vw_transfer_activities_datarecords].[approval_status_key] AS [approval_status_key], 
     [vw_transfer_activities_datarecords].[created] AS [created], 
     [vw_transfer_activities_datarecords].[created_by] AS [created_by], 
     [vw_transfer_activities_datarecords].[created_uni_code] AS [created_uni_code], 
@@ -942,8 +981,48 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
     [vw_transfer_activities_datarecords].[modified] AS [modified], 
     [vw_transfer_activities_datarecords].[modified_by] AS [modified_by], 
     [vw_transfer_activities_datarecords].[modified_uni_code] AS [modified_uni_code], 
-    [vw_transfer_activities_datarecords].[modified_email] AS [modified_email]
+    [vw_transfer_activities_datarecords].[modified_email] AS [modified_email], 
+    [vw_transfer_activities_datarecords].[approval_status_key] AS [approval_status_key], 
+    [vw_transfer_activities_datarecords].[approval_status_code] AS [approval_status_code], 
+    [vw_transfer_activities_datarecords].[approval_status_description] AS [approval_status_description]
     FROM [dbo].[vw_transfer_activities_datarecords] AS [vw_transfer_activities_datarecords]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_transfer_activities_reviewers" EntityType="Self.vw_transfer_activities_reviewers" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_transfer_activities_reviewers].[btr_key] AS [btr_key], 
+    [vw_transfer_activities_reviewers].[transfer_activity_key] AS [transfer_activity_key], 
+    [vw_transfer_activities_reviewers].[index_key] AS [index_key], 
+    [vw_transfer_activities_reviewers].[index_description] AS [index_description], 
+    [vw_transfer_activities_reviewers].[index_number_description] AS [index_number_description], 
+    [vw_transfer_activities_reviewers].[account_key] AS [account_key], 
+    [vw_transfer_activities_reviewers].[account_description] AS [account_description], 
+    [vw_transfer_activities_reviewers].[account_number_description] AS [account_number_description], 
+    [vw_transfer_activities_reviewers].[amount] AS [amount], 
+    [vw_transfer_activities_reviewers].[jv_doc_id] AS [jv_doc_id], 
+    [vw_transfer_activities_reviewers].[jv_complete] AS [jv_complete], 
+    [vw_transfer_activities_reviewers].[create_jv_error_message] AS [create_jv_error_message], 
+    [vw_transfer_activities_reviewers].[complete_jv_status_message] AS [complete_jv_status_message], 
+    [vw_transfer_activities_reviewers].[account_balance] AS [account_balance], 
+    [vw_transfer_activities_reviewers].[position_type_key] AS [position_type_key], 
+    [vw_transfer_activities_reviewers].[position_type] AS [position_type], 
+    [vw_transfer_activities_reviewers].[created] AS [created], 
+    [vw_transfer_activities_reviewers].[created_by] AS [created_by], 
+    [vw_transfer_activities_reviewers].[created_uni_code] AS [created_uni_code], 
+    [vw_transfer_activities_reviewers].[created_email] AS [created_email], 
+    [vw_transfer_activities_reviewers].[modified] AS [modified], 
+    [vw_transfer_activities_reviewers].[modified_by] AS [modified_by], 
+    [vw_transfer_activities_reviewers].[modified_uni_code] AS [modified_uni_code], 
+    [vw_transfer_activities_reviewers].[modified_email] AS [modified_email], 
+    [vw_transfer_activities_reviewers].[approval_status_key] AS [approval_status_key], 
+    [vw_transfer_activities_reviewers].[approval_status_code] AS [approval_status_code], 
+    [vw_transfer_activities_reviewers].[approval_status_description] AS [approval_status_description], 
+    [vw_transfer_activities_reviewers].[role_level] AS [role_level], 
+    [vw_transfer_activities_reviewers].[approver_status_key] AS [approver_status_key], 
+    [vw_transfer_activities_reviewers].[approver_uni_key] AS [approver_uni_key], 
+    [vw_transfer_activities_reviewers].[approver_uni_name] AS [approver_uni_name], 
+    [vw_transfer_activities_reviewers].[approver_email] AS [approver_email], 
+    [vw_transfer_activities_reviewers].[approver_uni_code] AS [approver_uni_code]
+    FROM [dbo].[vw_transfer_activities_reviewers] AS [vw_transfer_activities_reviewers]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
             <DefiningQuery>SELECT 
@@ -1189,6 +1268,7 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
             <Parameter Name="explanation" Mode="In" Type="String" />
             <Parameter Name="requestor_uni_key" Mode="In" Type="Int32" />
             <Parameter Name="transfer_type_key" Mode="In" Type="Int32" />
+            <Parameter Name="life_cycle_key" Mode="In" Type="Int32" />
             <Parameter Name="created_by" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="transfer_activity" EntityType="BtrServices.DAL.transfer_activity" />
@@ -1273,10 +1353,8 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <FunctionImport Name="one_time_payment_read_record" ReturnType="Collection(BtrServices.DAL.one_time_payment_read_record_Result)">
           <Parameter Name="one_time_payment_key" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="tc_employee" EntityType="BtrServices.DAL.tc_employee" />
           <EntitySet Name="v_Transfer_Activity_Create_JV" EntityType="BtrServices.DAL.v_Transfer_Activity_Create_JV" />
           <EntitySet Name="vw_Accounts" EntityType="BtrServices.DAL.vw_Accounts" />
-          <EntitySet Name="vw_Accounts_lk" EntityType="BtrServices.DAL.vw_Accounts_lk" />
           <EntitySet Name="vw_Indices" EntityType="BtrServices.DAL.vw_Indices" />
           <EntitySet Name="vw_Indices_lk_all" EntityType="BtrServices.DAL.vw_Indices_lk_all" />
           <EntitySet Name="vw_Indices_lk_byowner" EntityType="BtrServices.DAL.vw_Indices_lk_byowner" />
@@ -1330,6 +1408,7 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
             <Parameter Name="P_status_ind" Mode="InOut" Type="String" />
             <Parameter Name="P_status_message" Mode="InOut" Type="String" />
           </FunctionImport>
+          <EntitySet Name="vw_transfer_activities_reviewers" EntityType="BtrServices.DAL.vw_transfer_activities_reviewers" />
         </EntityContainer>
         <ComplexType Name="account_byId_Result">
           <Property Type="Int32" Name="account_key" Nullable="false" />
@@ -1432,6 +1511,8 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="modified_by" Type="Int32" Nullable="false" />
           <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="jv_doc_id" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="jv_status_code" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="user">
           <Key>
@@ -1525,7 +1606,7 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <Property Type="Int32" Name="life_cycle_key" Nullable="false" />
           <Property Type="String" Name="internal_state" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="internal_state_key" Nullable="false" />
-          <Property Type="String" Name="request_uni_code" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="request_uni_code" Nullable="true" MaxLength="20" />
           <Property Type="Int32" Name="requestor_uni_key" Nullable="false" />
           <Property Type="Decimal" Name="total_amount" Nullable="false" Precision="19" />
           <Property Type="String" Name="explanation" Nullable="true" MaxLength="300" />
@@ -1540,6 +1621,8 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <Property Type="DateTime" Name="modified" Nullable="false" Precision="23" />
           <Property Type="Int32" Name="modified_by" Nullable="false" />
           <Property Type="String" Name="modified_by_name" Nullable="true" MaxLength="90" />
+          <Property Type="String" Name="jv_doc_id" Nullable="true" MaxLength="8" />
+          <Property Type="String" Name="jv_status_code" Nullable="true" MaxLength="1" />
         </ComplexType>
         <EntityType Name="Audit">
           <Key>
@@ -1565,7 +1648,7 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <Property Type="String" Name="life_cycle" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="internal_state" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="internal_state_key" Nullable="false" />
-          <Property Type="String" Name="request_uni_code" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="request_uni_code" Nullable="true" MaxLength="20" />
           <Property Type="Int32" Name="requestor_uni_key" Nullable="false" />
           <Property Type="Decimal" Name="total_amount" Nullable="false" Precision="19" />
           <Property Type="String" Name="explanation" Nullable="true" MaxLength="300" />
@@ -1579,6 +1662,8 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <Property Type="DateTime" Name="modified" Nullable="false" Precision="23" />
           <Property Type="Int32" Name="modified_by" Nullable="false" />
           <Property Type="String" Name="modified_by_name" Nullable="true" MaxLength="90" />
+          <Property Type="String" Name="jv_doc_id" Nullable="true" MaxLength="8" />
+          <Property Type="String" Name="jv_status_code" Nullable="true" MaxLength="1" />
         </ComplexType>
         <EntityType Name="vw_budget_transfer_request_records">
           <Key>
@@ -1606,7 +1691,7 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <Property Name="life_cycle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="internal_state" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="internal_state_key" Type="Int32" Nullable="false" />
-          <Property Name="request_uni_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="request_uni_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="requestor_uni_key" Type="Int32" Nullable="false" />
           <Property Name="total_amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="explanation" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
@@ -1620,6 +1705,8 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <Property Name="created_by" Type="Int32" Nullable="false" />
           <Property Name="created_by_name" Type="String" MaxLength="90" FixedLength="false" Unicode="false" />
           <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="jv_doc_id" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="jv_status_code" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="xref_transfer_type">
           <Key>
@@ -1714,6 +1801,8 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <Property Type="String" Name="modified_uni_code" Nullable="true" MaxLength="20" />
           <Property Type="String" Name="modified_email" Nullable="false" MaxLength="90" />
           <Property Type="Int32" Name="btr_key" Nullable="false" />
+          <Property Type="String" Name="approval_status_code" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="approval_status_description" Nullable="true" MaxLength="20" />
         </ComplexType>
         <EntityType Name="vw_transfer_activities_datarecords">
           <Key>
@@ -1754,6 +1843,8 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <Property Name="modified_by" Type="Int32" Nullable="false" />
           <Property Name="modified_uni_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="modified_email" Type="String" Nullable="false" MaxLength="90" FixedLength="false" Unicode="false" />
+          <Property Name="approval_status_code" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="approval_status_description" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <ComplexType Name="transfer_activity_update_Result">
           <Property Type="Int32" Name="transfer_activity_key" Nullable="false" />
@@ -1781,6 +1872,8 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <Property Type="Int32" Name="modified_by" Nullable="false" />
           <Property Type="String" Name="modified_uni_code" Nullable="true" MaxLength="20" />
           <Property Type="String" Name="modified_email" Nullable="false" MaxLength="90" />
+          <Property Type="String" Name="approval_status_code" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="approval_status_description" Nullable="true" MaxLength="20" />
         </ComplexType>
         <ComplexType Name="budget_transfer_request_update_Result">
           <Property Type="Int32" Name="btr_key" Nullable="false" />
@@ -1985,13 +2078,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <Property Type="String" Name="department_description" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="approval_status_key" Nullable="true" />
         </ComplexType>
-        <EntityType Name="tc_employee">
-          <Key>
-            <PropertyRef Name="employee_key_id" />
-          </Key>
-          <Property Name="employee_key_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="employee_uni" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="v_Transfer_Activity_Create_JV">
           <Key>
             <PropertyRef Name="amount" />
@@ -2025,16 +2111,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <Property Name="index_key" Type="Int32" Nullable="false" />
           <Property Name="account_number" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
           <Property Name="account_description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="account_number_description" Type="String" MaxLength="110" FixedLength="false" Unicode="false" />
-          <Property Name="account_balance" Type="Decimal" Precision="17" Scale="2" />
-        </EntityType>
-        <EntityType Name="vw_Accounts_lk">
-          <Key>
-            <PropertyRef Name="index_key" />
-            <PropertyRef Name="account_key" />
-          </Key>
-          <Property Name="index_key" Type="Int32" Nullable="false" />
-          <Property Name="account_key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="account_number_description" Type="String" MaxLength="110" FixedLength="false" Unicode="false" />
           <Property Name="account_balance" Type="Decimal" Precision="17" Scale="2" />
         </EntityType>
@@ -2116,6 +2192,8 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <Property Name="modified_by" Type="Int32" Nullable="false" />
           <Property Name="modified_uni_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="modified_email" Type="String" Nullable="false" MaxLength="90" FixedLength="false" Unicode="false" />
+          <Property Name="approval_status_code" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="approval_status_description" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="database_firewall_rules">
           <Key>
@@ -2132,6 +2210,59 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <Property Name="end_ip_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="vw_transfer_activities_reviewers">
+          <Key>
+            <PropertyRef Name="transfer_activity_key" />
+            <PropertyRef Name="btr_key" />
+            <PropertyRef Name="index_key" />
+            <PropertyRef Name="account_key" />
+            <PropertyRef Name="amount" />
+            <PropertyRef Name="position_type_key" />
+            <PropertyRef Name="created" />
+            <PropertyRef Name="created_by" />
+            <PropertyRef Name="created_email" />
+            <PropertyRef Name="modified_by" />
+            <PropertyRef Name="modified_email" />
+            <PropertyRef Name="role_level" />
+            <PropertyRef Name="approver_status_key" />
+            <PropertyRef Name="approver_uni_key" />
+            <PropertyRef Name="approver_uni_name" />
+            <PropertyRef Name="approver_email" />
+          </Key>
+          <Property Name="transfer_activity_key" Type="Int32" Nullable="false" />
+          <Property Name="btr_key" Type="Int32" Nullable="false" />
+          <Property Name="index_key" Type="Int32" Nullable="false" />
+          <Property Name="index_description" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="index_number_description" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="account_key" Type="Int32" Nullable="false" />
+          <Property Name="account_description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="account_number_description" Type="String" MaxLength="110" FixedLength="false" Unicode="false" />
+          <Property Name="amount" Type="Decimal" Nullable="false" Precision="20" Scale="2" />
+          <Property Name="jv_doc_id" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="jv_complete" Type="Boolean" />
+          <Property Name="create_jv_error_message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="complete_jv_status_message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="account_balance" Type="Decimal" Precision="17" Scale="2" />
+          <Property Name="position_type_key" Type="Int32" Nullable="false" />
+          <Property Name="position_type" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="approval_status_key" Type="Int32" />
+          <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="created_uni_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="created_email" Type="String" Nullable="false" MaxLength="90" FixedLength="false" Unicode="false" />
+          <Property Name="modified" Type="DateTime" Precision="3" />
+          <Property Name="modified_by" Type="Int32" Nullable="false" />
+          <Property Name="modified_uni_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="modified_email" Type="String" Nullable="false" MaxLength="90" FixedLength="false" Unicode="false" />
+          <Property Name="role_level" Type="Int32" Nullable="false" />
+          <Property Name="approver_status_key" Type="Int32" Nullable="false" />
+          <Property Name="approver_uni_key" Type="Int32" Nullable="false" />
+          <Property Name="approver_uni_name" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="approver_email" Type="String" Nullable="false" MaxLength="90" FixedLength="false" Unicode="false" />
+          <Property Name="approver_uni_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="approval_status_code" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="approval_status_description" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2366,6 +2497,8 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <EntitySetMapping Name="budget_transfer_request">
             <EntityTypeMapping TypeName="BtrServices.DAL.budget_transfer_request">
               <MappingFragment StoreEntitySet="budget_transfer_request">
+                <ScalarProperty Name="jv_status_code" ColumnName="jv_status_code" />
+                <ScalarProperty Name="jv_doc_id" ColumnName="jv_doc_id" />
                 <ScalarProperty Name="created_by" ColumnName="created_by" />
                 <ScalarProperty Name="modified_by" ColumnName="modified_by" />
                 <ScalarProperty Name="created" ColumnName="created" />
@@ -2445,6 +2578,8 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
                 <ScalarProperty Name="modified" ColumnName="modified" />
                 <ScalarProperty Name="modified_by" ColumnName="modified_by" />
                 <ScalarProperty Name="modified_by_name" ColumnName="modified_by_name" />
+                <ScalarProperty Name="jv_doc_id" ColumnName="jv_doc_id" />
+                <ScalarProperty Name="jv_status_code" ColumnName="jv_status_code" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -2485,12 +2620,16 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
                 <ScalarProperty Name="modified" ColumnName="modified" />
                 <ScalarProperty Name="modified_by" ColumnName="modified_by" />
                 <ScalarProperty Name="modified_by_name" ColumnName="modified_by_name" />
+                <ScalarProperty Name="jv_doc_id" ColumnName="jv_doc_id" />
+                <ScalarProperty Name="jv_status_code" ColumnName="jv_status_code" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
           <EntitySetMapping Name="vw_budget_transfer_request_records">
             <EntityTypeMapping TypeName="BtrServices.DAL.vw_budget_transfer_request_records">
               <MappingFragment StoreEntitySet="vw_budget_transfer_request_records">
+                <ScalarProperty Name="jv_status_code" ColumnName="jv_status_code" />
+                <ScalarProperty Name="jv_doc_id" ColumnName="jv_doc_id" />
                 <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="created_by_name" ColumnName="created_by_name" />
                 <ScalarProperty Name="created_by" ColumnName="created_by" />
@@ -2618,12 +2757,16 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
                 <ScalarProperty Name="modified_uni_code" ColumnName="modified_uni_code" />
                 <ScalarProperty Name="modified_email" ColumnName="modified_email" />
                 <ScalarProperty Name="btr_key" ColumnName="btr_key" />
+                <ScalarProperty Name="approval_status_code" ColumnName="approval_status_code" />
+                <ScalarProperty Name="approval_status_description" ColumnName="approval_status_description" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
           <EntitySetMapping Name="vw_transfer_activities_datarecords">
             <EntityTypeMapping TypeName="BtrServices.DAL.vw_transfer_activities_datarecords">
               <MappingFragment StoreEntitySet="vw_transfer_activities_datarecords">
+                <ScalarProperty Name="approval_status_description" ColumnName="approval_status_description" />
+                <ScalarProperty Name="approval_status_code" ColumnName="approval_status_code" />
                 <ScalarProperty Name="modified_email" ColumnName="modified_email" />
                 <ScalarProperty Name="modified_uni_code" ColumnName="modified_uni_code" />
                 <ScalarProperty Name="modified_by" ColumnName="modified_by" />
@@ -2681,6 +2824,8 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
                 <ScalarProperty Name="modified_by" ColumnName="modified_by" />
                 <ScalarProperty Name="modified_uni_code" ColumnName="modified_uni_code" />
                 <ScalarProperty Name="modified_email" ColumnName="modified_email" />
+                <ScalarProperty Name="approval_status_code" ColumnName="approval_status_code" />
+                <ScalarProperty Name="approval_status_description" ColumnName="approval_status_description" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -2850,14 +2995,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tc_employee">
-            <EntityTypeMapping TypeName="BtrServices.DAL.tc_employee">
-              <MappingFragment StoreEntitySet="tc_employee">
-                <ScalarProperty Name="employee_uni" ColumnName="employee_uni" />
-                <ScalarProperty Name="employee_key_id" ColumnName="employee_key_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="v_Transfer_Activity_Create_JV">
             <EntityTypeMapping TypeName="BtrServices.DAL.v_Transfer_Activity_Create_JV">
               <MappingFragment StoreEntitySet="v_Transfer_Activity_Create_JV">
@@ -2888,16 +3025,6 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
                 <ScalarProperty Name="account_number" ColumnName="account_number" />
                 <ScalarProperty Name="index_key" ColumnName="index_key" />
                 <ScalarProperty Name="account_key" ColumnName="account_key" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vw_Accounts_lk">
-            <EntityTypeMapping TypeName="BtrServices.DAL.vw_Accounts_lk">
-              <MappingFragment StoreEntitySet="vw_Accounts_lk">
-                <ScalarProperty Name="account_balance" ColumnName="account_balance" />
-                <ScalarProperty Name="account_number_description" ColumnName="account_number_description" />
-                <ScalarProperty Name="account_key" ColumnName="account_key" />
-                <ScalarProperty Name="index_key" ColumnName="index_key" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2948,6 +3075,8 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <EntitySetMapping Name="vw_transfer_activities_datarecord">
             <EntityTypeMapping TypeName="BtrServices.DAL.vw_transfer_activities_datarecord">
               <MappingFragment StoreEntitySet="vw_transfer_activities_datarecord">
+                <ScalarProperty Name="approval_status_description" ColumnName="approval_status_description" />
+                <ScalarProperty Name="approval_status_code" ColumnName="approval_status_code" />
                 <ScalarProperty Name="modified_email" ColumnName="modified_email" />
                 <ScalarProperty Name="modified_uni_code" ColumnName="modified_uni_code" />
                 <ScalarProperty Name="modified_by" ColumnName="modified_by" />
@@ -2993,6 +3122,45 @@ warning 6002: The table/view 'tc_BudgetTransfer.sys.database_firewall_rules' doe
           <FunctionImportMapping FunctionImportName="mock_complete_jv" FunctionName="BtrServices.DAL.Store.mock_complete_jv" />
           <FunctionImportMapping FunctionImportName="mock_create_jv" FunctionName="BtrServices.DAL.Store.mock_create_jv" />
           <FunctionImportMapping FunctionImportName="Budget_Transfer_Request_Complete" FunctionName="BtrServices.DAL.Store.Budget_Transfer_Request_Complete" />
+          <EntitySetMapping Name="vw_transfer_activities_reviewers">
+            <EntityTypeMapping TypeName="BtrServices.DAL.vw_transfer_activities_reviewers">
+              <MappingFragment StoreEntitySet="vw_transfer_activities_reviewers">
+                <ScalarProperty Name="approval_status_description" ColumnName="approval_status_description" />
+                <ScalarProperty Name="approval_status_code" ColumnName="approval_status_code" />
+                <ScalarProperty Name="approver_uni_code" ColumnName="approver_uni_code" />
+                <ScalarProperty Name="approver_email" ColumnName="approver_email" />
+                <ScalarProperty Name="approver_uni_name" ColumnName="approver_uni_name" />
+                <ScalarProperty Name="approver_uni_key" ColumnName="approver_uni_key" />
+                <ScalarProperty Name="approver_status_key" ColumnName="approver_status_key" />
+                <ScalarProperty Name="role_level" ColumnName="role_level" />
+                <ScalarProperty Name="modified_email" ColumnName="modified_email" />
+                <ScalarProperty Name="modified_uni_code" ColumnName="modified_uni_code" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="modified" ColumnName="modified" />
+                <ScalarProperty Name="created_email" ColumnName="created_email" />
+                <ScalarProperty Name="created_uni_code" ColumnName="created_uni_code" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created" ColumnName="created" />
+                <ScalarProperty Name="approval_status_key" ColumnName="approval_status_key" />
+                <ScalarProperty Name="position_type" ColumnName="position_type" />
+                <ScalarProperty Name="position_type_key" ColumnName="position_type_key" />
+                <ScalarProperty Name="account_balance" ColumnName="account_balance" />
+                <ScalarProperty Name="complete_jv_status_message" ColumnName="complete_jv_status_message" />
+                <ScalarProperty Name="create_jv_error_message" ColumnName="create_jv_error_message" />
+                <ScalarProperty Name="jv_complete" ColumnName="jv_complete" />
+                <ScalarProperty Name="jv_doc_id" ColumnName="jv_doc_id" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="account_number_description" ColumnName="account_number_description" />
+                <ScalarProperty Name="account_description" ColumnName="account_description" />
+                <ScalarProperty Name="account_key" ColumnName="account_key" />
+                <ScalarProperty Name="index_number_description" ColumnName="index_number_description" />
+                <ScalarProperty Name="index_description" ColumnName="index_description" />
+                <ScalarProperty Name="index_key" ColumnName="index_key" />
+                <ScalarProperty Name="btr_key" ColumnName="btr_key" />
+                <ScalarProperty Name="transfer_activity_key" ColumnName="transfer_activity_key" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

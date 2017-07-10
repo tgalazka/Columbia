@@ -52,16 +52,15 @@ namespace BTRServices.DAL
         public virtual DbSet<xref_job_change_reason> xref_job_change_reason { get; set; }
         public virtual DbSet<xref_position> xref_position { get; set; }
         public virtual DbSet<transfer_activity_reviewers> transfer_activity_reviewers { get; set; }
-        public virtual DbSet<tc_employee> tc_employee { get; set; }
         public virtual DbSet<v_Transfer_Activity_Create_JV> v_Transfer_Activity_Create_JV { get; set; }
         public virtual DbSet<vw_Accounts> vw_Accounts { get; set; }
-        public virtual DbSet<vw_Accounts_lk> vw_Accounts_lk { get; set; }
         public virtual DbSet<vw_Indices> vw_Indices { get; set; }
         public virtual DbSet<vw_Indices_lk_all> vw_Indices_lk_all { get; set; }
         public virtual DbSet<vw_Indices_lk_byowner> vw_Indices_lk_byowner { get; set; }
         public virtual DbSet<vw_lk_accounts> vw_lk_accounts { get; set; }
         public virtual DbSet<vw_transfer_activities_datarecord> vw_transfer_activities_datarecord { get; set; }
         public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
+        public virtual DbSet<vw_transfer_activities_reviewers> vw_transfer_activities_reviewers { get; set; }
     
         public virtual ObjectResult<account_byId_Result> account_byId(Nullable<int> account_key)
         {
@@ -185,7 +184,7 @@ namespace BTRServices.DAL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<budget_transfer_request_datarecords_Result>("budget_transfer_request_datarecords");
         }
     
-        public virtual ObjectResult<budget_transfer_request_create_Result> budget_transfer_request_create(string title, Nullable<int> budget_type_key, Nullable<decimal> total_amount, string explanation, Nullable<int> requestor_uni_key, Nullable<int> transfer_type_key, Nullable<int> created_by)
+        public virtual ObjectResult<budget_transfer_request_create_Result> budget_transfer_request_create(string title, Nullable<int> budget_type_key, Nullable<decimal> total_amount, string explanation, Nullable<int> requestor_uni_key, Nullable<int> transfer_type_key, Nullable<int> life_cycle_key, Nullable<int> created_by)
         {
             var titleParameter = title != null ?
                 new ObjectParameter("title", title) :
@@ -211,11 +210,15 @@ namespace BTRServices.DAL
                 new ObjectParameter("transfer_type_key", transfer_type_key) :
                 new ObjectParameter("transfer_type_key", typeof(int));
     
+            var life_cycle_keyParameter = life_cycle_key.HasValue ?
+                new ObjectParameter("life_cycle_key", life_cycle_key) :
+                new ObjectParameter("life_cycle_key", typeof(int));
+    
             var created_byParameter = created_by.HasValue ?
                 new ObjectParameter("created_by", created_by) :
                 new ObjectParameter("created_by", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<budget_transfer_request_create_Result>("budget_transfer_request_create", titleParameter, budget_type_keyParameter, total_amountParameter, explanationParameter, requestor_uni_keyParameter, transfer_type_keyParameter, created_byParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<budget_transfer_request_create_Result>("budget_transfer_request_create", titleParameter, budget_type_keyParameter, total_amountParameter, explanationParameter, requestor_uni_keyParameter, transfer_type_keyParameter, life_cycle_keyParameter, created_byParameter);
         }
     
         public virtual ObjectResult<transfer_activity_create_Result> transfer_activity_create(Nullable<int> btr_key, Nullable<int> position_type_key, Nullable<int> index_key, Nullable<int> account_key, Nullable<decimal> amount, Nullable<int> created_by)

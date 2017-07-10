@@ -275,16 +275,14 @@
     <Compile Include="Controllers\BtrController.cs" />
     <Compile Include="Controllers\Banner\EmployeeController.cs" />
     <Compile Include="Controllers\JVController.cs" />
-    <Compile Include="DAL\sp_GET_Employees_From_Banner_Result.cs">
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="DAL\tc_employee.cs">
       <DependentUpon>HrEFModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\sp_GET_Subordinates_By_Uni_Result.cs">
+    <Compile Include="DAL\tc_otp_trns_comments.cs">
       <DependentUpon>HrEFModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\vw_Accounts.cs">
-      <DependentUpon>BtrEFModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\vw_Accounts_lk.cs">
       <DependentUpon>BtrEFModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\vw_Indices.cs">
@@ -302,10 +300,15 @@
     <Compile Include="DAL\vw_transfer_activities_datarecord.cs">
       <DependentUpon>BtrEFModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAL\vw_transfer_activities_reviewers.cs">
+      <DependentUpon>BtrEFModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\v_Transfer_Activity_Create_JV.cs">
       <DependentUpon>BtrEFModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\JvDocDTO.cs" />
+    <Compile Include="Models\UserDTO.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Repository\JvRepository.cs" />
     <Compile Include="DAL\database_firewall_rules.cs">
       <DependentUpon>BtrEFModel.tt</DependentUpon>
