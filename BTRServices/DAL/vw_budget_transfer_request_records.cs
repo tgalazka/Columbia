@@ -36,5 +36,7 @@ namespace BTRServices.DAL
         public int created_by { get; set; }
         public string created_by_name { get; set; }
         public string title { get; set; }
+        public string jv_doc_id { get; set; }
+        public string jv_status_code { get; set; }
     }
 }

@@ -10,16 +10,15 @@
 namespace BTRServices.DAL
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class tc_otp_trns_comments
+    public partial class sp_GET_Subordinates_By_Uni_Result
     {
-        public int otp_trns_comments_key_id { get; set; }
-        public Nullable<int> otp_trns_key_id { get; set; }
-        public string otp_trns_comments { get; set; }
-        public string otp_trns_commentor { get; set; }
-        public Nullable<System.DateTime> otp_trns_comments_datetime { get; set; }
-    
-        public virtual tc_otp_trns tc_otp_trns { get; set; }
+        public int employee_key_id { get; set; }
+        public string uni { get; set; }
+        public string last_name { get; set; }
+        public string first_name { get; set; }
+        public string position_number { get; set; }
+        public string position_description { get; set; }
+        public string position_suffix { get; set; }
     }
 }

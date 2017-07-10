@@ -52,7 +52,16 @@
   <ItemGroup>
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\HttpUtilsTest.cs" />
+    <Compile Include="Utils\HTTP\QueryStringTest.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BTRServices\BTRServices.csproj">
+      <Project>{1cd47398-6dac-471a-949a-65308f506454}</Project>
+      <Name>BTRServices</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

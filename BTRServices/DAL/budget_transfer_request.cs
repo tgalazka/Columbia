@@ -29,6 +29,8 @@ namespace BTRServices.DAL
         public System.DateTime created { get; set; }
         public int modified_by { get; set; }
         public int created_by { get; set; }
+        public string jv_doc_id { get; set; }
+        public string jv_status_code { get; set; }
     
         public virtual xref_budget_type xref_budget_type { get; set; }
         public virtual xref_internal_state xref_internal_state { get; set; }

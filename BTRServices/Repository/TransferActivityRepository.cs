@@ -15,7 +15,7 @@ namespace BTRServices.Repository
         {
         }
 
-        internal TransferActivityDTO Item(int id)
+        public TransferActivityDTO Item(int id)
         {
             return (from a in _context.vw_transfer_activities_datarecords
                     where a.transfer_activity_key == id
@@ -49,6 +49,35 @@ namespace BTRServices.Repository
             return (from a in _context.vw_transfer_activities_datarecords
                     where a.btr_key == btr_key
                     select new TransferActivityDTO
+                    {
+                        transfer_activity_key = a.transfer_activity_key,
+                        btr_key = a.btr_key,
+                        position_type_key = a.position_type_key,
+                        position_type = a.position_type,
+                        index_key = a.index_key,
+                        index_number_description = a.index_number_description,
+                        account_key = a.account_key,
+                        account_number_description = a.account_number_description,
+                        amount = a.amount,
+                        jv_doc_id = a.jv_doc_id,
+                        jv_complete = a.jv_complete,
+                        complete_jv_status_message = a.complete_jv_status_message,
+                        create_jv_error_message = a.create_jv_error_message,
+                        created = a.created,
+                        created_by = a.created_by,
+                        created_email = a.created_email,
+                        modified = a.modified,
+                        modified_by = a.modified_by,
+                        modified_email = a.modified_email
+                    }
+                    ).ToList();
+        }
+
+        public IEnumerable<TransferActivityReviewerDTO> ItemsByReviewer(int approver_uni_key)
+        {
+            return (from a in _context.vw_transfer_activities_reviewers
+                    where a.approver_uni_key == approver_uni_key
+                    select new TransferActivityReviewerDTO
                     {
                         transfer_activity_key = a.transfer_activity_key,
                         btr_key = a.btr_key,

@@ -37,5 +37,7 @@ namespace BTRServices.Model
         public int internal_state_key { get;  set; }
         public string modified_by_name { get;  set; }
         public int budget_type_key { get;  set; }
+        public string jv_doc_id { get; set; }
+        public string jv_status_code { get; set; }
     }
 }

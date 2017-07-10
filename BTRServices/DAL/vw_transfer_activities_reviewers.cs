@@ -12,7 +12,7 @@ namespace BTRServices.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class vw_transfer_activities_datarecords
+    public partial class vw_transfer_activities_reviewers
     {
         public int transfer_activity_key { get; set; }
         public int btr_key { get; set; }
@@ -39,6 +39,12 @@ namespace BTRServices.DAL
         public int modified_by { get; set; }
         public string modified_uni_code { get; set; }
         public string modified_email { get; set; }
+        public int role_level { get; set; }
+        public int approver_status_key { get; set; }
+        public int approver_uni_key { get; set; }
+        public string approver_uni_name { get; set; }
+        public string approver_email { get; set; }
+        public string approver_uni_code { get; set; }
         public string approval_status_code { get; set; }
         public string approval_status_description { get; set; }
     }

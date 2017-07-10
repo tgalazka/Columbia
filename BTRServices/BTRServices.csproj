@@ -32,6 +32,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\BTRServices.xml</DocumentationFile>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -275,10 +277,17 @@
     <Compile Include="Controllers\BtrController.cs" />
     <Compile Include="Controllers\Banner\EmployeeController.cs" />
     <Compile Include="Controllers\JVController.cs" />
-    <Compile Include="DAL\vw_Accounts.cs">
-      <DependentUpon>BtrEFModel.tt</DependentUpon>
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="DAL\sp_GET_Employees_From_Banner_Result.cs">
+      <DependentUpon>HrEFModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\vw_Accounts_lk.cs">
+    <Compile Include="DAL\sp_GET_Subordinates_By_Uni_Result.cs">
+      <DependentUpon>HrEFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\tc_employee.cs">
+      <DependentUpon>HrEFModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\vw_Accounts.cs">
       <DependentUpon>BtrEFModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\vw_Indices.cs">
@@ -293,20 +302,19 @@
     <Compile Include="DAL\vw_lk_accounts.cs">
       <DependentUpon>BtrEFModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\vw_Transactions.cs">
+    <Compile Include="DAL\vw_transfer_activities_datarecord.cs">
       <DependentUpon>BtrEFModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\vw_transfer_activities_datarecord.cs">
+    <Compile Include="DAL\vw_transfer_activities_reviewers.cs">
       <DependentUpon>BtrEFModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\v_Transfer_Activity_Create_JV.cs">
       <DependentUpon>BtrEFModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\JvDocDTO.cs" />
+    <Compile Include="Models\UserDTO.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Repository\JvRepository.cs" />
-    <Compile Include="DAL\banner_employee.cs">
-      <DependentUpon>HrEFModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DAL\database_firewall_rules.cs">
       <DependentUpon>BtrEFModel.tt</DependentUpon>
     </Compile>
@@ -314,7 +322,6 @@
       <DependentUpon>HrEFModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Banner\EmployeeDTO.cs" />
-    <Compile Include="Models\EmployeeDTO.cs" />
     <Compile Include="Controllers\IndicesController.cs" />
     <Compile Include="Controllers\OtpPaymentController.cs" />
     <Compile Include="DAL\HrEFModel.Context.cs">
@@ -332,9 +339,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HrEFModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DAL\one_time_payment.cs">
-      <DependentUpon>BtrEFModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DAL\one_time_payment_read_record_Result.cs">
       <DependentUpon>BtrEFModel.tt</DependentUpon>
     </Compile>
@@ -349,21 +353,6 @@
     </Compile>
     <Compile Include="DAL\sp_helpdiagrams_Result.cs">
       <DependentUpon>HrEFModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\sysdiagram.cs">
-      <DependentUpon>HrEFModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\tc_employee.cs">
-      <DependentUpon>BtrEFModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\tc_otp_payment.cs">
-      <DependentUpon>BtrEFModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\tc_otp_trns.cs">
-      <DependentUpon>BtrEFModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\tc_otp_trns_comments.cs">
-      <DependentUpon>BtrEFModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\transfer_activity_reviewers.cs">
       <DependentUpon>BtrEFModel.tt</DependentUpon>
@@ -445,9 +434,6 @@
       <DependentUpon>BtrEFModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\department.cs">
-      <DependentUpon>BtrEFModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\employee.cs">
       <DependentUpon>BtrEFModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\index.cs">
@@ -545,6 +531,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Utils\HttpUtils.cs" />
+    <Compile Include="Utils\HTTP\QueryString.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
